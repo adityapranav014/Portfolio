@@ -48,10 +48,10 @@ const ContactSummary = () => {
           <Typewriter
             texts={[
               "memorable.",
-              "award-worthy.",
               "that converts.",
               "worth noticing.",
               "unforgettable.",
+              "that scales.",
             ]}
             speed={65}
             deleteSpeed={35}
