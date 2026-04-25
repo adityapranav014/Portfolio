@@ -12,6 +12,7 @@ import Contact from "./sections/Contact";
 import { ImageKitProvider } from "@imagekit/react";
 import Noise from "./components/Noise";
 import Transition from "./components/Transition";
+import Preloader from "./components/Preloader";
 import ProjectDetail from "./pages/ProjectDetail";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -43,27 +44,9 @@ const HomePage = () => (
 );
 
 const App = () => {
-  const [isReady, setIsReady] = useState(false);
-  const [displayProgress, setDisplayProgress] = useState(0);
+  const [showPreloader, setShowPreloader] = useState(true);
   const konamiIndex = useRef(0);
   const easterRef = useRef(null);
-
-  // Branded preloader — animates 0→100 in ~1.1s
-  useEffect(() => {
-    let start = null;
-    const duration = 1100;
-    const step = (timestamp) => {
-      if (!start) start = timestamp;
-      const pct = Math.min(Math.round(((timestamp - start) / duration) * 100), 100);
-      setDisplayProgress(pct);
-      if (pct < 100) {
-        requestAnimationFrame(step);
-      } else {
-        setTimeout(() => setIsReady(true), 250);
-      }
-    };
-    requestAnimationFrame(step);
-  }, []);
 
   // Easter egg — Konami code triggers a brief colour-inversion flash
   useEffect(() => {
@@ -97,24 +80,9 @@ const App = () => {
     <ImageKitProvider urlEndpoint="https://ik.imagekit.io/gglxgr4rz">
       <Noise />
 
-      {/* Branded preloader */}
-      {!isReady && (
-        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black text-white">
-          {/* AP monogram */}
-          <p className="text-7xl md:text-9xl font-black tracking-tight mb-6 text-white leading-none select-none">
-            AP
-          </p>
-          {/* Thin progress line */}
-          <div className="relative h-px w-48 bg-white/20 overflow-hidden">
-            <div
-              className="absolute top-0 left-0 h-full bg-white transition-all duration-100"
-              style={{ width: `${displayProgress}%` }}
-            />
-          </div>
-          <p className="mt-3 text-[10px] uppercase tracking-[0.3em] text-white/30">
-            {displayProgress}%
-          </p>
-        </div>
+      {/* Cinematic preloader — renders on top while app loads beneath */}
+      {showPreloader && (
+        <Preloader onComplete={() => setShowPreloader(false)} />
       )}
 
       {/* Easter egg overlay */}
@@ -124,14 +92,13 @@ const App = () => {
         aria-hidden="true"
       />
 
-      <div className={`${isReady ? "opacity-100" : "opacity-0"} transition-opacity duration-700`}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/work/:slug" element={<ProjectDetail />} />
-          </Routes>
-        </BrowserRouter>
-      </div>
+      {/* App renders immediately so the hero video starts buffering */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/work/:slug" element={<ProjectDetail />} />
+        </Routes>
+      </BrowserRouter>
     </ImageKitProvider>
   );
 };

@@ -1,23 +1,30 @@
-import { Canvas } from "@react-three/fiber";
-import { Planet } from "../components/Planet";
-import { Environment, Float, Lightformer } from "@react-three/drei";
-import { useMediaQuery } from "react-responsive";
 import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
 import { Link } from "react-scroll";
 import { CanvasLines } from "../components/ui/canvas";
 
 const Hero = () => {
-  const isMobile = useMediaQuery({ maxWidth: 853 });
   const text = `I help growing brands and startups gain an
 unfair advantage through premium
 AI-native digital products.`;
   return (
-    <section id="home" className="flex flex-col justify-end min-h-dvh">
+    <section id="home" className="relative flex flex-col justify-end min-h-dvh overflow-hidden">
+      {/* Background video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover -z-50"
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4"
+      />
+      {/* Gradient overlay for text readability */}
+      <div className="pointer-events-none absolute inset-0 -z-40 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
+
       <AnimatedHeaderSection
         subTitle={"Full-Stack Developer & Creative Technologist"}
         title={"Aditya Pranav"}
         text={text}
-        textColor={"text-black"}
+        textColor={"text-white"}
         headingTag="h1"
       />
       {/* CTA row */}
@@ -28,7 +35,7 @@ AI-native digital products.`;
           smooth
           duration={1800}
           offset={0}
-          className="group relative flex items-center gap-3 bg-DarkLava text-primary px-7 py-3.5 overflow-hidden cursor-pointer select-none"
+          className="group relative flex items-center gap-3 bg-white text-black px-7 py-3.5 overflow-hidden cursor-pointer select-none"
         >
           <span className="relative z-10 text-[10px] uppercase tracking-[0.22em] font-light transition-colors duration-500">
             Start a Project
@@ -48,67 +55,24 @@ AI-native digital products.`;
           offset={0}
           className="group flex items-center gap-2 cursor-pointer select-none"
         >
-          <span className="relative text-[10px] uppercase tracking-[0.22em] font-light text-black/70 group-hover:text-black transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-black after:transition-all after:duration-400 group-hover:after:w-full">
+          <span className="relative text-[10px] uppercase tracking-[0.22em] font-light text-white/70 group-hover:text-white transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-all after:duration-400 group-hover:after:w-full">
             View My Work
           </span>
-          <span className="text-black/40 group-hover:text-black text-xs transition-all duration-300 group-hover:translate-y-0.5">↓</span>
+          <span className="text-white/40 group-hover:text-white text-xs transition-all duration-300 group-hover:translate-y-0.5">↓</span>
         </Link>
       </div>
 
       {/* Availability pill */}
       <div className="flex items-center gap-2.5 px-10 pb-8 md:px-16 lg:px-24">
         <span className="relative flex h-3 w-3 items-center justify-center">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"></span>
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400"></span>
         </span>
-        <span className="text-xs uppercase tracking-widest text-black/50 font-light">
+        <span className="text-xs uppercase tracking-widest text-white/50 font-light">
           Available for work — May 2026
         </span>
       </div>
       <CanvasLines />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-50"
-        style={{ width: "100vw", height: "100dvh" }}
-      >
-        <Canvas
-          shadows
-          camera={{ position: [0, 0, -10], fov: 17.5, near: 1, far: 20 }}
-        >
-          <ambientLight intensity={0.5} />
-          <Float speed={0.5}>
-            <Planet scale={isMobile ? 0.7 : 1} />
-          </Float>
-          <Environment resolution={256}>
-            <group rotation={[-Math.PI / 3, 4, 1]}>
-              <Lightformer
-                form={"circle"}
-                intensity={2}
-                position={[0, 5, -9]}
-                scale={10}
-              />
-              <Lightformer
-                form={"circle"}
-                intensity={2}
-                position={[0, 3, 1]}
-                scale={10}
-              />
-              <Lightformer
-                form={"circle"}
-                intensity={2}
-                position={[-5, -1, -1]}
-                scale={10}
-              />
-              <Lightformer
-                form={"circle"}
-                intensity={2}
-                position={[10, 1, 0]}
-                scale={16}
-              />
-            </group>
-          </Environment>
-        </Canvas>
-      </div>
     </section>
   );
 };
