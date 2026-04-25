@@ -9,7 +9,7 @@ import gsap from "gsap";
 
 export function Planet(props) {
   const shapeContainer = useRef(null);
-  const shperesContainer = useRef(null);
+  const spheresContainer = useRef(null);
   const ringContainer = useRef(null);
   const { nodes, materials } = useGLTF("/models/Planet.glb");
 
@@ -21,7 +21,7 @@ export function Planet(props) {
       ease: "circ.out",
     });
     tl.from(
-      shperesContainer.current.rotation,
+      spheresContainer.current.rotation,
       {
         x: 0,
         y: Math.PI,
@@ -46,7 +46,7 @@ export function Planet(props) {
 
   return (
     <group ref={shapeContainer} {...props} dispose={null}>
-      <group ref={shperesContainer}>
+      <group ref={spheresContainer}>
         <mesh
           castShadow
           receiveShadow

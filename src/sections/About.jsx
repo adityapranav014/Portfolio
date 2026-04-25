@@ -6,15 +6,13 @@ import gsap from "gsap";
 import { Image } from "@imagekit/react";
 
 const About = () => {
-  const text = `Passionate about clean architecture
-    I build scalable, high-performance solutions
-    from prototype to production`;
-  const aboutText = `Obsessed with building fast, intuitive apps—from pixel-perfect React UIs to bulletproof serverless backends. Every line of code is a promise: quality that users feel.
-  When I’m not shipping:
-⚡️ Open-sourcing my latest experiment (or hacking on yours)
-🎥 Teaching devs on Twitch/YouTube—because rising tides lift all ships
-🧗 Rock climbing (problem-solving with real stakes)
-🎸 Strumming chords while CI pipelines pass (multitasking at its finest)`;
+  const text = `Engineering precision meets design sensibility
+    I build products that perform under pressure
+    and feel effortless to use`;
+  const aboutText = `I've spent the last several years at the intersection of engineering rigour and product thinking—shipping full-stack applications where every decision, from schema design to scroll animation, serves a purpose.
+My work spans e-commerce platforms handling real transaction volume, cloud-native APIs built to survive traffic spikes, and interfaces crafted to make complex systems feel simple.
+Outside the terminal I study what makes digital experiences genuinely memorable—attending to the micro-moments most developers skip. That attention to detail is the gap between software that works and software that wins.
+Currently taking on select projects for brands ready to build something worth noticing.`;
   const imgRef = useRef(null);
   useGSAP(() => {
     gsap.to("#about", {
@@ -40,7 +38,7 @@ const About = () => {
     });
   });
   return (
-    <section id="about" className="min-h-screen bg-black rounded-b-4xl">
+    <section id="about" className="min-h-dvh bg-black rounded-b-4xl">
       <AnimatedHeaderSection
         subTitle={"Code with purpose, Built to scale"}
         title={"About"}
@@ -52,7 +50,7 @@ const About = () => {
         <div ref={imgRef} className="w-md rounded-3xl overflow-hidden">
           <Image
             src="/Portfolio/aditya-pranav.com.jpeg"
-            alt="man"
+            alt="Aditya Pranav — Full-Stack Developer & Creative Technologist"
             width={420}
             className="w-full h-auto"
           />

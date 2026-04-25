@@ -99,6 +99,8 @@ const Navbar = () => {
     <>
       <nav
         ref={navRef}
+        id="main-nav"
+        aria-label="Site navigation"
         className="fixed z-50 flex flex-col justify-between w-full h-full px-10 uppercase bg-black text-white/80 py-28 gap-y-10 md:w-1/2 md:left-1/2"
       >
         <div className="flex flex-col text-5xl gap-y-2 md:text-6xl lg:text-8xl">
@@ -111,6 +113,11 @@ const Navbar = () => {
                   smooth
                   offset={0}
                   duration={2000}
+                  onClick={() => {
+                    tl.current.reverse();
+                    iconTl.current.reverse();
+                    setIsOpen(false);
+                  }}
                 >
                   {section}
                 </Link>
@@ -123,10 +130,22 @@ const Navbar = () => {
           className="flex flex-col flex-wrap justify-between gap-8 md:flex-row"
         >
           <div className="font-light">
+            <p className="tracking-wider text-white/50">Availability</p>
+            <div className="flex items-center gap-2 mt-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse shrink-0"></span>
+              <p className="text-sm tracking-widest uppercase text-green-400">
+                Open to work — May 2026
+              </p>
+            </div>
+          </div>
+          <div className="font-light">
             <p className="tracking-wider text-white/50">E-mail</p>
-            <p className="text-xl tracking-widest lowercase text-pretty">
-              JohnDoe@gmail.com
-            </p>
+            <a
+              href="mailto:hello@adityapranav.dev"
+              className="text-xl tracking-widest lowercase text-pretty hover:text-white transition-colors duration-300"
+            >
+              hello@adityapranav.dev
+            </a>
           </div>
           <div className="font-light">
             <p className="tracking-wider text-white/50">Social Media</p>
@@ -135,6 +154,9 @@ const Navbar = () => {
                 <a
                   key={index}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Visit ${social.name} profile`}
                   className="text-sm leading-loose tracking-widest uppercase hover:text-white transition-colors duration-300"
                 >
                   {"{ "}
@@ -146,11 +168,15 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <div
+      <button
+        type="button"
+        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-expanded={isOpen}
+        aria-controls="main-nav"
         className="fixed z-50 flex flex-col items-center justify-center gap-1 transition-all duration-300 bg-black rounded-full cursor-pointer w-14 h-14 md:w-20 md:h-20 top-4 right-10"
         onClick={toggleMenu}
         style={
-          showBurger
+          showBurger || isOpen
             ? { clipPath: "circle(50% at 50% 50%)" }
             : { clipPath: "circle(0% at 50% 50%)" }
         }
@@ -163,7 +189,7 @@ const Navbar = () => {
           ref={bottomLineRef}
           className="block w-8 h-0.5 bg-white rounded-full origin-center"
         ></span>
-      </div>
+      </button>
     </>
   );
 };

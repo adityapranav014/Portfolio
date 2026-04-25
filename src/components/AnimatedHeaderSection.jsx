@@ -9,6 +9,7 @@ const AnimatedHeaderSection = ({
   text,
   textColor,
   withScrollTrigger = false,
+  headingTag: Tag = "h2",
 }) => {
   const contextRef = useRef(null);
   const headerRef = useRef(null);
@@ -18,8 +19,8 @@ const AnimatedHeaderSection = ({
     const tl = gsap.timeline({
       scrollTrigger: withScrollTrigger
         ? {
-            trigger: contextRef.current,
-          }
+          trigger: contextRef.current,
+        }
         : undefined,
     });
     tl.from(contextRef.current, {
@@ -51,13 +52,13 @@ const AnimatedHeaderSection = ({
             {subTitle}
           </p>
           <div className="px-10">
-            <h1
+            <Tag
               className={`flex flex-col gap-12 uppercase banner-text-responsive sm:gap-16 md:block ${textColor}`}
             >
               {titleParts.map((part, index) => (
                 <span key={index}>{part} </span>
               ))}
-            </h1>
+            </Tag>
           </div>
         </div>
       </div>

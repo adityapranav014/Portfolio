@@ -2,14 +2,32 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
 import { projects } from "../constants";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 const Works = () => {
   const overlayRefs = useRef([]);
   const previewRef = useRef(null);
+  const navigate = useNavigate();
 
   const [currentIndex, setCurrentIndex] = useState(null);
+
+  const openProject = (slug) => {
+    const curtain = document.createElement("div");
+    curtain.style.cssText =
+      "position:fixed;inset:0;background:#000;z-index:9990;transform:translateY(100%)";
+    document.body.appendChild(curtain);
+    gsap.to(curtain, {
+      yPercent: 0,
+      duration: 0.7,
+      ease: "expo.inOut",
+      onComplete: () => {
+        navigate(`/work/${slug}`);
+        document.body.removeChild(curtain);
+      },
+    });
+  };
   const text = `Featured projects that have been meticulously
     crafted with passion to drive
     results and impact.`;
@@ -28,7 +46,7 @@ const Works = () => {
       ease: "power3.out",
     });
 
-    gsap.from("#project", {
+    gsap.from(".project-item", {
       y: 100,
       opacity: 0,
       delay: 0.5,
@@ -36,7 +54,7 @@ const Works = () => {
       stagger: 0.3,
       ease: "back.out",
       scrollTrigger: {
-        trigger: "#project",
+        trigger: ".project-item",
       },
     });
   }, []);
@@ -100,7 +118,7 @@ const Works = () => {
   };
 
   return (
-    <section id="work" className="flex flex-col min-h-screen">
+    <section id="work" className="flex flex-col min-h-dvh">
       <AnimatedHeaderSection
         subTitle={"Logic meets Aesthetics, Seamlessly"}
         title={"Works"}
@@ -115,8 +133,13 @@ const Works = () => {
         {projects.map((project, index) => (
           <div
             key={project.id}
-            id="project"
-            className="relative flex flex-col gap-1 py-5 cursor-pointer group md:gap-0"
+            id={`project-${project.id}`}
+            role="button"
+            tabIndex={0}
+            className="project-item relative flex flex-col gap-1 py-5 cursor-pointer group md:gap-0"
+            data-cursor-label="View"
+            onClick={() => openProject(project.slug)}
+            onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && openProject(project.slug)}
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={() => handleMouseLeave(index)}
           >
@@ -128,21 +151,26 @@ const Works = () => {
               className="absolute inset-0 hidden md:block duration-200 bg-black -z-10 clip-path"
             />
 
-            {/* title */}
-            <div className="flex justify-between px-10 text-black transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white">
-              <h2 className="lg:text-[32px] text-[26px] leading-none">
-                {project.name}
-              </h2>
-              <Icon icon="lucide:arrow-up-right" className="md:size-6 size-5" />
+            {/* title + meta */}
+            <div className="flex justify-between items-start px-10 text-black transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white">
+              <div className="flex flex-col gap-0.5">
+                <h2 className="lg:text-[32px] text-[26px] leading-none">
+                  {project.name}
+                </h2>
+                <span className="text-xs uppercase tracking-widest text-black/40 md:group-hover:text-white/40 transition-colors duration-500">
+                  {project.role} — {project.year}
+                </span>
+              </div>
+              <Icon icon="lucide:arrow-up-right" className="md:size-6 size-5 mt-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </div>
             {/* divider */}
-            <div className="w-full h-0.5 bg-black/80" />
+            <div className="w-full h-0.5 bg-black/80 md:group-hover:bg-accent transition-colors duration-500" />
             {/* framework */}
             <div className="flex px-10 text-xs leading-loose uppercase transtion-all duration-500 md:text-sm gap-x-5 md:group-hover:px-12">
               {project.frameworks.map((framework) => (
                 <p
                   key={framework.id}
-                  className="text-black transition-colors duration-500 md:group-hover:text-white"
+                  className="text-black transition-colors duration-500 md:group-hover:text-white/60"
                 >
                   {framework.name}
                 </p>
@@ -152,18 +180,20 @@ const Works = () => {
             <div className="relative flex items-center justify-center px-10 md:hidden h-[400px]">
               <img
                 src={project.bgImage}
-                alt={`${project.name}-bg-image`}
+                alt={`${project.name} background`}
+                loading="lazy"
                 className="object-cover w-full h-full rounded-md brightness-50"
               />
               <img
                 src={project.image}
-                alt={`${project.name}-image`}
-                className="absolute bg-center px-14 rounded-xl"
+                alt={`${project.name} preview`}
+                loading="lazy"
+                className="absolute object-center px-14 rounded-xl"
               />
             </div>
           </div>
         ))}
-        {/* desktop Flaoting preview image */}
+        {/* desktop floating preview image */}
         <div
           ref={previewRef}
           className="fixed -top-2/6 left-0 z-50 overflow-hidden border-8 border-black pointer-events-none w-[960px] md:block hidden opacity-0"
@@ -171,7 +201,7 @@ const Works = () => {
           {currentIndex !== null && (
             <img
               src={projects[currentIndex].image}
-              alt="preview"
+              alt={`${projects[currentIndex].name} — project preview`}
               className="object-cover w-full h-full"
             />
           )}

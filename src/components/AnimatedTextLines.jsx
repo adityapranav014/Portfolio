@@ -10,17 +10,17 @@ export const AnimatedTextLines = ({ text, className }) => {
   useGSAP(() => {
     if (lineRefs.current.length > 0) {
       gsap.from(lineRefs.current, {
-        y: 100,
+        y: 60,
         opacity: 0,
-        duration: 1,
-        stagger: 0.3,
-        ease: "back.out",
+        duration: 0.8,
+        stagger: 0.12,
+        ease: "power3.out",
         scrollTrigger: {
           trigger: containerRef.current,
         },
       });
     }
-  });
+  }, []);
 
   return (
     <div ref={containerRef} className={className}>

@@ -2,6 +2,8 @@ import { useRef } from "react";
 import Marquee from "../components/Marquee";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import Typewriter from "../components/Typewriter";
+import { Link } from "react-scroll";
 
 const ContactSummary = () => {
   const containerRef = useRef(null);
@@ -36,16 +38,46 @@ const ContactSummary = () => {
   return (
     <section
       ref={containerRef}
-      className="flex flex-col items-center justify-between min-h-screen gap-12 mt-16"
+      className="flex flex-col items-center justify-between min-h-dvh gap-12 mt-16"
     >
       <Marquee items={items} />
-      <div className="overflow-hidden font-light text-center contact-text-responsive">
-        <p>
-          “ Let’s build a <br />
-          <span className="font-normal">memorable</span> &{" "}
-          <span className="italic">inspiring</span> <br />
-          web application <span className="text-gold">together</span> “
+      <div className="flex flex-col items-center gap-10 font-light text-center contact-text-responsive px-6">
+        <p className="leading-tight">
+          Let&apos;s build something
+          <br />
+          <Typewriter
+            texts={[
+              "memorable.",
+              "award-worthy.",
+              "that converts.",
+              "worth noticing.",
+              "unforgettable.",
+            ]}
+            speed={65}
+            deleteSpeed={35}
+            waitTime={1800}
+            className="text-gold italic"
+            cursorChar="_"
+          />
         </p>
+
+        {/* CTA — matches Hero button */}
+        <Link
+          to="contact"
+          smooth
+          duration={1800}
+          offset={0}
+          className="group relative flex items-center gap-3 bg-DarkLava text-primary px-7 py-3.5 overflow-hidden cursor-pointer select-none"
+        >
+          <span className="relative z-10 text-[10px] uppercase tracking-[0.22em] font-light transition-colors duration-500">
+            Begin a Conversation
+          </span>
+          <span className="relative z-10 text-sm transition-transform duration-300 group-hover:translate-x-1">
+            →
+          </span>
+          {/* accent sweep */}
+          <span className="absolute inset-0 bg-accent translate-y-[102%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
+        </Link>
       </div>
       <Marquee
         items={items2}

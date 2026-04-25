@@ -6,8 +6,9 @@ import { socials } from "../constants";
 import gsap from "gsap";
 
 const Contact = () => {
-  const text = `Got a question, how or project Idea?
-    WE’D love to hear from you and discus further!`;
+  const text = `Got a project idea or want to collaborate?
+    Let's talk and build something 
+    worth noticing.`;
   const items = [
     "TURN YOUR IDEAS INTO REALITY",
     "TURN YOUR IDEAS INTO REALITY",
@@ -59,7 +60,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="flex flex-col justify-between min-h-screen bg-black"
+      className="flex flex-col justify-between min-h-dvh bg-black"
     >
       <div>
         <AnimatedHeaderSection
@@ -89,16 +90,24 @@ const Contact = () => {
             <div className="social-link">
               <h2>E-mail</h2>
               <div className="w-full h-px my-2 bg-white/30" />
-              <p className="text-xl tracking-wider lowercase md:text-2xl lg:text-3xl">
-                JohnDoe@gmail.com
-              </p>
+              <a
+                href="mailto:hello@adityapranav.dev"
+                aria-label="Send email to Aditya Pranav"
+                className="text-xl tracking-wider lowercase md:text-2xl lg:text-3xl hover:text-white/70 transition-colors duration-300"
+              >
+                hello@adityapranav.dev
+              </a>
             </div>
             <div className="social-link">
               <h2>Phone</h2>
               <div className="w-full h-px my-2 bg-white/30" />
-              <p className="text-xl lowercase md:text-2xl lg:text-3xl">
-                +33 7 12 12 32 12
-              </p>
+              <a
+                href="tel:+910000000000"
+                aria-label="Call Aditya Pranav"
+                className="text-xl lowercase md:text-2xl lg:text-3xl hover:text-white/70 transition-colors duration-300"
+              >
+                +91 00000 00000
+              </a>
             </div>
             <div className="social-link">
               <h2>Social Media</h2>
@@ -108,7 +117,10 @@ const Contact = () => {
                   <a
                     key={index}
                     href={social.href}
-                    className="text-xs leading-loose tracking-wides uppercase md:text-sm hover:text-white/80 transition-colors duration-200"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Visit ${social.name} profile`}
+                    className="text-xs leading-loose tracking-widest uppercase md:text-sm hover:text-white/80 transition-colors duration-200"
                   >
                     {"{ "}
                     {social.name}

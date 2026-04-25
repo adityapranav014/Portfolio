@@ -26,7 +26,7 @@ const Services = () => {
     });
   }, []);
   return (
-    <section id="services" className="min-h-screen bg-black rounded-t-4xl">
+    <section id="services" className="min-h-dvh bg-black rounded-t-4xl">
       <AnimatedHeaderSection
         subTitle={"Behind the scene, Beyond the screen"}
         title={"Service"}
@@ -38,39 +38,49 @@ const Services = () => {
         <div
           ref={(el) => (serviceRefs.current[index] = el)}
           key={index}
-          className="sticky px-10 pt-6 pb-12 text-white bg-black border-t-2 border-white/30"
+          className="sticky px-10 pt-6 pb-12 text-white bg-black border-t-2 border-white/30 group/card transition-colors duration-500 hover:border-accent"
           style={
             isDesktop
               ? {
-                  top: `calc(10vh + ${index * 5}em)`,
-                  marginBottom: `${(servicesData.length - index - 1) * 5}rem`,
-                }
+                top: `calc(10vh + ${index * 5}em)`,
+                marginBottom: `${(servicesData.length - index - 1) * 5}rem`,
+              }
               : { top: 0 }
           }
         >
           <div className="flex items-center justify-between gap-4 font-light">
-            <div className="flex flex-col gap-6">
-              <h2 className="text-4xl lg:text-5xl">{service.title}</h2>
+            <div className="flex flex-col gap-6 w-full">
+              <div className="flex items-baseline justify-between">
+                <h2 className="text-4xl lg:text-5xl group-hover/card:text-accent transition-colors duration-300">{service.title}</h2>
+                <span className="text-xs tracking-widest uppercase text-white/20 group-hover/card:text-accent/60 transition-colors duration-300">
+                  0{index + 1}
+                </span>
+              </div>
               <p className="text-xl leading-relaxed tracking-widest lg:text-2xl text-white/60 text-pretty">
                 {service.description}
               </p>
               <div className="flex flex-col gap-2 text-2xl sm:gap-4 lg:text-3xl text-white/80">
                 {service.items.map((item, itemIndex) => (
                   <div key={`item-${index}-${itemIndex}`}>
-                    <h3 className="flex">
-                      <span className="mr-12 text-lg text-white/30">
+                    <h3 className="flex items-center gap-4">
+                      <span className="mr-8 text-lg text-white/30">
                         0{itemIndex + 1}
                       </span>
-                      {item.title}
+                      <span>{item.title}</span>
+                      <span className="text-base text-white/30 font-light ml-2 hidden lg:block">
+                        {item.description}
+                      </span>
                     </h3>
                     {itemIndex < service.items.length - 1 && (
-                      <div className="w-full h-px my-2 bg-white/30" />
+                      <div className="w-full h-px my-2 bg-white/20 group-hover/card:bg-accent/20 transition-colors duration-500" />
                     )}
                   </div>
                 ))}
               </div>
             </div>
           </div>
+          {/* Accent bottom line reveal on hover */}
+          <div className="mt-8 h-px w-0 group-hover/card:w-full bg-accent transition-all duration-700 ease-out" />
         </div>
       ))}
     </section>
