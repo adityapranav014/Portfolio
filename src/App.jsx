@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./sections/Navbar";
 import Hero from "./sections/Hero";
@@ -10,7 +10,6 @@ import Works from "./sections/Works";
 import ContactSummary from "./sections/ContactSummary";
 import Contact from "./sections/Contact";
 import { ImageKitProvider } from "@imagekit/react";
-import Cursor from "./components/Cursor";
 import Noise from "./components/Noise";
 import Transition from "./components/Transition";
 import ProjectDetail from "./pages/ProjectDetail";
@@ -96,7 +95,6 @@ const App = () => {
 
   return (
     <ImageKitProvider urlEndpoint="https://ik.imagekit.io/gglxgr4rz">
-      <Cursor />
       <Noise />
 
       {/* Branded preloader */}

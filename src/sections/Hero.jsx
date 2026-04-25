@@ -4,6 +4,8 @@ import { Environment, Float, Lightformer } from "@react-three/drei";
 import { useMediaQuery } from "react-responsive";
 import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
 import { Link } from "react-scroll";
+import { CanvasLines } from "../components/ui/canvas";
+
 const Hero = () => {
   const isMobile = useMediaQuery({ maxWidth: 853 });
   const text = `I help growing brands and startups gain an
@@ -55,11 +57,15 @@ AI-native digital products.`;
 
       {/* Availability pill */}
       <div className="flex items-center gap-2.5 px-10 pb-8 md:px-16 lg:px-24">
-        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shrink-0"></span>
+        <span className="relative flex h-3 w-3 items-center justify-center">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"></span>
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+        </span>
         <span className="text-xs uppercase tracking-widest text-black/50 font-light">
           Available for work — May 2026
         </span>
       </div>
+      <CanvasLines />
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-50"

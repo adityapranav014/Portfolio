@@ -1,5 +1,5 @@
-@import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap");
+@import "tailwindcss";
 
 /* Amiamie Regular */
 @font-face {
@@ -94,7 +94,7 @@
   --color-DarkLava: #393632;
   --color-SageGray: #8b8b73;
   --color-gold: #cfa355;
-  --color-accent: #1c3ffd;
+  --color-accent: #4da3ff;
   --font-amiamie: "Amiamie", sans-serif;
   --font-amiamie-round: "Amiamie-Round", sans-serif;
   --font-display: "Playfair Display", Georgia, serif;
@@ -130,12 +130,6 @@ body {
   scroll-behavior: smooth;
   overflow-x: hidden;
   font-family: var(--font-amiamie);
-}
-
-@media (pointer: fine) {
-  body {
-    cursor: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

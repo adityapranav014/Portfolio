@@ -4,6 +4,7 @@ import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
 import Marquee from "../components/Marquee";
 import { socials } from "../constants";
 import gsap from "gsap";
+import { VideoHover } from "../components/ui/image-reveal";
 
 const Contact = () => {
   const text = `Got a project idea or want to collaborate?
@@ -46,7 +47,7 @@ const Contact = () => {
               try {
                 videoRef.current.load();
                 videoRef.current.play().catch(() => { });
-              } catch (e) { }
+              } catch { /* play() may fail silently */ }
             }
             obs.disconnect();
           }
@@ -74,7 +75,7 @@ const Contact = () => {
           className="relative px-10 font-light text-white uppercase lg:text-[32px] text-[26px] leading-none mb-10"
           ref={containerRef}
         >
-          <div className="relative md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 w-full md:w-[45%] max-w-[1360px] block overflow-hidden z-30 mb-10 md:mb-0 aspect-[1360/480]">
+          <VideoHover className="md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 w-full md:w-[45%] max-w-[1360px] block z-30 mb-10 md:mb-0 aspect-[1360/480]">
             <video
               ref={videoRef}
               src={videoSrc || undefined}
@@ -84,7 +85,7 @@ const Contact = () => {
               preload="metadata"
               className="w-full h-full object-cover pointer-events-none"
             />
-          </div>
+          </VideoHover>
 
           <div className="flex flex-col w-full gap-10 relative z-20 md:pr-[45%] lg:pr-[35%]">
             <div className="social-link">

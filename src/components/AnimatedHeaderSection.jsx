@@ -1,4 +1,3 @@
-import React from "react";
 import { useRef } from "react";
 import { AnimatedTextLines } from "../components/AnimatedTextLines";
 import { useGSAP } from "@gsap/react";
