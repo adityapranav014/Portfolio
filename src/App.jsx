@@ -82,7 +82,12 @@ const App = () => {
 
       {/* Cinematic preloader — renders on top while app loads beneath */}
       {showPreloader && (
-        <Preloader onComplete={() => setShowPreloader(false)} />
+        <Preloader
+          onComplete={() => {
+            setShowPreloader(false);
+            window.dispatchEvent(new CustomEvent("hero:animate"));
+          }}
+        />
       )}
 
       {/* Easter egg overlay */}

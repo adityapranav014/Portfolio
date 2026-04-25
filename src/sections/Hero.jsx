@@ -1,15 +1,68 @@
+import { useRef, useEffect } from "react";
 import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
 import { Link } from "react-scroll";
 import { CanvasLines } from "../components/ui/canvas";
+import gsap from "gsap";
 
 const Hero = () => {
+  const videoRef = useRef(null);
+  const headerRef = useRef(null);
+  const ctaRef = useRef(null);
+  const pillRef = useRef(null);
+
   const text = `I help growing brands and startups gain an
 unfair advantage through premium
 AI-native digital products.`;
+
+  useEffect(() => {
+    // Hold all content invisible until preloader exits
+    gsap.set([headerRef.current, ctaRef.current, pillRef.current], {
+      opacity: 0,
+      y: 55,
+    });
+    gsap.set(videoRef.current, { scale: 1.1 });
+
+    const onAnimate = () => {
+      const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+
+      // Video slowly releases its scale — cinematic Ken Burns feel
+      tl.to(videoRef.current, {
+        scale: 1,
+        duration: 2.8,
+        ease: "power3.out",
+      }, 0);
+
+      // Header text block rises in
+      tl.to(headerRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1.4,
+      }, 0);
+
+      // CTAs stagger slightly behind header
+      tl.to(ctaRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1.1,
+      }, 0.22);
+
+      // Availability pill last — lightest element, shortest travel
+      tl.to(pillRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+      }, 0.38);
+    };
+
+    window.addEventListener("hero:animate", onAnimate);
+    return () => window.removeEventListener("hero:animate", onAnimate);
+  }, []);
+
   return (
     <section id="home" className="relative flex flex-col justify-end min-h-dvh overflow-hidden">
       {/* Background video */}
       <video
+        ref={videoRef}
         autoPlay
         loop
         muted
@@ -20,15 +73,18 @@ AI-native digital products.`;
       {/* Gradient overlay for text readability */}
       <div className="pointer-events-none absolute inset-0 -z-40 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
 
-      <AnimatedHeaderSection
-        subTitle={"Full-Stack Developer & Creative Technologist"}
-        title={"Aditya Pranav"}
-        text={text}
-        textColor={"text-white"}
-        headingTag="h1"
-      />
+      <div ref={headerRef}>
+        <AnimatedHeaderSection
+          subTitle={"Full-Stack Developer & Creative Technologist"}
+          title={"Aditya Pranav"}
+          text={text}
+          textColor={"text-white"}
+          headingTag="h1"
+        />
+      </div>
+
       {/* CTA row */}
-      <div className="flex items-center gap-6 px-10 pb-6 md:px-16 lg:px-24">
+      <div ref={ctaRef} className="flex items-center gap-6 px-10 pb-6 md:px-16 lg:px-24">
         {/* Primary CTA — vertical fill sweep on hover */}
         <Link
           to="contact"
@@ -63,7 +119,7 @@ AI-native digital products.`;
       </div>
 
       {/* Availability pill */}
-      <div className="flex items-center gap-2.5 px-10 pb-8 md:px-16 lg:px-24">
+      <div ref={pillRef} className="flex items-center gap-2.5 px-10 pb-8 md:px-16 lg:px-24">
         <span className="relative flex h-3 w-3 items-center justify-center">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
           <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400"></span>
