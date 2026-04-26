@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import Navbar from "./sections/Navbar";
 import Hero from "./sections/Hero";
 import ServiceSummary from "./sections/ServiceSummary";
@@ -105,6 +106,7 @@ const App = () => {
           <Route path="/work/:slug" element={<ProjectDetail />} />
         </Routes>
       </BrowserRouter>
+      <SpeedInsights />
     </ImageKitProvider>
   );
 };
