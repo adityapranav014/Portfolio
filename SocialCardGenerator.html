@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Preview Generator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d0d0d;
+            /* Premium deep black */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* OG Image Standard Size: 1200x630 */
+        .social-card {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #090909 0%, #1a1a1a 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            color: #fafafa;
+        }
+
+        /* subtle noise overlay for Awwwards feel */
+        .noise {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            opacity: 0.05;
+            mix-blend-mode: overlay;
+            pointer-events: none;
+        }
+
+        /* Left Side: Typography & Lead Gen */
+        .content {
+            flex: 1;
+            padding: 80px 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .brand {
+            font-size: 24px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-weight: 300;
+            color: #d1d1d1;
+        }
+
+        .headline {
+            margin-top: 40px;
+        }
+
+        .headline h1 {
+            font-size: 82px;
+            font-weight: 600;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+        }
+
+        .headline h1 span.accent {
+            color: transparent;
+            -webkit-text-stroke: 2px #fff;
+        }
+
+        .headline p {
+            font-size: 32px;
+            font-weight: 300;
+            color: #a3a3a3;
+            line-height: 1.4;
+            max-width: 600px;
+        }
+
+        .badges {
+            display: flex;
+            gap: 16px;
+            margin-top: 50px;
+        }
+
+        .badge {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-url {
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+
+        /* Right Side: Image */
+        .image-container {
+            width: 45%;
+            position: relative;
+            z-index: 5;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            /* Add a subtle gradient mask fading into black at the left */
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%);
+            mask-image: linear-gradient(to right, transparent 0%, black 15%);
+        }
+
+        /* Decorative Circle */
+        .glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+            top: -200px;
+            left: -200px;
+            z-index: 1;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 
+    Take a screenshot of this .social-card container 
+    (Size is strictly set to 1200x630, perfect for Twitter & LinkedIn) 
+  -->
+    <div class="social-card">
+        <div class="noise"></div>
+        <div class="glow"></div>
+
+        <div class="content">
+            <div class="brand">Aditya Pranav</div>
+
+            <div class="headline">
+                <h1>Building premium <br><span class="accent">AI-native</span> products</h1>
+                <p>Creative Developer & Designer</p>
+
+                <div class="badges">
+                    <div class="badge">UI/UX Design</div>
+                    <div class="badge">Full-Stack</div>
+                </div>
+            </div>
+
+            <div class="footer-url">aditya-pranav.com</div>
+        </div>
+
+        <div class="image-container">
+            <img src="https://ik.imagekit.io/gglxgr4rz/Portfolio/aditya-pranav.com.jpeg?updatedAt=1777112471927"
+                alt="Aditya Pranav">
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -39,7 +39,7 @@ const AnimatedHeaderSection = ({
     );
   }, []);
   return (
-    <div ref={contextRef}>
+    <header className="relative w-full" ref={contextRef}>
       <div style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}>
         <div
           ref={headerRef}
@@ -69,7 +69,7 @@ const AnimatedHeaderSection = ({
           />
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

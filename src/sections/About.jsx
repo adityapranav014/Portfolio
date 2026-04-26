@@ -81,11 +81,13 @@ const About = () => {
           </div>
 
           {/* RIGHT — word-by-word reveal, controlled by the parent scroll */}
-          <TextRevealByWord
-            text={aboutText}
-            progress={scrollYProgress}
-            className="w-full lg:w-3/5"
-          />
+          <article className="w-full lg:w-3/5">
+            <h3 className="sr-only">Professional Background</h3>
+            <TextRevealByWord
+              text={aboutText}
+              progress={scrollYProgress}
+            />
+          </article>
         </div>
       </div>
     </section>
