@@ -54,8 +54,12 @@ AI-native digital products.`;
       }, 0.38);
     };
 
-    window.addEventListener("hero:animate", onAnimate);
-    return () => window.removeEventListener("hero:animate", onAnimate);
+    if (window.isPreloaderDone) {
+      gsap.delayedCall(0.5, onAnimate);
+    } else {
+      window.addEventListener("hero:animate", onAnimate);
+      return () => window.removeEventListener("hero:animate", onAnimate);
+    }
   }, []);
 
   return (

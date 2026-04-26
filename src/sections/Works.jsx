@@ -24,6 +24,7 @@ const Works = () => {
       ease: "expo.inOut",
       onComplete: () => {
         navigate(`/work/${slug}`);
+        window.scrollTo(0, 0);
         document.body.removeChild(curtain);
       },
     });

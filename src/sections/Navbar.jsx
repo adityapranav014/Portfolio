@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { socials } from "../constants";
+import { socialImgs } from "../constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Link } from "react-scroll";
@@ -141,19 +141,19 @@ const Navbar = () => {
           <div className="font-light">
             <p className="tracking-wider text-white/50">E-mail</p>
             <a
-              href="mailto:hello@adityapranav.dev"
+              href="mailto:adityapranav014@gmail.com"
               className="text-xl tracking-widest lowercase text-pretty hover:text-white transition-colors duration-300"
             >
-              hello@adityapranav.dev
+              adityapranav014@gmail.com
             </a>
           </div>
           <div className="font-light">
             <p className="tracking-wider text-white/50">Social Media</p>
             <div className="flex flex-col flex-wrap md:flex-row gap-x-2">
-              {socials.map((social, index) => (
+              {socialImgs.map((social, index) => (
                 <a
                   key={index}
-                  href={social.href}
+                  href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Visit ${social.name} profile`}

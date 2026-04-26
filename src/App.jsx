@@ -85,6 +85,7 @@ const App = () => {
         <Preloader
           onComplete={() => {
             setShowPreloader(false);
+            window.isPreloaderDone = true;
             window.dispatchEvent(new CustomEvent("hero:animate"));
           }}
         />

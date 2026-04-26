@@ -2,7 +2,7 @@ import { useGSAP } from "@gsap/react";
 import { useState, useRef, useEffect } from "react";
 import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
 import Marquee from "../components/Marquee";
-import { socials } from "../constants";
+import { socialImgs } from "../constants";
 import gsap from "gsap";
 import { VideoHover } from "../components/ui/image-reveal";
 
@@ -92,32 +92,32 @@ const Contact = () => {
               <h2>E-mail</h2>
               <div className="w-full h-px my-2 bg-white/30" />
               <a
-                href="mailto:hello@adityapranav.dev"
+                href="mailto:adityapranav014@gmail.com"
                 aria-label="Send email to Aditya Pranav"
                 className="text-xl tracking-wider lowercase md:text-2xl lg:text-3xl hover:text-white/70 transition-colors duration-300"
               >
-                hello@adityapranav.dev
+                adityapranav014@gmail.com
               </a>
             </div>
             <div className="social-link">
               <h2>Phone</h2>
               <div className="w-full h-px my-2 bg-white/30" />
               <a
-                href="tel:+910000000000"
+                href="tel:+916200284805"
                 aria-label="Call Aditya Pranav"
                 className="text-xl lowercase md:text-2xl lg:text-3xl hover:text-white/70 transition-colors duration-300"
               >
-                +91 00000 00000
+                +91 62002 84805
               </a>
             </div>
             <div className="social-link">
               <h2>Social Media</h2>
               <div className="w-full h-px my-2 bg-white/30" />
               <div className="flex flex-wrap gap-2">
-                {socials.map((social, index) => (
+                {socialImgs.map((social, index) => (
                   <a
                     key={index}
-                    href={social.href}
+                    href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Visit ${social.name} profile`}

@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { projects } from "../constants";
 import Transition from "../components/Transition";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { Image } from "@imagekit/react";
 
 const ProjectDetail = () => {
     const { slug } = useParams();
@@ -16,19 +15,47 @@ const ProjectDetail = () => {
     const metaRef = useRef(null);
     const bodyRef = useRef(null);
     const imgRef = useRef(null);
+    const imgOverlayRef = useRef(null);
 
     // Redirect to home if slug not found
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (!project) navigate("/", { replace: true });
     }, [project, navigate]);
 
     useGSAP(() => {
         if (!project) return;
-        const tl = gsap.timeline({ delay: 0.6 });
-        tl.from(headerRef.current, { y: 60, opacity: 0, duration: 0.8, ease: "power3.out" })
-            .from(metaRef.current, { y: 30, opacity: 0, duration: 0.6, ease: "power2.out" }, "-=0.4")
-            .from(imgRef.current, { scale: 1.05, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.4")
-            .from(bodyRef.current, { y: 40, opacity: 0, duration: 0.7, ease: "power2.out" }, "-=0.5");
+        const tl = gsap.timeline({ delay: 0.4 });
+
+        tl.from(headerRef.current, {
+            y: 100,
+            opacity: 0,
+            duration: 1,
+            ease: "power4.out"
+        })
+            .to(imgOverlayRef.current, {
+                height: 0,
+                duration: 1.2,
+                ease: "power3.inOut"
+            }, "-=0.6")
+            .from(imgRef.current, {
+                scale: 1.2,
+                duration: 1.2,
+                ease: "power3.inOut"
+            }, "<")
+            .from(metaRef.current.children, {
+                y: 20,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power3.out"
+            }, "-=0.4")
+            .from(bodyRef.current, {
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power3.out"
+            }, "-=0.6");
     }, [project]);
 
     if (!project) return null;
@@ -38,10 +65,8 @@ const ProjectDetail = () => {
     const nextProject = projects[currentIndex + 1] ?? null;
 
     const navigateWithCurtain = (targetSlug) => {
-        // Play exit curtain then navigate
         const curtain = document.createElement("div");
-        curtain.style.cssText =
-            "position:fixed;inset:0;background:#000;z-index:9990;transform:translateY(100%)";
+        curtain.style.cssText = "position:fixed;inset:0;background:#000;z-index:9990;transform:translateY(100%)";
         document.body.appendChild(curtain);
         gsap.to(curtain, {
             yPercent: 0,
@@ -50,14 +75,14 @@ const ProjectDetail = () => {
             onComplete: () => {
                 navigate(`/work/${targetSlug}`);
                 document.body.removeChild(curtain);
+                window.scrollTo(0, 0);
             },
         });
     };
 
     const goHome = () => {
         const curtain = document.createElement("div");
-        curtain.style.cssText =
-            "position:fixed;inset:0;background:#000;z-index:9990;transform:translateY(100%)";
+        curtain.style.cssText = "position:fixed;inset:0;background:#000;z-index:9990;transform:translateY(100%)";
         document.body.appendChild(curtain);
         gsap.to(curtain, {
             yPercent: 0,
@@ -66,144 +91,129 @@ const ProjectDetail = () => {
             onComplete: () => {
                 navigate("/");
                 document.body.removeChild(curtain);
+                window.scrollTo(0, 0);
             },
         });
     };
 
     return (
         <Transition>
-            <div className="min-h-screen bg-primary font-amiamie overflow-x-hidden">
-                {/* Back button */}
-                <div className="fixed top-6 left-8 z-50">
+            <div className="min-h-screen bg-primary font-amiamie overflow-x-hidden text-black selection:bg-black selection:text-white">
+                {/* Custom Cursor/Back Button overlaying hero roughly */}
+                <div className="fixed top-8 left-8 md:top-12 md:left-12 z-50 mix-blend-difference">
                     <button
                         onClick={goHome}
-                        className="flex items-center gap-2 text-xs uppercase tracking-widest text-black/50 hover:text-black transition-colors duration-300 cursor-none"
+                        className="flex items-center gap-2 text-xs uppercase tracking-widest text-white hover:opacity-70 transition-opacity duration-300 cursor-none"
                     >
                         <Icon icon="lucide:arrow-left" className="size-4" />
-                        All Work
+                        <span className="hidden md:inline">Back to Index</span>
                     </button>
                 </div>
 
-                {/* Hero image — full width */}
-                <div
-                    ref={imgRef}
-                    className="w-full h-[55vh] md:h-[70vh] overflow-hidden"
-                >
-                    <Image
-                        src={project.bgImage}
-                        alt={project.name}
-                        width={1920}
-                        height={1080}
-                        className="w-full h-full object-cover"
-                    />
-                </div>
-
-                {/* Content */}
-                <div className="max-w-5xl mx-auto px-8 md:px-16 py-16">
-                    {/* Title */}
-                    <h1
-                        ref={headerRef}
-                        className="text-5xl md:text-7xl lg:text-8xl uppercase font-light leading-none mb-8"
-                    >
-                        {project.name}
-                    </h1>
-
-                    {/* Meta row */}
-                    <div
-                        ref={metaRef}
-                        className="flex flex-wrap items-start gap-x-12 gap-y-4 mb-16 pb-8 border-b border-black/20"
-                    >
-                        <div>
-                            <p className="text-xs uppercase tracking-widest text-black/40 mb-1">Role</p>
-                            <p className="text-sm tracking-wide">{project.role}</p>
-                        </div>
-                        <div>
-                            <p className="text-xs uppercase tracking-widest text-black/40 mb-1">Year</p>
-                            <p className="text-sm tracking-wide">{project.year}</p>
-                        </div>
-                        <div>
-                            <p className="text-xs uppercase tracking-widest text-black/40 mb-1">Stack</p>
-                            <div className="flex flex-wrap gap-x-3 gap-y-1">
-                                {project.frameworks.map((f) => (
-                                    <span key={f.id} className="text-sm tracking-wide">
-                                        {f.name}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                        {project.href && (
-                            <div className="ml-auto">
-                                <a
-                                    href={project.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label={`Visit ${project.name} live site`}
-                                    className="flex items-center gap-2 text-xs uppercase tracking-widest border border-black px-4 py-2 hover:bg-black hover:text-white transition-all duration-300 cursor-none"
-                                >
-                                    Visit Site
-                                    <Icon icon="lucide:arrow-up-right" className="size-3" />
-                                </a>
-                            </div>
-                        )}
+                <div className="pt-32 pb-24 md:pt-48 px-6 md:px-12 lg:px-20 max-w-[1800px] mx-auto">
+                    {/* Massive Title */}
+                    <div className="overflow-hidden mb-10 md:mb-16 pb-4">
+                        <h1
+                            ref={headerRef}
+                            className="text-[12vw] sm:text-[10vw] md:text-[9vw] lg:text-[8vw] uppercase font-light leading-none tracking-tighter"
+                        >
+                            {project.name}
+                        </h1>
                     </div>
 
-                    {/* Project body */}
-                    <div ref={bodyRef} className="grid md:grid-cols-2 gap-16 mb-24">
-                        <div>
-                            <p className="text-xs uppercase tracking-widest text-black/40 mb-4">Overview</p>
-                            <p className="text-lg md:text-xl font-light leading-relaxed tracking-wide text-black/70">
+                    {/* Hero Image Container with reveal effect */}
+                    <div className="relative w-full h-[50vh] md:h-[75vh] lg:h-[85vh] overflow-hidden mb-16 md:mb-24 rounded-sm">
+                        <div ref={imgOverlayRef} className="absolute inset-0 bg-primary z-10 w-full h-full origin-bottom" />
+                        <img
+                            ref={imgRef}
+                            src={project.image}
+                            alt={project.name}
+                            className="w-full h-full object-cover origin-center"
+                        />
+                    </div>
+
+                    {/* Content Grid */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-16 gap-x-8">
+                        {/* Left Info Column */}
+                        <div className="lg:col-span-4 flex flex-col gap-12" ref={metaRef}>
+                            <div>
+                                <p className="text-[10px] uppercase tracking-[0.2em] text-black/50 mb-2">Role</p>
+                                <p className="text-base tracking-wide md:text-lg">{project.role}</p>
+                            </div>
+                            <div>
+                                <p className="text-[10px] uppercase tracking-[0.2em] text-black/50 mb-2">Year</p>
+                                <p className="text-base tracking-wide md:text-lg">{project.year}</p>
+                            </div>
+                            <div>
+                                <p className="text-[10px] uppercase tracking-[0.2em] text-black/50 mb-3">Stack</p>
+                                <div className="flex flex-wrap gap-2">
+                                    {project.frameworks.map((f) => (
+                                        <span key={f.id} className="text-xs uppercase tracking-widest border border-black/10 px-3 py-1 rounded-full">
+                                            {f.name}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                            {project.href && (
+                                <div className="mt-4">
+                                    <a
+                                        href={project.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-3 text-xs uppercase tracking-widest border border-black px-6 py-3 hover:bg-black hover:text-white transition-all duration-500 cursor-none group"
+                                    >
+                                        Visit Live Site
+                                        <Icon icon="lucide:arrow-up-right" className="size-3 sm:size-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
+                                    </a>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Right Content Column */}
+                        <div className="lg:col-span-8 lg:pl-10" ref={bodyRef}>
+                            <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-snug tracking-tight mb-12">
                                 {project.description}
                             </p>
-                        </div>
-                        <div>
-                            <p className="text-xs uppercase tracking-widest text-black/40 mb-4">Details</p>
-                            <p className="text-base md:text-lg font-light leading-relaxed tracking-wide text-black/60">
+                            <div className="h-px w-full bg-black/10 mb-12" />
+                            <p className="text-sm md:text-base font-light leading-relaxed tracking-wide text-black/70 max-w-3xl">
                                 {project.fullDescription}
                             </p>
                         </div>
                     </div>
+                </div>
 
-                    {/* Project image */}
-                    <div className="w-full overflow-hidden rounded-2xl mb-24">
-                        <Image
-                            src={project.image}
-                            alt={`${project.name} screenshot`}
-                            width={1600}
-                            className="w-full h-auto object-cover"
-                        />
-                    </div>
-
-                    {/* Prev / Next navigation */}
-                    <div className="flex justify-between items-center border-t border-black/20 pt-10">
+                {/* Next/Prev Navigation Footer */}
+                <div className="border-t border-black/10 mt-12 py-16 px-6 md:px-12 lg:px-20 max-w-[1800px] mx-auto">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-8">
                         {prevProject ? (
                             <button
                                 onClick={() => navigateWithCurtain(prevProject.slug)}
-                                className="flex flex-col items-start gap-1 group cursor-none"
+                                className="flex flex-col items-start gap-2 group cursor-none w-1/2"
                             >
-                                <span className="text-xs uppercase tracking-widest text-black/40 group-hover:text-black transition-colors duration-300">
-                                    ← Previous
+                                <span className="text-[10px] uppercase tracking-[0.2em] text-black/40 group-hover:text-black transition-colors duration-500">
+                                    ← Previous Project
                                 </span>
-                                <span className="text-xl md:text-2xl font-light group-hover:translate-x-1 transition-transform duration-300">
+                                <span className="text-2xl md:text-4xl font-light group-hover:translate-x-2 transition-transform duration-500 truncate w-full text-left">
                                     {prevProject.name}
                                 </span>
                             </button>
                         ) : (
-                            <div />
+                            <div className="w-1/2" />
                         )}
                         {nextProject ? (
                             <button
                                 onClick={() => navigateWithCurtain(nextProject.slug)}
-                                className="flex flex-col items-end gap-1 group cursor-none"
+                                className="flex flex-col items-end gap-2 group cursor-none w-1/2 text-right"
                             >
-                                <span className="text-xs uppercase tracking-widest text-black/40 group-hover:text-black transition-colors duration-300">
-                                    Next →
+                                <span className="text-[10px] uppercase tracking-[0.2em] text-black/40 group-hover:text-black transition-colors duration-500">
+                                    Next Project →
                                 </span>
-                                <span className="text-xl md:text-2xl font-light group-hover:-translate-x-1 transition-transform duration-300">
+                                <span className="text-2xl md:text-4xl font-light group-hover:-translate-x-2 transition-transform duration-500 truncate w-full text-right">
                                     {nextProject.name}
                                 </span>
                             </button>
                         ) : (
-                            <div />
+                            <div className="w-1/2" />
                         )}
                     </div>
                 </div>

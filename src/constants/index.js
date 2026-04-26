@@ -202,12 +202,21 @@ export const projects = [
   },
 ];
 
-export const socials = [
-  { name: "Instagram", href: "https://www.instagram.com/ali.sanatidev/reels/" },
+export const socialImgs = [
   {
-    name: "Youtube",
-    href: "https://www.youtube.com/channel/UCZhtUWTtk3bGJiMPN9T4HWA",
+    name: "call",
+    url: "tel:+916200284805",
   },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/ali-sanati/" },
-  { name: "GitHub", href: "https://github.com/Ali-Sanati" },
+  {
+    name: "whatsapp",
+    url: "https://wa.me/916200284805?text=Hi%20Aditya%2C%20loved%20your%20portfolio%21%20I%20have%20a%20project%20idea%20and%20would%20love%20to%20collaborate.%20Let%27s%20create%20something%20extraordinary%20together.",
+  },
+  {
+    name: "email",
+    url: "mailto:adityapranav014@gmail.com",
+  },
+  {
+    name: "linkedin",
+    url: "https://www.linkedin.com/in/adityapranav014/",
+  },
 ];

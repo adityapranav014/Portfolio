@@ -52,7 +52,7 @@ const AnimatedHeaderSection = ({
           </p>
           <div className="px-10">
             <Tag
-              className={`flex flex-col gap-12 uppercase banner-text-responsive sm:gap-16 md:block ${textColor}`}
+              className={`flex flex-col gap-12 uppercase banner-text-responsive sm:gap-16 md:block pb-2 sm:pb-4 md:pb-6 ${textColor}`}
             >
               {titleParts.map((part, index) => (
                 <span key={index}>{part} </span>
