@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useMotionValueEvent } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
@@ -25,6 +25,15 @@ const TextRevealByWord = ({ text, className, progress: externalProgress }) => {
     });
 
     const progress = externalProgress ?? internalProgress;
+
+    // Ensure the progress only goes forward (never animates backwards on scroll up)
+    const monotonicProgress = useMotionValue(0);
+    useMotionValueEvent(progress, "change", (latest) => {
+        if (latest > monotonicProgress.get()) {
+            monotonicProgress.set(latest);
+        }
+    });
+
     const words = text.split(" ");
 
     // Reveal completes at REVEAL_END (65 %) of the scroll range — leaves a
@@ -34,7 +43,7 @@ const TextRevealByWord = ({ text, className, progress: externalProgress }) => {
         const start = (i / words.length) * REVEAL_END;
         const end = start + REVEAL_END / words.length;
         return (
-            <Word key={i} progress={progress} range={[start, end]}>
+            <Word key={i} progress={monotonicProgress} range={[start, end]}>
                 {word}
             </Word>
         );

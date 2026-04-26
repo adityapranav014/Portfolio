@@ -59,7 +59,7 @@ AI-native digital products.`;
   }, []);
 
   return (
-    <section id="home" className="relative flex flex-col justify-end min-h-dvh overflow-hidden">
+    <section id="home" className="relative flex flex-col min-h-dvh overflow-hidden">
       {/* Background video */}
       <video
         ref={videoRef}
@@ -84,7 +84,7 @@ AI-native digital products.`;
       </div>
 
       {/* CTA row */}
-      <div ref={ctaRef} className="flex items-center gap-6 px-10 pb-6 md:px-16 lg:px-24">
+      <div ref={ctaRef} className="mt-auto flex items-center gap-6 px-10 pb-6 md:px-16 lg:px-24">
         {/* Primary CTA — vertical fill sweep on hover */}
         <Link
           to="contact"
