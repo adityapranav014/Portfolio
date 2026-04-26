@@ -72,8 +72,9 @@ AI-native digital products.`;
         muted
         playsInline
         className="absolute inset-0 h-full w-full object-cover -z-50"
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4"
-      />
+      >
+        <source src="https://ik.imagekit.io/gglxgr4rz/Portfolio/hero.mp4" type="video/mp4" />
+      </video>
       {/* Gradient overlay for text readability */}
       <div className="pointer-events-none absolute inset-0 -z-40 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
 

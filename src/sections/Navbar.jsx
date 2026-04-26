@@ -14,6 +14,16 @@ const Navbar = () => {
   const iconTl = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [showBurger, setShowBurger] = useState(true);
+  const [hasCopied, setHasCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText("adityapranav014@gmail.com");
+    setHasCopied(true);
+    setTimeout(() => {
+      setHasCopied(false);
+    }, 2000);
+  };
+
   useGSAP(() => {
     gsap.set(navRef.current, { xPercent: 100 });
     gsap.set([linksRef.current, contactRef.current], {
@@ -140,15 +150,34 @@ const Navbar = () => {
           </div>
           <div className="font-light">
             <p className="tracking-wider text-white/50">E-mail</p>
-            <a
-              href="mailto:adityapranav014@gmail.com"
-              className="text-xl tracking-widest lowercase text-pretty hover:text-white transition-colors duration-300"
-            >
-              adityapranav014@gmail.com
-            </a>
+            <div className="flex items-center gap-2 mt-1">
+              <a
+                href="mailto:adityapranav014@gmail.com"
+                className="text-sm tracking-widest lowercase text-pretty hover:text-white transition-colors duration-300"
+              >
+                adityapranav014@gmail.com
+              </a>
+              <button
+                onClick={handleCopy}
+                className="text-white/50 hover:text-white transition-colors duration-300 active:scale-95"
+                title="Copy Email"
+                aria-label="Copy email address"
+              >
+                {hasCopied ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
           <div className="font-light">
-            <p className="tracking-wider text-white/50">Social Media</p>
+            <p className="tracking-wider text-white/50">Connect</p>
             <div className="flex flex-col flex-wrap md:flex-row gap-x-2">
               {socialImgs.map((social, index) => (
                 <a
