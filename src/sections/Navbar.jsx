@@ -202,7 +202,8 @@ const Navbar = () => {
         aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
         aria-expanded={isOpen}
         aria-controls="main-nav"
-        className="fixed z-50 flex flex-col items-center justify-center gap-1 transition-all duration-300 bg-black rounded-full cursor-pointer w-14 h-14 md:w-20 md:h-20 top-4 right-10"
+        className={`group fixed z-50 flex flex-col items-center justify-center gap-1 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] rounded-full cursor-pointer w-14 h-14 md:w-20 md:h-20 top-4 right-[clamp(1.5rem,5vw,6rem)] ${isOpen ? "bg-white/10" : "bg-black hover:scale-105 active:scale-95 hover:shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:ring-8 hover:ring-black/10"
+          }`}
         onClick={toggleMenu}
         style={
           showBurger || isOpen
@@ -212,11 +213,11 @@ const Navbar = () => {
       >
         <span
           ref={topLineRef}
-          className="block w-8 h-0.5 bg-white rounded-full origin-center"
+          className="block w-8 h-0.5 bg-white rounded-full origin-center transition-all duration-300 group-hover:w-6"
         ></span>
         <span
           ref={bottomLineRef}
-          className="block w-8 h-0.5 bg-white rounded-full origin-center"
+          className="block w-8 h-0.5 bg-white rounded-full origin-center transition-all duration-300 group-hover:w-6"
         ></span>
       </button>
     </>
