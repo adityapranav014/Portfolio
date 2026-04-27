@@ -43,16 +43,16 @@ const AnimatedHeaderSection = ({
       <div style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}>
         <div
           ref={headerRef}
-          className="flex flex-col justify-center gap-12 pt-16 sm:gap-16"
+          className="flex flex-col justify-center gap-[clamp(1rem,3dvh,3rem)] pt-[clamp(2rem,6dvh,4rem)]"
         >
           <p
-            className={`text-sm font-light tracking-[0.5rem] uppercase px-10 ${textColor}`}
+            className={`text-[clamp(0.6rem,1.2dvh,0.875rem)] font-light tracking-[0.5rem] uppercase pl-[clamp(1.5rem,5vw,6rem)] pr-[clamp(6rem,15vw,8rem)] ${textColor}`}
           >
             {subTitle}
           </p>
-          <div className="px-10">
+          <div className="pl-[clamp(1.5rem,5vw,6rem)] pr-[clamp(6rem,15vw,8rem)]">
             <Tag
-              className={`flex flex-col gap-12 uppercase banner-text-responsive sm:gap-16 md:block pb-2 sm:pb-4 md:pb-6 ${textColor}`}
+              className={`flex flex-col gap-[clamp(1rem,2.5dvh,3rem)] uppercase banner-text-responsive md:block pb-[clamp(0.5rem,2dvh,1.5rem)] ${textColor}`}
             >
               {titleParts.map((part, index) => (
                 <span key={index}>{part} </span>
@@ -61,8 +61,8 @@ const AnimatedHeaderSection = ({
           </div>
         </div>
       </div>
-      <div className={`relative px-10 ${textColor}`}>
-        <div className="py-12 sm:py-16 text-end">
+      <div className={`relative px-[clamp(1.5rem,5vw,6rem)] ${textColor}`}>
+        <div className="py-[clamp(1.5rem,4dvh,4rem)] text-end overflow-hidden">
           <AnimatedTextLines
             text={text}
             className={`font-light uppercase value-text-responsive ${textColor}`}
