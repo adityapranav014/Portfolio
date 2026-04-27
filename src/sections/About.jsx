@@ -50,7 +50,7 @@ const About = () => {
         withScrollTrigger={true}
       />
       <div className="flex flex-col items-center justify-between gap-16 px-10 pb-16 text-xl font-light tracking-wide lg:flex-row md:text-2xl lg:text-3xl text-white/60">
-        <div ref={imgRef} className="w-md rounded-3xl overflow-hidden">
+        <div ref={imgRef} className="w-full max-w-md rounded-3xl overflow-hidden">
           <Image
             src="/Portfolio/aditya-pranav.com.jpeg"
             alt="man"
