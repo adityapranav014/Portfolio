@@ -152,11 +152,13 @@ body {
 }
 
 @utility banner-text-responsive {
-  @apply text-[clamp(3.5rem, min(13vw, 14dvh), 152px)] leading-[0.95];
+  font-size: clamp(3.5rem, min(13vw, 14dvh), 152px);
+  line-height: 0.95;
 }
 
 @utility value-text-responsive {
-  @apply text-[clamp(1.1rem, min(4vw, 3.5dvh), 32px)] leading-[1.2];
+  font-size: clamp(1.1rem, min(4vw, 3.5dvh), 32px);
+  line-height: 1.2;
 }
 
 @utility marquee-text-responsive {

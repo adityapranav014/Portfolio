@@ -15,8 +15,7 @@ export default defineConfig({
     react(),
     Sitemap({
       hostname: 'https://aditya-pranav.com',
-      generateRobotsTxt: true,
-      robots: [{ userAgent: '*', allow: '/' }]
+      generateRobotsTxt: false,
     })
   ],
   resolve: {
