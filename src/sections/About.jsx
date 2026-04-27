@@ -65,12 +65,12 @@ const About = () => {
         scroll room, so the reveal feels slow and cinematic.
       */}
       <div ref={scrollContainerRef} className="relative h-[600vh]">
-        <div className="sticky top-0 flex h-screen items-center gap-10 px-8 lg:gap-20 lg:px-20">
+        <div className="sticky top-0 flex flex-col lg:flex-row h-screen items-center justify-center gap-10 lg:gap-20 px-[clamp(1.5rem,5vw,6rem)]">
 
-          {/* LEFT — portrait, desktop only; stays pinned for full 500vh */}
+          {/* TOP/LEFT — portrait, responsive size; stays pinned for full 600vh */}
           <div
             ref={imgRef}
-            className="hidden lg:block w-2/5 max-w-md flex-shrink-0 rounded-3xl overflow-hidden"
+            className="w-[clamp(120px,40vw,350px)] lg:w-2/5 lg:max-w-md flex-shrink-0 rounded-2xl lg:rounded-3xl overflow-hidden mt-[clamp(2rem,10vh,4rem)] lg:mt-0"
           >
             <Image
               src="/Portfolio/aditya-pranav.com.jpeg"
@@ -80,8 +80,8 @@ const About = () => {
             />
           </div>
 
-          {/* RIGHT — word-by-word reveal, controlled by the parent scroll */}
-          <article className="w-full lg:w-3/5">
+          {/* RIGHT/BOTTOM — word-by-word reveal, controlled by the parent scroll */}
+          <article className="w-full lg:w-3/5 text-center lg:text-left pb-[clamp(2rem,10vh,4rem)] lg:pb-0">
             <h3 className="sr-only">Professional Background</h3>
             <TextRevealByWord
               text={aboutText}
