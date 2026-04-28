@@ -6,9 +6,9 @@ import gsap from "gsap";
 import { Image } from "@imagekit/react";
 
 const About = () => {
-  const text = `Passionate about clean architecture
-    I build scalable, high-performance solutions
-    from prototype to production`;
+  const text = `Passionate about clean architecture, I build scalable,
+    high-performance solutions from 
+    prototype to production`;
   const aboutText = `Obsessed with building fast, intuitive apps—from pixel-perfect UIs to bulletproof serverless backends. 
   Every line of code is a promise: quality that users feel.
   When I’m not shipping:

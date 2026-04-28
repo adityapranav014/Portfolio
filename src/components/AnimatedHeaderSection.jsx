@@ -62,7 +62,7 @@ const AnimatedHeaderSection = ({
         </div>
       </div>
       <div className={`relative px-[clamp(1.5rem,5vw,6rem)] ${textColor}`}>
-        <div className="py-[clamp(1.5rem,4dvh,4rem)] text-end overflow-hidden">
+        <div className="py-[clamp(1.5rem,4dvh,4rem)] text-left md:text-end overflow-hidden">
           <AnimatedTextLines
             text={text}
             className={`font-light uppercase value-text-responsive ${textColor}`}
