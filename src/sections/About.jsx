@@ -9,13 +9,12 @@ const About = () => {
   const text = `Passionate about clean architecture, I build scalable,
     high-performance solutions from 
     prototype to production`;
-  const aboutText = `Obsessed with building fast, intuitive apps—from pixel-perfect UIs to bulletproof serverless backends. 
-  Every line of code is a promise: quality that users feel.
-  When I’m not shipping:
-⚡️ Open-sourcing my latest experiment (or hacking on yours)
-🎥 Teaching devs because rising tides lift all ships
-🧗 Rock climbing (problem-solving with real stakes)
-🎸 Strumming chords while CI pipelines pass (multitasking at its finest)`;
+  const aboutText = `Obsessed with building fast, intuitive apps — from pixel-perfect UIs to bulletproof serverless backends. Every line of code is a promise: quality that users feel.
+When I'm not shipping:
+Open-sourcing my latest experiment (or hacking on yours)
+Teaching devs — because rising tides lift all ships
+Rock climbing — problem-solving with real stakes
+Strumming chords while CI pipelines pass`;
   const imgRef = useRef(null);
   useGSAP(() => {
     gsap.to("#about", {
@@ -53,12 +52,12 @@ const About = () => {
         <div ref={imgRef} className="w-full max-w-md rounded-3xl overflow-hidden">
           <Image
             src="/Portfolio/aditya-pranav.com.jpeg"
-            alt="man"
+            alt="Aditya Pranav — Creative Technologist"
             width={420}
             className="w-full h-auto"
           />
         </div>
-        <AnimatedTextLines text={aboutText} className={"w-full"} />
+        <AnimatedTextLines text={aboutText} className={"w-full normal-case"} />
       </div>
     </section>
   );

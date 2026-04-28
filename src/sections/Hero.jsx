@@ -97,6 +97,7 @@ AI-native digital products.`;
           duration={1800}
           offset={0}
           className="group relative flex items-center gap-3 bg-white text-black px-[clamp(1rem,3vw,1.75rem)] py-[clamp(0.6rem,1.5dvh,0.875rem)] overflow-hidden cursor-pointer select-none"
+          data-cursor-label="Let's go"
         >
           <span className="relative z-10 text-[clamp(0.5rem,1.2dvh,10px)] uppercase tracking-[0.22em] font-light transition-colors duration-500">
             Start a Project

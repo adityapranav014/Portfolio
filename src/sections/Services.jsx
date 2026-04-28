@@ -56,7 +56,7 @@ const Services = () => {
                   0{index + 1}
                 </span>
               </div>
-              <p className="text-xl leading-relaxed tracking-widest lg:text-2xl text-white/60 text-pretty">
+              <p className="text-xl leading-relaxed tracking-widest lg:text-2xl text-white/60 text-pretty normal-case">
                 {service.description}
               </p>
               <div className="flex flex-col gap-2 text-2xl sm:gap-4 lg:text-3xl text-white/80">

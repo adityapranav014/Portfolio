@@ -68,6 +68,7 @@ const ContactSummary = () => {
           duration={1800}
           offset={0}
           className="group relative flex items-center gap-3 bg-DarkLava text-primary px-7 py-3.5 overflow-hidden cursor-pointer select-none"
+          data-cursor-label="Say hi"
         >
           <span className="relative z-10 text-[10px] uppercase tracking-[0.22em] font-light transition-colors duration-500">
             Begin a Conversation
