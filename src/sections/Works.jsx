@@ -76,7 +76,7 @@ const Works = () => {
     if (!el) return;
 
     gsap.killTweensOf([el, item, "#displacementMap"]);
-    
+
     // Overlay reveal
     gsap.fromTo(
       el,
@@ -106,7 +106,7 @@ const Works = () => {
       ease: "power4.out",
     });
 
-    gsap.fromTo("#displacementMap", 
+    gsap.fromTo("#displacementMap",
       { attr: { scale: 100 } },
       { attr: { scale: 0 }, duration: 1.2, ease: "power2.out" }
     );
@@ -121,7 +121,7 @@ const Works = () => {
     if (!el) return;
 
     gsap.killTweensOf([el, item, "#displacementMap"]);
-    
+
     gsap.to(el, {
       clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
       duration: 0.4,
@@ -200,8 +200,14 @@ const Works = () => {
                 <h2 className="lg:text-[42px] text-[32px] leading-none font-medium tracking-tight">
                   {project.name}
                 </h2>
-                <span className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-black/40 md:group-hover:text-white/40 transition-colors duration-500">
-                  {project.role} • {project.year}
+                <span className="flex items-center gap-3 text-[10px] md:text-xs uppercase tracking-[0.3em] text-black/40 md:group-hover:text-white/40 transition-colors duration-500">
+                  <span>{project.role}</span>
+                  <span className="inline-flex items-center justify-center text-accent md:group-hover:text-accent transition-colors duration-500">
+                    <svg viewBox="0 0 100 100" className="w-[0.9em] h-[0.9em] animate-[spin_8s_linear_infinite]" fill="currentColor" aria-hidden="true">
+                      <path d="M50 0 C50 27.6 27.6 50 0 50 C27.6 50 50 72.4 50 100 C50 72.4 72.4 50 100 50 C72.4 50 50 27.6 50 0 Z" />
+                    </svg>
+                  </span>
+                  <span>{project.year}</span>
                 </span>
               </div>
               <Magnetic strength={0.3}>

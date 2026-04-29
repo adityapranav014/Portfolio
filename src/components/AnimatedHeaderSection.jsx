@@ -1,6 +1,4 @@
 import { useRef } from "react";
-import UseAnimations from "react-useanimations";
-import star from "react-useanimations/lib/star";
 import { AnimatedTextLines } from "../components/AnimatedTextLines";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -48,7 +46,6 @@ const AnimatedHeaderSection = ({
           className="flex flex-col justify-center gap-[clamp(1.5rem,3dvh,3rem)] pt-[clamp(2rem,6dvh,4rem)]"
         >
           <div className={`flex items-center gap-3 pl-[clamp(1.5rem,5vw,6rem)] pr-[clamp(6rem,15vw,8rem)] ${textColor}`}>
-            <UseAnimations animation={star} size={24} strokeColor="currentColor" autoplay={true} loop={true} />
             <p
               className="text-[clamp(0.6rem,1.2dvh,0.875rem)] font-light tracking-[0.5rem] uppercase pt-0.5"
             >
@@ -60,7 +57,23 @@ const AnimatedHeaderSection = ({
               className={`flex flex-col gap-[clamp(1rem,2.5dvh,3rem)] uppercase banner-text-responsive md:block pb-[clamp(0.5rem,2dvh,1.5rem)] ${textColor}`}
             >
               {titleParts.map((part, index) => (
-                <span key={index}>{part} </span>
+                <span key={index} className="inline-block relative">
+                  {part}
+                  {/* Append animated icon after the very last letter of the title */}
+                  {index === titleParts.length - 1 && (
+                    <span className="inline-flex items-center justify-center align-middle ml-2 md:ml-5 text-accent translate-y-[-0.05em] origin-center">
+                      <svg
+                        viewBox="0 0 100 100"
+                        className="w-[0.7em] h-[0.7em] animate-[spin_8s_linear_infinite]"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path d="M50 0 C50 27.6 27.6 50 0 50 C27.6 50 50 72.4 50 100 C50 72.4 72.4 50 100 50 C72.4 50 50 27.6 50 0 Z" />
+                      </svg>
+                    </span>
+                  )}
+                  {index < titleParts.length - 1 ? "\u00A0" : ""}
+                </span>
               ))}
             </Tag>
           </div>

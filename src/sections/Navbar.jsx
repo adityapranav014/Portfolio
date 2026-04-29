@@ -240,34 +240,35 @@ const Navbar = () => {
       </nav>
 
       {/* Burger / Close button */}
-      <Magnetic strength={0.4}>
-        <button
-          type="button"
-          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-          aria-expanded={isOpen}
-          aria-controls="main-nav"
-          className={`group fixed z-[60] flex flex-col items-center justify-center gap-1 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] rounded-full cursor-pointer w-12 h-12 md:w-16 md:h-16 top-5 right-[clamp(1.5rem,5vw,3rem)] ${
-            isOpen
-              ? "bg-white/[0.07] hover:bg-white/[0.12] backdrop-blur-sm"
-              : "bg-black/80 hover:bg-black backdrop-blur-sm hover:scale-105 active:scale-95 ring-1 ring-white/[0.06] hover:ring-white/[0.12]"
-          }`}
-          onClick={toggleMenu}
-          style={
-            showBurger || isOpen
-              ? { clipPath: "circle(50% at 50% 50%)" }
-              : { clipPath: "circle(0% at 50% 50%)" }
-          }
-        >
-          <span
-            ref={topLineRef}
-            className="block w-5 md:w-6 h-[1.5px] bg-white rounded-full origin-center transition-all duration-300"
-          />
-          <span
-            ref={bottomLineRef}
-            className="block w-5 md:w-6 h-[1.5px] bg-white rounded-full origin-center transition-all duration-300"
-          />
-        </button>
-      </Magnetic>
+      <div className="fixed z-[60] top-5 right-[clamp(1.5rem,5vw,3rem)]">
+        <Magnetic strength={0.4}>
+          <button
+            type="button"
+            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isOpen}
+            aria-controls="main-nav"
+            className={`group flex flex-col items-center justify-center gap-1 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] rounded-full cursor-pointer w-12 h-12 md:w-16 md:h-16 ${isOpen
+                ? "bg-white/[0.07] hover:bg-white/[0.12] backdrop-blur-sm"
+                : "bg-black/80 hover:bg-black backdrop-blur-sm hover:scale-105 active:scale-95 ring-1 ring-white/[0.06] hover:ring-white/[0.12]"
+              }`}
+            onClick={toggleMenu}
+            style={
+              showBurger || isOpen
+                ? { clipPath: "circle(50% at 50% 50%)" }
+                : { clipPath: "circle(0% at 50% 50%)" }
+            }
+          >
+            <span
+              ref={topLineRef}
+              className="block w-5 md:w-6 h-[1.5px] bg-white rounded-full origin-center transition-all duration-300"
+            />
+            <span
+              ref={bottomLineRef}
+              className="block w-5 md:w-6 h-[1.5px] bg-white rounded-full origin-center transition-all duration-300"
+            />
+          </button>
+        </Magnetic>
+      </div>
     </>
   );
 };

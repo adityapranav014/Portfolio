@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 
 /**
@@ -33,20 +33,24 @@ const Magnetic = ({ children, strength = 0.5 }) => {
     };
 
     const currentMagnetic = magnetic.current;
-    if (currentMagnetic) {
+    if (currentMagnetic && typeof currentMagnetic.addEventListener === 'function') {
       currentMagnetic.addEventListener("mousemove", handleMouseMove);
       currentMagnetic.addEventListener("mouseleave", handleMouseLeave);
     }
 
     return () => {
-      if (currentMagnetic) {
+      if (currentMagnetic && typeof currentMagnetic.removeEventListener === 'function') {
         currentMagnetic.removeEventListener("mousemove", handleMouseMove);
         currentMagnetic.removeEventListener("mouseleave", handleMouseLeave);
       }
     };
   }, [strength]);
 
-  return React.cloneElement(children, { ref: magnetic });
+  return (
+    <div ref={magnetic} className="inline-flex items-center justify-center align-middle">
+      {children}
+    </div>
+  );
 };
 
 export default Magnetic;
