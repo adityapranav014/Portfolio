@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useLenis } from "lenis/react";
 import gsap from "gsap";
 import { Icon } from "@iconify/react";
+import Tooltip from "../components/ui/Tooltip";
 
 /**
  * ScrollUI - Scroll progress bar + back-to-top button.
@@ -74,25 +75,30 @@ const ScrollUI = () => {
         DarkLava fill → accent-gold on hover; thin cream border at rest.
         The arrow nudges up on hover for a subtle kinetic hint.
       */}
-            <button
-                ref={btnRef}
-                onClick={scrollToTop}
-                aria-label="Scroll back to top"
-                className="
-          fixed bottom-8 right-8 z-[9999]
-          group flex items-center justify-center
-          w-11 h-11 rounded-full
-          bg-[#393632] border border-[rgba(229,229,224,0.15)]
-          text-[#e5e5e0]
-          hover:bg-[#cfa355] hover:text-[#000000] hover:border-transparent
-          transition-colors duration-300 ease-out
-          opacity-0 invisible
-        "
-                style={{ willChange: "transform, opacity" }}
-            >
-                {/* Upward arrow */}
-                <Icon icon="ph:arrow-up-light" className="w-5 h-5 transition-transform duration-300 ease-out group-hover:-translate-y-0.5" />
-            </button>
+
+            <div className="fixed bottom-8 right-8 z-[9999]">
+                <Tooltip text="Back to top" position="top">
+                    <button
+                        ref={btnRef}
+                        onClick={scrollToTop}
+                        aria-label="Scroll back to top"
+                        className="
+              group flex items-center justify-center
+              w-11 h-11 rounded-full
+              bg-[#393632] border border-[rgba(229,229,224,0.15)]
+              text-[#e5e5e0]
+              hover:bg-[#cfa355] hover:text-[#000000] hover:border-transparent
+              transition-colors duration-300 ease-out
+              opacity-0 invisible
+            "
+                        style={{ willChange: "transform, opacity" }}
+                    >
+                        {/* Upward arrow */}
+                        <Icon icon="ph:arrow-up-light" className="w-5 h-5 transition-transform duration-300 ease-out group-hover:-translate-y-0.5" />
+                    </button>
+                </Tooltip>
+            </div>
+
         </>
     );
 };
