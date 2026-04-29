@@ -13,13 +13,19 @@ import Contact from "./sections/Contact";
 import Footer from "./components/Footer";
 import { ImageKitProvider } from "@imagekit/react";
 import Noise from "./components/Noise";
-import CustomCursor from "./components/CustomCursor";
+import ScrollUI from "./components/ScrollUI";
 import Transition from "./components/Transition";
 import Preloader from "./components/Preloader";
 import ProjectDetail from "./pages/ProjectDetail";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
+
+// Always start at the top on every page load/refresh
+if (typeof window !== "undefined") {
+  history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
+}
 
 // Konami code sequence
 const KONAMI = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
@@ -34,6 +40,7 @@ const HomePage = () => (
   <Transition>
     <ReactLenis root className="relative w-screen min-h-dvh overflow-x-auto">
       <LenisScrollSync />
+      <ScrollUI />
       <Navbar />
       <Hero />
       <ServiceSummary />
@@ -83,7 +90,6 @@ const App = () => {
   return (
     <ImageKitProvider urlEndpoint="https://ik.imagekit.io/gglxgr4rz">
       <Noise />
-      <CustomCursor />
 
       {/* Cinematic preloader — renders on top while app loads beneath */}
       {showPreloader && (
