@@ -33,9 +33,9 @@ const Works = () => {
       },
     });
   };
-  const text = `Featured projects that have been meticulously
-    crafted with passion to drive
-    results and impact.`;
+  const text = `I don't build generic websites. I launch lethal,
+    high-conversion market weapons engineered to captivate
+    audiences and crush revenue targets indiscriminately.`;
 
   const mouse = useRef({ x: 0, y: 0 });
   const moveX = useRef(null);
@@ -161,7 +161,7 @@ const Works = () => {
   return (
     <section id="work" ref={containerRef} className="flex flex-col min-h-dvh">
       <AnimatedHeaderSection
-        subTitle={"Logic meets Aesthetics, Seamlessly"}
+        subTitle={"An Arsenal of Digital Masterpieces"}
         title={"Works"}
         text={text}
         textColor={"text-black"}

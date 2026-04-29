@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { Link } from "react-scroll";
 import { Icon } from "@iconify/react";
 import Magnetic from "../components/ui/Magnetic";
+import Tooltip from "../components/ui/Tooltip";
 
 const navLinks = [
   { label: "Home", to: "home" },
@@ -23,6 +24,9 @@ const Navbar = () => {
   const bottomLineRef = useRef(null);
   const tl = useRef(null);
   const iconTl = useRef(null);
+  const labelTl = useRef(null);
+  const menuCharRefs = useRef([]);
+  const closeCharRefs = useRef([]);
   const [isOpen, setIsOpen] = useState(false);
   const [showBurger, setShowBurger] = useState(true);
 
@@ -34,6 +38,9 @@ const Navbar = () => {
     gsap.set(backdropRef.current, { autoAlpha: 0 });
     gsap.set(linkRowRefs.current, { autoAlpha: 0, x: 80, skewX: -4 });
     gsap.set(footerRef.current, { autoAlpha: 0, y: 40 });
+
+    // Label: CLOSE chars start below the fold
+    gsap.set(closeCharRefs.current, { yPercent: 130 });
 
     // Main open/close timeline
     tl.current = gsap
@@ -88,6 +95,30 @@ const Navbar = () => {
         { rotate: -45, y: -3.3, duration: 0.3, ease: "power2.inOut" },
         "<"
       );
+
+    // Label swap: MENU chars fly up & out, CLOSE chars fly up & in
+    labelTl.current = gsap
+      .timeline({ paused: true })
+      .to(
+        menuCharRefs.current,
+        {
+          yPercent: -130,
+          stagger: { each: 0.032, from: "end" },
+          duration: 0.28,
+          ease: "power2.in",
+        },
+        0
+      )
+      .to(
+        closeCharRefs.current,
+        {
+          yPercent: 0,
+          stagger: { each: 0.038, from: "start" },
+          duration: 0.36,
+          ease: "power3.out",
+        },
+        0.14
+      );
   }, []);
 
   // Scroll-hide burger
@@ -114,9 +145,11 @@ const Navbar = () => {
     if (isOpen) {
       tl.current.reverse();
       iconTl.current.reverse();
+      labelTl.current.reverse();
     } else {
       tl.current.play();
       iconTl.current.play();
+      labelTl.current.play();
     }
     setIsOpen(!isOpen);
   };
@@ -124,6 +157,7 @@ const Navbar = () => {
   const closeMenu = () => {
     tl.current.reverse();
     iconTl.current.reverse();
+    labelTl.current.reverse();
     setIsOpen(false);
   };
 
@@ -170,7 +204,7 @@ const Navbar = () => {
                   </span>
 
                   {/* Link label */}
-                  <span className="relative text-[clamp(2rem,5.5vh,4.5rem)] uppercase font-light tracking-tight text-white/70 transition-all duration-500 group-hover:text-white group-hover:tracking-wide">
+                  <span className="relative text-[clamp(2rem,5.5vh,4.5rem)] font-light tracking-tight text-white/70 transition-all duration-500 group-hover:text-white group-hover:tracking-wide">
                     {link.label}
                     {/* Underline reveal on hover */}
                     <span className="absolute bottom-0 left-0 h-px w-0 bg-accent transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:w-full" />
@@ -227,7 +261,7 @@ const Navbar = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Visit ${social.name} profile`}
-                      className="text-[12px] md:text-sm tracking-[0.15em] uppercase text-white/40 hover:text-white transition-colors duration-300"
+                      className="text-[12px] md:text-sm tracking-[0.15em] text-white/40 hover:text-white transition-colors duration-300"
                     >
                       {social.name}
                     </a>
@@ -239,34 +273,40 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Burger / Close button */}
-      <div className="fixed z-[60] top-5 right-[clamp(1.5rem,5vw,3rem)]">
+      {/* Burger / Close button + custom animated label */}
+      <div
+        className="fixed z-[60] top-5 right-[clamp(1.5rem,5vw,3rem)] flex items-center gap-3"
+        style={{
+          transition: "opacity 0.4s ease, transform 0.4s ease",
+          opacity: showBurger || isOpen ? 1 : 0,
+          pointerEvents: showBurger || isOpen ? "auto" : "none",
+          transform: showBurger || isOpen ? "translateY(0)" : "translateY(-6px)",
+        }}
+      >
+        {/* Burger button */}
         <Magnetic strength={0.4}>
-          <button
-            type="button"
-            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-            aria-expanded={isOpen}
-            aria-controls="main-nav"
-            className={`group flex flex-col items-center justify-center gap-1 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] rounded-full cursor-pointer w-12 h-12 md:w-16 md:h-16 ${isOpen
+          <Tooltip text={isOpen ? "Close menu" : "Open menu"} position="bottom">
+            <button
+              type="button"
+              aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={isOpen}
+              aria-controls="main-nav"
+              className={`group flex flex-col items-center justify-center gap-1 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] rounded-full cursor-pointer w-12 h-12 md:w-16 md:h-16 ${isOpen
                 ? "bg-white/[0.07] hover:bg-white/[0.12] backdrop-blur-sm"
                 : "bg-black/80 hover:bg-black backdrop-blur-sm hover:scale-105 active:scale-95 ring-1 ring-white/[0.06] hover:ring-white/[0.12]"
-              }`}
-            onClick={toggleMenu}
-            style={
-              showBurger || isOpen
-                ? { clipPath: "circle(50% at 50% 50%)" }
-                : { clipPath: "circle(0% at 50% 50%)" }
-            }
-          >
-            <span
-              ref={topLineRef}
-              className="block w-5 md:w-6 h-[1.5px] bg-white rounded-full origin-center transition-all duration-300"
-            />
-            <span
-              ref={bottomLineRef}
-              className="block w-5 md:w-6 h-[1.5px] bg-white rounded-full origin-center transition-all duration-300"
-            />
-          </button>
+                }`}
+              onClick={toggleMenu}
+            >
+              <span
+                ref={topLineRef}
+                className="block w-5 md:w-6 h-[1.5px] bg-white rounded-full origin-center transition-all duration-300"
+              />
+              <span
+                ref={bottomLineRef}
+                className="block w-5 md:w-6 h-[1.5px] bg-white rounded-full origin-center transition-all duration-300"
+              />
+            </button>
+          </Tooltip>
         </Magnetic>
       </div>
     </>

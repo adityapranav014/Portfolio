@@ -45,16 +45,9 @@ const AnimatedHeaderSection = ({
           ref={headerRef}
           className="flex flex-col justify-center gap-[clamp(1.5rem,3dvh,3rem)] pt-[clamp(2rem,6dvh,4rem)]"
         >
-          <div className={`flex items-center gap-3 pl-[clamp(1.5rem,5vw,6rem)] pr-[clamp(6rem,15vw,8rem)] ${textColor}`}>
-            <p
-              className="text-[clamp(0.6rem,1.2dvh,0.875rem)] font-light tracking-[0.5rem] uppercase pt-0.5"
-            >
-              {subTitle}
-            </p>
-          </div>
           <div className="pl-[clamp(1.5rem,5vw,6rem)] pr-[clamp(6rem,15vw,8rem)]">
             <Tag
-              className={`flex flex-col gap-[clamp(1rem,2.5dvh,3rem)] uppercase banner-text-responsive md:block pb-[clamp(0.5rem,2dvh,1.5rem)] ${textColor}`}
+              className={`flex flex-col gap-[clamp(1rem,2.5dvh,3rem)] banner-text-responsive md:block pb-[clamp(0.5rem,2dvh,1.5rem)] ${textColor}`}
             >
               {titleParts.map((part, index) => (
                 <span key={index} className="inline-block relative">
@@ -83,7 +76,7 @@ const AnimatedHeaderSection = ({
         <div className="py-[clamp(1.5rem,4dvh,4rem)] text-left md:text-end overflow-hidden">
           <AnimatedTextLines
             text={text}
-            className={`font-light uppercase value-text-responsive ${textColor}`}
+            className={`font-light value-text-responsive ${textColor}`}
           />
         </div>
       </div>

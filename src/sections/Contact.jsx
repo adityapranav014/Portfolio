@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { VideoHover } from "../components/ui/image-reveal";
 import { Icon } from "@iconify/react";
 import Magnetic from "../components/ui/Magnetic";
+import Tooltip from "../components/ui/Tooltip";
 
 const Contact = () => {
   const [hasCopied, setHasCopied] = useState(false);
@@ -22,9 +23,9 @@ const Contact = () => {
     setHasCopiedPhone(true);
     setTimeout(() => setHasCopiedPhone(false), 2000);
   };
-  const text = `Got a project idea or want to collaborate?
-    Let's talk and build something 
-    worth noticing.`;
+  const text = `Ready to dominate your market? Secure my expertise 
+    to architect a relentless digital weapon that will 
+    leave your competition entirely obsolete.`;
   useGSAP(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -86,14 +87,14 @@ const Contact = () => {
     >
       <div>
         <AnimatedHeaderSection
-          subTitle={"You Dream It, I Code it"}
+          subTitle={"Command Your Digital Empire"}
           title={"Contact"}
           text={text}
           textColor={"text-white"}
           withScrollTrigger={true}
         />
         <div
-          className="relative px-10 font-light text-white uppercase lg:text-[32px] text-[26px] leading-none mb-10"
+          className="relative px-10 font-light text-white lg:text-[32px] text-[26px] leading-none mb-10"
           ref={containerRef}
         >
           <VideoHover className="contact-video md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 w-full md:w-[45%] max-w-[1360px] block z-30 mb-10 md:mb-0 aspect-[1360/480]">
@@ -121,18 +122,19 @@ const Contact = () => {
                   adityapranav014@gmail.com
                 </a>
                 <Magnetic strength={0.4}>
-                  <button
-                    onClick={handleCopy}
-                    className="group/copy relative flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.12] transition-all duration-300 active:scale-90 shrink-0"
-                    title={hasCopied ? "Copied!" : "Copy email"}
-                    aria-label="Copy email address"
-                  >
-                    {hasCopied ? (
-                      <Icon icon="ph:check-light" className="w-4 h-4 text-[#4ade80]" />
-                    ) : (
-                      <Icon icon="ph:copy-light" className="w-4 h-4 text-white/50 group-hover/copy:text-white transition-colors duration-300" />
-                    )}
-                  </button>
+                  <Tooltip text={hasCopied ? "Copied!" : "Copy email"}>
+                    <button
+                      onClick={handleCopy}
+                      className="group/copy relative flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.12] transition-all duration-300 active:scale-90 shrink-0"
+                      aria-label="Copy email address"
+                    >
+                      {hasCopied ? (
+                        <Icon icon="ph:check-light" className="w-4 h-4 text-[#4ade80]" />
+                      ) : (
+                        <Icon icon="ph:copy-light" className="w-4 h-4 text-white/50 group-hover/copy:text-white transition-colors duration-300" />
+                      )}
+                    </button>
+                  </Tooltip>
                 </Magnetic>
               </div>
             </div>
@@ -148,18 +150,19 @@ const Contact = () => {
                   +91 62002 84805
                 </a>
                 <Magnetic strength={0.4}>
-                  <button
-                    onClick={handleCopyPhone}
-                    className="group/copy relative flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.12] transition-all duration-300 active:scale-90 shrink-0"
-                    title={hasCopiedPhone ? "Copied!" : "Copy phone number"}
-                    aria-label="Copy phone number"
-                  >
-                    {hasCopiedPhone ? (
-                      <Icon icon="ph:check-light" className="w-4 h-4 text-[#4ade80]" />
-                    ) : (
-                      <Icon icon="ph:copy-light" className="w-4 h-4 text-white/50 group-hover/copy:text-white transition-colors duration-300" />
-                    )}
-                  </button>
+                  <Tooltip text={hasCopiedPhone ? "Copied!" : "Copy phone number"}>
+                    <button
+                      onClick={handleCopyPhone}
+                      className="group/copy relative flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.12] transition-all duration-300 active:scale-90 shrink-0"
+                      aria-label="Copy phone number"
+                    >
+                      {hasCopiedPhone ? (
+                        <Icon icon="ph:check-light" className="w-4 h-4 text-[#4ade80]" />
+                      ) : (
+                        <Icon icon="ph:copy-light" className="w-4 h-4 text-white/50 group-hover/copy:text-white transition-colors duration-300" />
+                      )}
+                    </button>
+                  </Tooltip>
                 </Magnetic>
               </div>
             </div>
@@ -174,7 +177,7 @@ const Contact = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Visit ${social.name} profile`}
-                      className="text-xs leading-loose tracking-widest uppercase md:text-sm text-white/60 hover:text-accent transition-colors duration-300"
+                      className="text-xs leading-loose tracking-widest md:text-sm text-white/60 hover:text-accent transition-colors duration-300"
                     >
                       {social.name}
                     </a>

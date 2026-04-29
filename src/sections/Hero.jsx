@@ -12,9 +12,9 @@ const Hero = () => {
   const ctaRef = useRef(null);
   const pillRef = useRef(null);
 
-  const text = `I craft immersive digital experiences that
-    bridge the gap between logic and human emotion,
-    delivering bespoke products for brands that dare to lead.`;
+  const text = `I forge category-defining digital empires that manipulate 
+    psychology and raw compute power, arming visionary 
+    leaders with products their competitors will fear.`;
 
   useEffect(() => {
     // Hold all content invisible until preloader exits
@@ -102,68 +102,113 @@ const Hero = () => {
       {/* Base gradient – bottom darkening for text readability only */}
       <div className="pointer-events-none absolute inset-0 -z-40 bg-gradient-to-b from-transparent via-transparent to-black/65" />
 
-      {/* ── AWWWARDS-STYLE DIRECTIONAL LIGHT (TOP-RIGHT SOURCE) ──────────── */}
+      {/* ── REALISTIC VOLUMETRIC SUN LIGHT (TOP-RIGHT SOURCE) ──────────── */}
 
-      {/* 1. Primary light orb — large warm-gold radial, slowly breathes */}
+      {/* ── NATURAL "RAY OF HOPE" VOLUMETRIC LIGHTING ──────────── */}
+
+      {/* Core Sun Brightness - Soft, pure light breaking the clouds */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute mix-blend-screen"
         style={{
+          top: "20%",
+          left: "80%",
+          width: "70vw",
+          height: "70vw",
+          transform: "translate(-50%, -50%)",
           zIndex: -35,
-          background:
-            "radial-gradient(ellipse 85% 75% at 108% -8%, rgba(207,163,85,0.22) 0%, rgba(207,163,85,0.09) 35%, transparent 65%)",
-          animation: "hero-light-breathe 7s ease-in-out infinite",
+          background: "radial-gradient(circle closest-side, rgba(255,252,240,0.6) 0%, rgba(207,163,85,0.2) 40%, transparent 100%)",
+          animation: "sun-flare-pulse 8s ease-in-out infinite",
+          filter: "blur(40px)",
         }}
       />
 
-      {/* 2. Specular hotspot — crisp bright point at the corner itself */}
+      {/* Inner Hotspot for realism */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute mix-blend-screen"
+        style={{
+          top: "20%",
+          left: "80%",
+          width: "25vw",
+          height: "25vw",
+          transform: "translate(-50%, -50%)",
+          zIndex: -34,
+          background: "radial-gradient(circle closest-side, rgba(255,255,255,0.9) 0%, rgba(255,245,210,0.4) 40%, transparent 100%)",
+          filter: "blur(15px)",
+        }}
+      />
+
+      {/* Main Ray of Hope - Desktop (Aimed perfectly at face area at ~-38deg) */}
+      <div
+        className="pointer-events-none absolute inset-0 hidden md:block mix-blend-screen"
         style={{
           zIndex: -34,
-          background:
-            "radial-gradient(circle 28% at 100% 0%, rgba(255,248,220,0.18) 0%, rgba(255,235,170,0.08) 40%, transparent 70%)",
+          background: "radial-gradient(ellipse 120% 25% at 80% 20%, rgba(255,252,240,0.2) 0%, rgba(207,163,85,0.08) 40%, transparent 80%)",
+          transformOrigin: "80% 20%",
+          transform: "rotate(-38deg)",
+          filter: "blur(40px)",
+          animation: "hero-light-breathe 10s ease-in-out infinite",
         }}
       />
 
-      {/* 3. Rim-light streak — diagonal linear cutting from top-right toward center */}
+      {/* Secondary Inner Ray - Desktop (Tighter, brighter core to the beam) */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 hidden md:block mix-blend-screen"
         style={{
           zIndex: -33,
-          background:
-            "linear-gradient(218deg, rgba(255,238,185,0.12) 0%, rgba(207,163,85,0.05) 25%, transparent 45%)",
-          animation: "hero-ray-drift 9s ease-in-out infinite",
-          transformOrigin: "top right",
+          background: "radial-gradient(ellipse 100% 12% at 80% 20%, rgba(255,255,255,0.25) 0%, rgba(207,163,85,0.1) 50%, transparent 80%)",
+          transformOrigin: "80% 20%",
+          transform: "rotate(-40deg)",
+          filter: "blur(20px)",
+          animation: "hero-light-breathe 8s ease-in-out infinite alternate-reverse",
         }}
       />
 
-      {/* 4. Counter-shadow — deep darkness from bottom-left (chiaroscuro contrast) */}
+      {/* Main Ray - Mobile (Points more vertically downward) */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 md:hidden mix-blend-screen"
         style={{
-          zIndex: -33,
-          background:
-            "radial-gradient(ellipse 70% 60% at -8% 108%, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 40%, transparent 60%)",
+          zIndex: -34,
+          background: "radial-gradient(ellipse 140% 35% at 80% 20%, rgba(255,252,240,0.15) 0%, rgba(207,163,85,0.08) 45%, transparent 80%)",
+          transformOrigin: "80% 20%",
+          transform: "rotate(-75deg)",
+          filter: "blur(40px)",
+          animation: "hero-light-breathe 10s ease-in-out infinite",
         }}
       />
 
-      {/* 5. Mid-scene shadow — left-center darkness directs the eye toward the light */}
+      {/* Atmospheric Gold Wash */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 mix-blend-overlay"
         style={{
           zIndex: -33,
-          background:
-            "radial-gradient(ellipse 55% 45% at 5% 52%, rgba(0,0,0,0.30) 0%, transparent 55%)",
+          background: "radial-gradient(ellipse 100% 100% at 80% 20%, rgba(207,163,85,0.2) 0%, transparent 70%)",
+        }}
+      />
+
+      {/* Deep Shadow Contrast for Volumetric Pop */}
+      <div
+        className="pointer-events-none absolute inset-0 mix-blend-multiply"
+        style={{
+          zIndex: -32,
+          background: "radial-gradient(ellipse 80% 70% at -10% 110%, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 75%)",
+        }}
+      />
+      {/* 7. Text Legibility Gradient - A subtle dark scrim pinned to the right edge wrapping the paragraph */}
+      <div
+        className="pointer-events-none absolute inset-0 mix-blend-multiply"
+        style={{
+          zIndex: -31,
+          background: "radial-gradient(ellipse 70% 60% at 85% 45%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 45%, transparent 80%)",
         }}
       />
       {/* ────────────────────────────────────────────────────────────────────── */}
 
-      <div ref={headerRef}>
+      <div ref={headerRef} className="relative z-10">
         <AnimatedHeaderSection
-          subTitle={"Full-Stack Developer & Creative Technologist"}
+          subTitle={"Architect of Digital Dominance"}
           title={"Aditya Pranav"}
           text={text}
-          textColor={"text-white"}
+          textColor={"text-white [text-shadow:0_4px_24px_rgba(0,0,0,1),0_2px_6px_rgba(0,0,0,0.5)]"}
           headingTag="h1"
         />
       </div>

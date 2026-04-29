@@ -56,6 +56,12 @@ const HomePage = () => (
 const App = () => {
   const [showPreloader, setShowPreloader] = useState(true);
   const konamiIndex = useRef(0);
+
+  // Lock body scroll while preloader is active
+  useEffect(() => {
+    document.body.style.overflow = showPreloader ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [showPreloader]);
   const easterRef = useRef(null);
 
   // Easter egg - Konami code triggers a brief colour-inversion flash

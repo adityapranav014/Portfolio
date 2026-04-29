@@ -1,9 +1,9 @@
 // index.js
 export const servicesData = [
   {
-    title: "FullStack Development",
+    title: "Enterprise Architecture",
     description:
-      "Your business deserves a fast, secure, and future-proof digital foundation. I architect custom web applications with clean separation of concerns, optimised data layers, and battle-tested integrations, so every layer holds under real-world pressure.",
+      "Your enterprise deserves infrastructure built for total market dominance. I architect military-grade, hyper-scalable web applications with ironclad data layers and flawless integrations ensuring your digital empire stands impenetrable under any load.",
     items: [
       {
         title: "Backend Engineering",
@@ -20,9 +20,9 @@ export const servicesData = [
     ],
   },
   {
-    title: "DevOps & Cloud",
+    title: "Cloud Hegemony & DevOps",
     description:
-      "Shipping software shouldn't keep you up at night. I automate infrastructure, enforce security at every gate, and leverage cloud platforms so your product runs clean, 24/7, at any scale, without surprises.",
+      "I obliterate deployment downtime and engineer automated ecosystems that scale ruthlessly. By hardening security at every vector and maximizing cloud orchestration, your platform operates flawlessly 24/7 without fail.",
     items: [
       {
         title: "CI/CD Pipelines",
@@ -39,9 +39,9 @@ export const servicesData = [
     ],
   },
   {
-    title: "Security & Optimisation",
+    title: "Cyber Security & Optimisation",
     description:
-      "Slow or compromised apps erode trust quietly and fast. I harden every surface (XSS/SQLi protection, OAuth flows, rate limiting) then optimise bottlenecks until the numbers stop being excuses.",
+      "A compromised system is brand suicide. I construct impregnable digital fortresses with aggressive threat mitigation and optimize every computational bottleneck until your application executes with terrifying efficiency.",
     items: [
       {
         title: "Code Audits",
@@ -58,9 +58,9 @@ export const servicesData = [
     ],
   },
   {
-    title: "Web & Mobile Apps",
+    title: "Elite Web & Mobile Apps",
     description:
-      "A clunky interface can sink the best ideas. I craft responsive, pixel-precise web and mobile applications that users actually enjoy, bridging interaction design and engineering without the usual trade-offs.",
+      "Mediocre user experiences bleed capital. I forge breathtaking, high-fidelity web and mobile applications that psychologically anchor users, obliterating friction to drive exponential conversion and absolute brand loyalty.",
     items: [
       {
         title: "Cross-Platform Apps",
@@ -86,7 +86,7 @@ export const projects = [
     role: "Full-Stack Development",
     year: "2024",
     description:
-      "A high-conversion storefront for phone accessories (cases, chargers, and MagSafe-compatible gear) with real-time inventory, smart recommendations, and a sub-2s load time on 3G.",
+      "A mercilessly fast, high-converting revenue engine for premium mobile tech. Engineered with real-time global inventory logic, predictive recommendations, and aggressively optimized load architectures.",
     fullDescription:
       "The client needed a storefront that could handle product variants, bundle deals, and MagSafe compatibility filtering without slowing the browse experience. I architected a Next.js front-end backed by a Node.js/MongoDB API, with server-side rendering on category pages for SEO and client-side transitions for speed. The recommendation engine queries purchase history to surface related accessories per device model. Result: a sub-2-second first paint on 3G and a 34% increase in average order value from bundle suggestions.",
     href: "",
@@ -107,7 +107,7 @@ export const projects = [
     role: "Full-Stack Development",
     year: "2024",
     description:
-      "A botanically-inspired storefront for rare and decorative plants. Stripe-powered checkout, care-guide CMS, and a clean browsing experience that converts browsers into buyers.",
+      "A boutique digital flagship engineered to psychologically optimize botanical acquisitions. Integrates frictionless Stripe capital flows with organic editorial architectures to monopolize market share.",
     fullDescription:
       "A boutique plant retailer wanted a digital presence as considered as their curation. I built a Next.js storefront with a headless CMS for care guides, Stripe for checkout, and an editorial-first layout that foregrounds photography. Lazy-loaded image grids and optimistic UI on the cart made the experience feel native despite the lean infrastructure. The care-guide section became the highest-traffic page, doubling as SEO content that drove 60% of organic acquisition.",
     href: "",
@@ -127,7 +127,7 @@ export const projects = [
     role: "Frontend & Integration",
     year: "2023",
     description:
-      "A curated marketplace for Apple products and accessories with live deal feeds, smart category filtering, and a Blazor-powered admin dashboard built for speed.",
+      "A high-frequency trading platform for elite consumer electronics. Deploys real-time websocket pricing feeds and zero-latency filtering to maximize arbitrary transaction velocities.",
     fullDescription:
       "Working within a .NET stack, I built a Blazor WebAssembly front-end that communicates with an ASP.NET Core API and SQL Server database. The focus was performance: virtual scrolling on long product lists, debounced filter chains, and a SignalR-powered deal ticker that updates prices without page refreshes. The admin dashboard gives non-technical staff full control over promotions, inventory, and featured slots.",
     href: "",
@@ -147,7 +147,7 @@ export const projects = [
     role: "Full-Stack Development",
     year: "2023",
     description:
-      "A multi-category retail platform covering electronics, home appliances, and gaming gear, featuring dynamic flash-sale engine, faceted search, and a Laravel admin built for non-technical ops teams.",
+      "A sprawling retail empire architecture executing dynamic scarcity protocols, algorithmic flash-sales, and uncompromising faceted analytics to corner the regional technology sector.",
     fullDescription:
       "A regional electronics retailer needed a platform that could run time-limited flash sales across multiple product categories simultaneously. I built the Vue.js front-end with Vuex state management and a Laravel API that powered the sale-countdown logic, faceted search, and inventory reservation. The admin panel lets ops staff schedule sales weeks in advance with zero developer involvement. The flash-sale feature drove a 3× spike in daily revenue on launch day.",
     href: "",
@@ -167,7 +167,7 @@ export const projects = [
     role: "Frontend Development",
     year: "2023",
     description:
-      "A curated platform for designer furniture and artisan homeware with GraphQL-powered filtering, editorial product photography layout, and real-time wishlist syncing via Firebase.",
+      "A fiercely elegant digital showroom for hyper-luxury artisanal homewares. Designed with GraphQL-powered liquidity and editorial spacing that manipulates desire and compels premium acquisitions.",
     fullDescription:
       "The brief was editorial-first: product photography needed to lead, not compete with UI chrome. I built an Angular application with a GraphQL layer over Firebase, enabling real-time wishlist syncing across devices. The filtering system uses a faceted GraphQL query that composes from URL params, so every filter state is shareable and indexable. The whitespace-heavy layout and full-bleed imagery drove a 22% improvement in session duration versus the previous site.",
     href: "",
@@ -187,7 +187,7 @@ export const projects = [
     role: "Full-Stack Development",
     year: "2022",
     description:
-      "A gaming platform with discounted titles, genre-based discovery, and a live top-sellers feed, with Svelte's reactivity keeping every interaction instant, no page reloads needed.",
+      "A relentless distribution platform for digital entertainment. Deploys compile-time Svelte reactivity and raw WebSocket thrusters to deliver an instantaneous, reload-free purchasing flow.",
     fullDescription:
       "A gaming startup wanted a store that felt as fast as the games it sold. Svelte's compile-time reactivity eliminated virtual DOM overhead, giving near-instant filter and search responses. The Node.js backend serves a top-sellers feed over WebSocket, updating the homepage chart in real time without polling. Genre-based discovery uses a tag graph to surface related titles beyond simple category matches. The platform launched with 10k concurrent users on opening weekend with zero downtime.",
     href: "",

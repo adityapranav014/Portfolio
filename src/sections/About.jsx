@@ -26,9 +26,9 @@ const whenItems = [
 ];
 
 const About = () => {
-  const text = `Passionate about clean architecture, I build scalable,
-    high-performance solutions from 
-    prototype to production`;
+  const text = `I am the architect behind elite digital armories, 
+    fusing mathematical precision with cinematic motion 
+    to convert casual onlookers into brand zealots.`;
   const imgRef = useRef(null);
   const introRef = useRef(null);
   const labelRef = useRef(null);
@@ -91,7 +91,7 @@ const About = () => {
   return (
     <section id="about" className="min-h-screen bg-black rounded-b-4xl">
       <AnimatedHeaderSection
-        subTitle={"Code with purpose, Built to scale"}
+        subTitle={"Engineered to Lead, Scaled to Dominate"}
         title={"About"}
         text={text}
         textColor={"text-white"}

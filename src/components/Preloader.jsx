@@ -95,20 +95,20 @@ const Preloader = ({ onComplete }) => {
             {/* Top half panel */}
             <div
                 ref={topPanelRef}
-                className="fixed inset-x-0 top-0 h-1/2 z-[9999] bg-black"
+                className="fixed inset-x-0 top-0 h-1/2 z-[10001] bg-black"
                 aria-hidden="true"
             />
             {/* Bottom half panel */}
             <div
                 ref={btmPanelRef}
-                className="fixed inset-x-0 bottom-0 h-1/2 z-[9999] bg-black"
+                className="fixed inset-x-0 bottom-0 h-1/2 z-[10001] bg-black"
                 aria-hidden="true"
             />
 
             {/* Content layer - sits on top of both panels */}
             <div
                 ref={contentRef}
-                className="fixed inset-0 z-[10000] flex flex-col justify-between px-8 py-8 md:px-14 md:py-10 pointer-events-none select-none"
+                className="fixed inset-0 z-[10002] flex flex-col justify-between px-8 py-8 md:px-14 md:py-10 pointer-events-none select-none"
                 aria-hidden="true"
             >
                 {/* Top bar */}
@@ -142,7 +142,7 @@ const Preloader = ({ onComplete }) => {
                     {/* Sub-label */}
                     <p
                         ref={labelRef}
-                        className="text-[9px] md:text-[10px] uppercase tracking-[0.45em] text-white/35 font-light text-center"
+                        className="text-[9px] md:text-[10px] tracking-[0.45em] text-white/35 font-light text-center"
                     >
                         Loading portfolio of&nbsp;Aditya&nbsp;Pranav
                     </p>

@@ -105,7 +105,7 @@ const ProjectDetail = () => {
                 <div className="fixed top-8 left-8 md:top-12 md:left-12 z-50 mix-blend-difference">
                     <button
                         onClick={goHome}
-                        className="flex items-center gap-2 text-xs uppercase tracking-widest text-white hover:opacity-70 transition-opacity duration-300 cursor-none group"
+                        className="flex items-center gap-2 text-xs tracking-widest text-white hover:opacity-70 transition-opacity duration-300 cursor-none group"
                     >
                         <div className="size-5 flex items-center justify-center">
                             <Icon icon="ph:arrow-left-light" className="w-5 h-5" />
@@ -119,7 +119,7 @@ const ProjectDetail = () => {
                     <div className="overflow-hidden mb-10 md:mb-16 pb-4">
                         <h1
                             ref={headerRef}
-                            className="text-[12vw] sm:text-[10vw] md:text-[9vw] lg:text-[8vw] uppercase font-light leading-none tracking-tighter"
+                            className="text-[12vw] sm:text-[10vw] md:text-[9vw] lg:text-[8vw] font-light leading-none tracking-tighter"
                         >
                             {project.name}
                         </h1>
