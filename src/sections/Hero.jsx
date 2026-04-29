@@ -3,6 +3,8 @@ import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
 import { Link } from "react-scroll";
 import { CanvasLines } from "../components/ui/canvas";
 import gsap from "gsap";
+import { Icon } from "@iconify/react";
+import Magnetic from "../components/ui/Magnetic";
 
 const Hero = () => {
   const videoRef = useRef(null);
@@ -10,9 +12,9 @@ const Hero = () => {
   const ctaRef = useRef(null);
   const pillRef = useRef(null);
 
-  const text = `I help growing brands and startups gain an
-unfair advantage through premium
-AI-native digital products.`;
+  const text = `I craft immersive digital experiences that
+    bridge the gap between logic and human emotion,
+    delivering bespoke products for brands that dare to lead.`;
 
   useEffect(() => {
     // Hold all content invisible until preloader exits
@@ -25,33 +27,49 @@ AI-native digital products.`;
     const onAnimate = () => {
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
-      // Video slowly releases its scale — cinematic Ken Burns feel
-      tl.to(videoRef.current, {
-        scale: 1,
-        duration: 2.8,
-        ease: "power3.out",
-      }, 0);
+      // Video slowly releases its scale - cinematic Ken Burns feel
+      tl.to(
+        videoRef.current,
+        {
+          scale: 1,
+          duration: 2.8,
+          ease: "power3.out",
+        },
+        0
+      );
 
       // Header text block rises in
-      tl.to(headerRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 1.4,
-      }, 0);
+      tl.to(
+        headerRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.4,
+        },
+        0
+      );
 
       // CTAs stagger slightly behind header
-      tl.to(ctaRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 1.1,
-      }, 0.22);
+      tl.to(
+        ctaRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.1,
+        },
+        0.22
+      );
 
-      // Availability pill last — lightest element, shortest travel
-      tl.to(pillRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-      }, 0.38);
+      // Availability pill last - lightest element, shortest travel
+      tl.to(
+        pillRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+        },
+        0.38
+      );
     };
 
     if (window.isPreloaderDone) {
@@ -63,7 +81,10 @@ AI-native digital products.`;
   }, []);
 
   return (
-    <section id="home" className="relative flex flex-col min-h-dvh overflow-hidden">
+    <section
+      id="home"
+      className="relative flex flex-col min-h-dvh overflow-hidden"
+    >
       {/* Background video */}
       <video
         ref={videoRef}
@@ -73,10 +94,69 @@ AI-native digital products.`;
         playsInline
         className="absolute inset-0 h-full w-full object-cover -z-50"
       >
-        <source src="https://ik.imagekit.io/gglxgr4rz/Portfolio/hero.mp4" type="video/mp4" />
+        <source
+          src="https://ik.imagekit.io/gglxgr4rz/Portfolio/hero.mp4"
+          type="video/mp4"
+        />
       </video>
-      {/* Gradient overlay for text readability */}
-      <div className="pointer-events-none absolute inset-0 -z-40 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
+      {/* Base gradient – bottom darkening for text readability only */}
+      <div className="pointer-events-none absolute inset-0 -z-40 bg-gradient-to-b from-transparent via-transparent to-black/65" />
+
+      {/* ── AWWWARDS-STYLE DIRECTIONAL LIGHT (TOP-RIGHT SOURCE) ──────────── */}
+
+      {/* 1. Primary light orb — large warm-gold radial, slowly breathes */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          zIndex: -35,
+          background:
+            "radial-gradient(ellipse 85% 75% at 108% -8%, rgba(207,163,85,0.22) 0%, rgba(207,163,85,0.09) 35%, transparent 65%)",
+          animation: "hero-light-breathe 7s ease-in-out infinite",
+        }}
+      />
+
+      {/* 2. Specular hotspot — crisp bright point at the corner itself */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          zIndex: -34,
+          background:
+            "radial-gradient(circle 28% at 100% 0%, rgba(255,248,220,0.18) 0%, rgba(255,235,170,0.08) 40%, transparent 70%)",
+        }}
+      />
+
+      {/* 3. Rim-light streak — diagonal linear cutting from top-right toward center */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          zIndex: -33,
+          background:
+            "linear-gradient(218deg, rgba(255,238,185,0.12) 0%, rgba(207,163,85,0.05) 25%, transparent 45%)",
+          animation: "hero-ray-drift 9s ease-in-out infinite",
+          transformOrigin: "top right",
+        }}
+      />
+
+      {/* 4. Counter-shadow — deep darkness from bottom-left (chiaroscuro contrast) */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          zIndex: -33,
+          background:
+            "radial-gradient(ellipse 70% 60% at -8% 108%, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 40%, transparent 60%)",
+        }}
+      />
+
+      {/* 5. Mid-scene shadow — left-center darkness directs the eye toward the light */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          zIndex: -33,
+          background:
+            "radial-gradient(ellipse 55% 45% at 5% 52%, rgba(0,0,0,0.30) 0%, transparent 55%)",
+        }}
+      />
+      {/* ────────────────────────────────────────────────────────────────────── */}
 
       <div ref={headerRef}>
         <AnimatedHeaderSection
@@ -89,49 +169,64 @@ AI-native digital products.`;
       </div>
 
       {/* CTA row */}
-      <div ref={ctaRef} className="mt-auto flex items-center flex-wrap gap-[clamp(1rem,3dvh,1.5rem)] px-[clamp(1.5rem,5vw,6rem)] pb-[clamp(1rem,2dvh,1.5rem)]">
-        {/* Primary CTA — vertical fill sweep on hover */}
-        <Link
-          to="contact"
-          smooth
-          duration={1800}
-          offset={0}
-          className="group relative flex items-center gap-3 bg-white text-black px-[clamp(1rem,3vw,1.75rem)] py-[clamp(0.6rem,1.5dvh,0.875rem)] overflow-hidden cursor-pointer select-none"
-          data-cursor-label="Let's go"
-        >
-          <span className="relative z-10 text-[clamp(0.5rem,1.2dvh,10px)] uppercase tracking-[0.22em] font-light transition-colors duration-500">
-            Start a Project
-          </span>
-          <span className="relative z-10 text-[clamp(0.6rem,1.5dvh,14px)] transition-transform duration-300 group-hover:translate-x-1">
-            →
-          </span>
-          {/* accent sweep */}
-          <span className="absolute inset-0 bg-accent translate-y-[102%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
-        </Link>
+      <div
+        ref={ctaRef}
+        className="mt-auto flex items-center flex-wrap gap-[clamp(1rem,3dvh,1.5rem)] px-[clamp(1.5rem,5vw,6rem)] pb-[clamp(1rem,2dvh,1.5rem)]"
+      >
+        {/* Primary CTA - vertical fill sweep on hover */}
+        <Magnetic strength={0.3}>
+          <Link
+            to="contact"
+            smooth
+            duration={1800}
+            offset={0}
+            className="group relative flex items-center gap-3 bg-white text-black px-[clamp(1.2rem,3.5vw,2rem)] py-[clamp(0.7rem,1.8dvh,1rem)] overflow-hidden cursor-pointer select-none"
+            data-cursor-label="Let's go"
+          >
+            <span className="relative z-10 text-[clamp(0.5rem,1.2dvh,10px)] uppercase tracking-[0.22em] font-medium transition-colors duration-500">
+              Start a Project
+            </span>
+            <span className="relative z-10 text-[clamp(0.6rem,1.5dvh,14px)] transition-transform duration-300 group-hover:translate-x-1 flex items-center">
+              <Icon
+                icon="ph:arrow-right-light"
+                className="w-[1.2em] h-[1.2em]"
+              />
+            </span>
+            {/* accent sweep */}
+            <span className="absolute inset-0 bg-accent translate-y-[102%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
+          </Link>
+        </Magnetic>
 
-        {/* Secondary CTA — animated underline text link */}
-        <Link
-          to="work"
-          smooth
-          duration={1600}
-          offset={0}
-          className="group flex items-center gap-2 cursor-pointer select-none"
-        >
-          <span className="relative text-[clamp(0.5rem,1.2dvh,10px)] uppercase tracking-[0.22em] font-light text-white/70 group-hover:text-white transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-all after:duration-400 group-hover:after:w-full">
-            View My Work
-          </span>
-          <span className="text-white/40 group-hover:text-white text-[clamp(0.6rem,1.5dvh,12px)] transition-all duration-300 group-hover:translate-y-0.5">↓</span>
-        </Link>
+        {/* Secondary CTA - animated underline text link */}
+        <Magnetic strength={0.2}>
+          <Link
+            to="work"
+            smooth
+            duration={1600}
+            offset={0}
+            className="group flex items-center gap-2 cursor-pointer select-none"
+          >
+            <span className="relative text-[clamp(0.5rem,1.2dvh,10px)] uppercase tracking-[0.22em] font-light text-white/70 group-hover:text-white transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-all after:duration-400 group-hover:after:w-full">
+              View My Work
+            </span>
+            <span className="text-white/40 group-hover:text-white text-[clamp(0.6rem,1.5dvh,12px)] transition-all duration-300 group-hover:translate-y-0.5 flex items-center">
+              <Icon icon="ph:arrow-down-light" className="w-[1.2em] h-[1.2em]" />
+            </span>
+          </Link>
+        </Magnetic>
       </div>
 
       {/* Availability pill */}
-      <div ref={pillRef} className="flex items-center gap-2.5 px-[clamp(1.5rem,5vw,6rem)] pb-[clamp(1.5rem,4dvh,2rem)]">
+      <div
+        ref={pillRef}
+        className="flex items-center gap-2.5 px-[clamp(1.5rem,5vw,6rem)] pb-[clamp(1.5rem,4dvh,2rem)]"
+      >
         <span className="relative flex h-[clamp(0.5rem,1.5dvh,0.75rem)] w-[clamp(0.5rem,1.5dvh,0.75rem)] items-center justify-center">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
           <span className="relative inline-flex h-[clamp(0.4rem,1.2dvh,0.5rem)] w-[clamp(0.4rem,1.2dvh,0.5rem)] rounded-full bg-green-400"></span>
         </span>
         <span className="text-[clamp(0.6rem,1.3dvh,0.75rem)] uppercase tracking-widest text-white/50 font-light">
-          Available for work — May 2026
+          Available for work • May 2026
         </span>
       </div>
       <CanvasLines />

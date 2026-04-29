@@ -1,5 +1,5 @@
 /**
- * Footer — minimal, editorial footer with year and copyright.
+ * Footer - minimal, editorial footer with year and copyright.
  * Follows the design language of the rest of the site.
  */
 const Footer = () => {

@@ -37,7 +37,7 @@ export const AnimatedTextLines = ({ text, className }) => {
           {line}
         </span>
       ))}
-      {/* Mobile: single flowing block — browser wraps naturally */}
+      {/* Mobile: single flowing block - browser wraps naturally */}
       <span
         ref={(el) => (lineRefs.current[lines.length] = el)}
         className="block md:hidden leading-relaxed tracking-wide text-balance"

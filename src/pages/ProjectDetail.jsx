@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { projects } from "../constants";
 import Transition from "../components/Transition";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import UseAnimations from "react-useanimations";
+import arrowUp from "react-useanimations/lib/arrowUp";
 
 const ProjectDetail = () => {
     const { slug } = useParams();
@@ -103,9 +105,11 @@ const ProjectDetail = () => {
                 <div className="fixed top-8 left-8 md:top-12 md:left-12 z-50 mix-blend-difference">
                     <button
                         onClick={goHome}
-                        className="flex items-center gap-2 text-xs uppercase tracking-widest text-white hover:opacity-70 transition-opacity duration-300 cursor-none"
+                        className="flex items-center gap-2 text-xs uppercase tracking-widest text-white hover:opacity-70 transition-opacity duration-300 cursor-none group"
                     >
-                        <Icon icon="lucide:arrow-left" className="size-4" />
+                        <div className="size-5 flex items-center justify-center">
+                            <Icon icon="ph:arrow-left-light" className="w-5 h-5" />
+                        </div>
                         <span className="hidden md:inline">Back to Index</span>
                     </button>
                 </div>
@@ -163,7 +167,9 @@ const ProjectDetail = () => {
                                         className="inline-flex items-center gap-3 text-xs uppercase tracking-widest border border-black px-6 py-3 hover:bg-black hover:text-white transition-all duration-500 cursor-none group"
                                     >
                                         Visit Live Site
-                                        <Icon icon="lucide:arrow-up-right" className="size-3 sm:size-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
+                                        <div className="size-4 sm:size-5 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500 rotate-45">
+                                            <UseAnimations animation={arrowUp} size={20} strokeColor="currentColor" autoplay={true} loop={true} />
+                                        </div>
                                     </a>
                                 </div>
                             )}
@@ -190,8 +196,8 @@ const ProjectDetail = () => {
                                 onClick={() => navigateWithCurtain(prevProject.slug)}
                                 className="flex flex-col items-start gap-2 group cursor-none w-1/2"
                             >
-                                <span className="text-[10px] uppercase tracking-[0.2em] text-black/40 group-hover:text-black transition-colors duration-500">
-                                    ← Previous Project
+                                <span className="text-[10px] uppercase tracking-[0.2em] text-black/40 group-hover:text-black transition-colors duration-500 flex items-center gap-1">
+                                    <Icon icon="ph:arrow-left-light" className="w-[1.2em] h-[1.2em]" /> Previous Project
                                 </span>
                                 <span className="text-2xl md:text-4xl font-light group-hover:translate-x-2 transition-transform duration-500 truncate w-full text-left">
                                     {prevProject.name}
@@ -205,8 +211,8 @@ const ProjectDetail = () => {
                                 onClick={() => navigateWithCurtain(nextProject.slug)}
                                 className="flex flex-col items-end gap-2 group cursor-none w-1/2 text-right"
                             >
-                                <span className="text-[10px] uppercase tracking-[0.2em] text-black/40 group-hover:text-black transition-colors duration-500">
-                                    Next Project →
+                                <span className="text-[10px] uppercase tracking-[0.2em] text-black/40 group-hover:text-black transition-colors duration-500 flex items-center gap-1 justify-end">
+                                    Next Project <Icon icon="ph:arrow-right-light" className="w-[1.2em] h-[1.2em]" />
                                 </span>
                                 <span className="text-2xl md:text-4xl font-light group-hover:-translate-x-2 transition-transform duration-500 truncate w-full text-right">
                                     {nextProject.name}

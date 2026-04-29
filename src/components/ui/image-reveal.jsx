@@ -23,7 +23,7 @@ const getResponsiveValues = () => {
 }
 
 /**
- * VideoHover — wraps any content with a mouse-reveal effect.
+ * VideoHover - wraps any content with a mouse-reveal effect.
  * On touch devices it renders children without any overlay.
  */
 export const VideoHover = ({ children, className }) => {
@@ -92,7 +92,7 @@ export const VideoHover = ({ children, className }) => {
     const handleMouseEnter = () => { if (!isTouchDevice) setHovered(true) }
     const handleMouseLeave = () => { setHovered(false); setMousePos(null); setLerpedPos(null) }
 
-    // Touch devices — plain passthrough, no effect
+    // Touch devices - plain passthrough, no effect
     if (isTouchDevice) {
         return <div className={className}>{children}</div>
     }
@@ -130,7 +130,7 @@ export const VideoHover = ({ children, className }) => {
         >
             {children}
 
-            {/* Dark blur overlay — masked by cursor circle */}
+            {/* Dark blur overlay - masked by cursor circle */}
             <div
                 className={`absolute inset-0 bg-black/80 backdrop-blur-[6px] transition-opacity duration-300 pointer-events-none ${overlayOpacity}`}
                 style={maskStyle}

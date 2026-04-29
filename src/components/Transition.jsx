@@ -3,39 +3,40 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 /**
- * Transition — a full-screen black curtain that wipes in then out.
- * Wrap any page with this component; it plays the reveal on mount.
- * For exit transitions, call the exported `playExit(onComplete)` ref method
- * via a forwarded ref from the parent router.
+ * Transition - A high-end staggered panel transition.
+ * Wipes out from the center to reveal content.
  */
 const Transition = ({ children }) => {
-    const curtainRef = useRef(null);
+  const containerRef = useRef(null);
+  const panelsRef = useRef([]);
 
-    useGSAP(() => {
-        // Page enter: curtain wipes upward to reveal content
-        gsap.fromTo(
-            curtainRef.current,
-            { yPercent: 0 },
-            {
-                yPercent: -100,
-                duration: 0.9,
-                ease: "expo.inOut",
-                delay: 0.05,
-            }
-        );
-    }, []);
+  useGSAP(() => {
+    gsap.to(panelsRef.current, {
+      yPercent: -100,
+      duration: 0.8,
+      stagger: {
+        amount: 0.3,
+        from: "center",
+      },
+      ease: "power4.inOut",
+    });
+  }, { scope: containerRef });
 
-    return (
-        <div className="relative">
-            {/* Curtain overlay */}
-            <div
-                ref={curtainRef}
-                className="fixed inset-0 z-[9990] bg-black pointer-events-none"
-                aria-hidden="true"
-            />
-            {children}
-        </div>
-    );
+  return (
+    <div ref={containerRef} className="relative">
+      <div className="fixed inset-0 z-[9990] flex pointer-events-none" aria-hidden="true">
+        {[...Array(5)].map((_, i) => (
+          <div
+            key={i}
+            ref={(el) => (panelsRef.current[i] = el)}
+            className="h-full flex-1 bg-black"
+          />
+        ))}
+      </div>
+      {children}
+    </div>
+  );
 };
 
 export default Transition;
+

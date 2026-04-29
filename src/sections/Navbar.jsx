@@ -3,6 +3,8 @@ import { socialImgs } from "../constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Link } from "react-scroll";
+import { Icon } from "@iconify/react";
+import Magnetic from "../components/ui/Magnetic";
 
 const navLinks = [
   { label: "Home", to: "home" },
@@ -23,8 +25,6 @@ const Navbar = () => {
   const iconTl = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [showBurger, setShowBurger] = useState(true);
-
-
 
   useGSAP(() => {
     // Initial states
@@ -105,7 +105,9 @@ const Navbar = () => {
   // Lock body scroll when open
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   const toggleMenu = () => {
@@ -153,31 +155,36 @@ const Navbar = () => {
               ref={(el) => (linkRowRefs.current[index] = el)}
               className="group relative"
             >
-              <Link
-                className="relative flex items-baseline gap-4 md:gap-6 py-[clamp(0.7rem,2.2vh,1.4rem)] cursor-pointer"
-                to={link.to}
-                smooth
-                offset={0}
-                duration={2000}
-                onClick={closeMenu}
-              >
-                {/* Index number */}
-                <span className="text-[clamp(0.55rem,1vh,0.7rem)] font-light tracking-[0.3em] text-white/25 tabular-nums transition-colors duration-300 group-hover:text-accent min-w-[2.5rem]">
-                  0{index + 1}
-                </span>
+              <Magnetic strength={0.2}>
+                <Link
+                  className="relative flex items-center md:items-baseline gap-4 md:gap-6 py-[clamp(0.7rem,2.2vh,1.4rem)] cursor-pointer"
+                  to={link.to}
+                  smooth
+                  offset={0}
+                  duration={2000}
+                  onClick={closeMenu}
+                >
+                  {/* Index number */}
+                  <span className="text-[10px] md:text-xs font-light tracking-[0.3em] text-white/25 tabular-nums transition-colors duration-300 group-hover:text-accent min-w-[1.5rem] md:min-w-[2.5rem]">
+                    0{index + 1}
+                  </span>
 
-                {/* Link label */}
-                <span className="relative text-[clamp(2rem,5.5vh,4.5rem)] uppercase font-light tracking-tight text-white/70 transition-all duration-500 group-hover:text-white group-hover:tracking-wide">
-                  {link.label}
-                  {/* Underline reveal on hover */}
-                  <span className="absolute bottom-0 left-0 h-px w-0 bg-accent transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:w-full" />
-                </span>
+                  {/* Link label */}
+                  <span className="relative text-[clamp(2rem,5.5vh,4.5rem)] uppercase font-light tracking-tight text-white/70 transition-all duration-500 group-hover:text-white group-hover:tracking-wide">
+                    {link.label}
+                    {/* Underline reveal on hover */}
+                    <span className="absolute bottom-0 left-0 h-px w-0 bg-accent transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:w-full" />
+                  </span>
 
-                {/* Arrow indicator */}
-                <span className="ml-auto text-[clamp(0.7rem,1.2vh,1rem)] text-white/0 group-hover:text-white/40 transition-all duration-300 translate-x-[-8px] group-hover:translate-x-0">
-                  →
-                </span>
-              </Link>
+                  {/* Arrow indicator */}
+                  <span className="ml-auto text-[clamp(0.7rem,1.2vh,1rem)] text-white/0 group-hover:text-white/40 transition-all duration-300 translate-x-[-8px] group-hover:translate-x-0 flex items-center">
+                    <Icon
+                      icon="ph:arrow-right-light"
+                      className="w-[1.2em] h-[1.2em]"
+                    />
+                  </span>
+                </Link>
+              </Magnetic>
 
               {/* Divider */}
               <div className="h-px bg-white/[0.06] transition-colors duration-300 group-hover:bg-white/[0.12]" />
@@ -186,47 +193,45 @@ const Navbar = () => {
         </div>
 
         {/* Footer info section */}
-        <div
-          ref={footerRef}
-          className="px-8 pb-8 md:px-14 lg:px-20"
-        >
+        <div ref={footerRef} className="px-8 pb-8 md:px-14 lg:px-20">
           {/* Separator line */}
           <div className="h-px w-full bg-white/[0.06] mb-6" />
 
           <div className="flex flex-col gap-6 md:flex-row md:justify-between md:items-end">
             {/* Availability */}
-            <div className="flex flex-col gap-1.5">
-              <p className="text-[10px] uppercase tracking-[0.4em] text-white/30 font-light">
+            <div className="flex flex-col gap-2.5">
+              <p className="text-[11px] md:text-sm uppercase tracking-[0.4em] text-white/30 font-light">
                 Availability
               </p>
-              <div className="flex items-center gap-2">
-                <span className="relative flex h-1.5 w-1.5 shrink-0">
+              <div className="flex items-center gap-3">
+                <span className="relative flex h-2 w-2 shrink-0">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-400" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
                 </span>
-                <p className="text-[11px] tracking-[0.15em] uppercase text-green-400/80 font-light whitespace-nowrap">
-                  Open to work — May 2026
+                <p className="text-[12px] md:text-sm tracking-[0.15em] uppercase text-green-400/80 font-light whitespace-nowrap">
+                  Open to work • May 2026
                 </p>
               </div>
             </div>
 
             {/* Social connect */}
-            <div className="flex flex-col gap-1.5">
-              <p className="text-[10px] uppercase tracking-[0.4em] text-white/30 font-light">
+            <div className="flex flex-col gap-2.5 mt-6 md:mt-0">
+              <p className="text-[11px] md:text-sm uppercase tracking-[0.4em] text-white/30 font-light">
                 Connect
               </p>
-              <div className="flex flex-wrap gap-x-4 gap-y-0.5">
+              <div className="flex flex-wrap gap-x-6 gap-y-1">
                 {socialImgs.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visit ${social.name} profile`}
-                    className="text-[11px] tracking-[0.15em] uppercase text-white/40 hover:text-white transition-colors duration-300"
-                  >
-                    {social.name}
-                  </a>
+                  <Magnetic key={index} strength={0.3}>
+                    <a
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Visit ${social.name} profile`}
+                      className="text-[12px] md:text-sm tracking-[0.15em] uppercase text-white/40 hover:text-white transition-colors duration-300"
+                    >
+                      {social.name}
+                    </a>
+                  </Magnetic>
                 ))}
               </div>
             </div>
@@ -235,34 +240,37 @@ const Navbar = () => {
       </nav>
 
       {/* Burger / Close button */}
-      <button
-        type="button"
-        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-        aria-expanded={isOpen}
-        aria-controls="main-nav"
-        className={`group fixed z-[60] flex flex-col items-center justify-center gap-1 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] rounded-full cursor-pointer w-12 h-12 md:w-16 md:h-16 top-5 right-[clamp(1.5rem,5vw,3rem)] ${
-          isOpen
-            ? "bg-white/[0.07] hover:bg-white/[0.12] backdrop-blur-sm"
-            : "bg-black/80 hover:bg-black backdrop-blur-sm hover:scale-105 active:scale-95 ring-1 ring-white/[0.06] hover:ring-white/[0.12]"
-        }`}
-        onClick={toggleMenu}
-        style={
-          showBurger || isOpen
-            ? { clipPath: "circle(50% at 50% 50%)" }
-            : { clipPath: "circle(0% at 50% 50%)" }
-        }
-      >
-        <span
-          ref={topLineRef}
-          className="block w-5 md:w-6 h-[1.5px] bg-white rounded-full origin-center transition-all duration-300"
-        />
-        <span
-          ref={bottomLineRef}
-          className="block w-5 md:w-6 h-[1.5px] bg-white rounded-full origin-center transition-all duration-300"
-        />
-      </button>
+      <Magnetic strength={0.4}>
+        <button
+          type="button"
+          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isOpen}
+          aria-controls="main-nav"
+          className={`group fixed z-[60] flex flex-col items-center justify-center gap-1 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] rounded-full cursor-pointer w-12 h-12 md:w-16 md:h-16 top-5 right-[clamp(1.5rem,5vw,3rem)] ${
+            isOpen
+              ? "bg-white/[0.07] hover:bg-white/[0.12] backdrop-blur-sm"
+              : "bg-black/80 hover:bg-black backdrop-blur-sm hover:scale-105 active:scale-95 ring-1 ring-white/[0.06] hover:ring-white/[0.12]"
+          }`}
+          onClick={toggleMenu}
+          style={
+            showBurger || isOpen
+              ? { clipPath: "circle(50% at 50% 50%)" }
+              : { clipPath: "circle(0% at 50% 50%)" }
+          }
+        >
+          <span
+            ref={topLineRef}
+            className="block w-5 md:w-6 h-[1.5px] bg-white rounded-full origin-center transition-all duration-300"
+          />
+          <span
+            ref={bottomLineRef}
+            className="block w-5 md:w-6 h-[1.5px] bg-white rounded-full origin-center transition-all duration-300"
+          />
+        </button>
+      </Magnetic>
     </>
   );
 };
 
 export default Navbar;
+

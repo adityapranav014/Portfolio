@@ -36,7 +36,7 @@ const TextRevealByWord = ({ text, className, progress: externalProgress }) => {
 
     const words = text.split(" ");
 
-    // Reveal completes at REVEAL_END (65 %) of the scroll range — leaves a
+    // Reveal completes at REVEAL_END (65 %) of the scroll range - leaves a
     // generous fully-lit pause before Lenis smooth-scroll exits the section.
     const REVEAL_END = 0.65;
     const wordList = words.map((word, i) => {

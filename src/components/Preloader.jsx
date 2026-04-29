@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import gsap from "gsap";
 
 /**
- * Preloader — award-worthy cinematic entrance.
+ * Preloader - award-worthy cinematic entrance.
  *
  * Layout:
  *  - Top bar:   "AP" monogram (left)  |  "2026" (right)
@@ -15,7 +15,7 @@ import gsap from "gsap";
  *  0.2s  Counter clip-reveal: starts at 0, counts to 100 over ~2.2s
  *  0.3s  Sub-label slides up from clip
  *  0.4s  Progress line fills left → right in sync with counter
- *  ~2.6s Brief hold — all content fades
+ *  ~2.6s Brief hold - all content fades
  *  ~3.0s Two-panel split exit: top half rises, bottom half drops (expo.inOut)
  *  ~4.0s onComplete fires → parent unmounts
  */
@@ -34,20 +34,20 @@ const Preloader = ({ onComplete }) => {
 
         const tl = gsap.timeline({ onComplete });
 
-        // 0 — initial states
+        // 0 - initial states
         gsap.set([topBarRef.current, labelRef.current], { opacity: 0, y: 12 });
         gsap.set(counterRef.current, { opacity: 0, y: 40 });
 
-        // 1 — top bar fades in
+        // 1 - top bar fades in
         tl.to(topBarRef.current, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0);
 
-        // 2 — counter rises in
+        // 2 - counter rises in
         tl.to(counterRef.current, { opacity: 1, y: 0, duration: 0.9, ease: "expo.out" }, 0.15);
 
-        // 3 — sub-label slides up
+        // 3 - sub-label slides up
         tl.to(labelRef.current, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.3);
 
-        // 4 — count 0 → 100
+        // 4 - count 0 → 100
         tl.to(
             obj,
             {
@@ -65,17 +65,17 @@ const Preloader = ({ onComplete }) => {
             0.25
         );
 
-        // 5 — hold at 100
+        // 5 - hold at 100
         tl.to({}, { duration: 0.25 });
 
-        // 6 — content fades out
+        // 6 - content fades out
         tl.to(contentRef.current, {
             opacity: 0,
             duration: 0.4,
             ease: "power2.in",
         });
 
-        // 7 — two-panel split exit
+        // 7 - two-panel split exit
         tl.to(
             topPanelRef.current,
             { yPercent: -100, duration: 1.1, ease: "expo.inOut" },
@@ -105,7 +105,7 @@ const Preloader = ({ onComplete }) => {
                 aria-hidden="true"
             />
 
-            {/* Content layer — sits on top of both panels */}
+            {/* Content layer - sits on top of both panels */}
             <div
                 ref={contentRef}
                 className="fixed inset-0 z-[10000] flex flex-col justify-between px-8 py-8 md:px-14 md:py-10 pointer-events-none select-none"
@@ -121,7 +121,7 @@ const Preloader = ({ onComplete }) => {
                     </span>
                 </div>
 
-                {/* Center — percentage counter */}
+                {/* Center - percentage counter */}
                 <div className="flex flex-col items-center gap-4">
                     <div ref={counterRef} className="relative flex items-end leading-none">
                         <span
@@ -148,7 +148,7 @@ const Preloader = ({ onComplete }) => {
                     </p>
                 </div>
 
-                {/* Bottom — progress line */}
+                {/* Bottom - progress line */}
                 <div className="flex flex-col gap-3">
                     <div className="relative h-px w-full overflow-hidden bg-white/10">
                         <div

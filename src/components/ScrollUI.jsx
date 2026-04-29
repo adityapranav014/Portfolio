@@ -1,9 +1,10 @@
 import { useRef } from "react";
 import { useLenis } from "lenis/react";
 import gsap from "gsap";
+import { Icon } from "@iconify/react";
 
 /**
- * ScrollUI — Scroll progress bar + back-to-top button.
+ * ScrollUI - Scroll progress bar + back-to-top button.
  *
  * Must be rendered inside <ReactLenis root> so useLenis() has context.
  * Both elements are position:fixed and sit above all other content.
@@ -50,18 +51,18 @@ const ScrollUI = () => {
             {/* ── Scroll Progress Bar ────────────────────────────── */}
             {/*
         Track: barely-there warm tint so the fill reads clearly.
-        Fill: accent-blue → gold gradient matching the site palette.
+        Fill: Gold gradient matching the site palette.
       */}
             <div
                 className="fixed top-0 left-0 w-full z-[9999] pointer-events-none"
-                style={{ height: "2px", background: "rgba(57,54,50,0.18)" }}
+                style={{ height: "2px" }}
             >
                 <div
                     ref={barRef}
                     className="h-full w-full origin-left"
                     style={{
                         background:
-                            "linear-gradient(90deg, #4da3ff 0%, #4da3ff 55%, #cfa355 100%)",
+                            "linear-gradient(90deg, #cfa355 0%, #e5e5e0 100%)",
                         transform: "scaleX(0)",
                     }}
                 />
@@ -70,7 +71,7 @@ const ScrollUI = () => {
             {/* ── Back-to-Top Button ─────────────────────────────── */}
             {/*
         Starts invisible (GSAP autoAlpha:0 + CSS invisible).
-        DarkLava fill → accent-blue on hover; thin cream border at rest.
+        DarkLava fill → accent-gold on hover; thin cream border at rest.
         The arrow nudges up on hover for a subtle kinetic hint.
       */}
             <button
@@ -83,29 +84,14 @@ const ScrollUI = () => {
           w-11 h-11 rounded-full
           bg-[#393632] border border-[rgba(229,229,224,0.15)]
           text-[#e5e5e0]
-          hover:bg-[#4da3ff] hover:border-transparent
+          hover:bg-[#cfa355] hover:text-[#000000] hover:border-transparent
           transition-colors duration-300 ease-out
           opacity-0 invisible
         "
                 style={{ willChange: "transform, opacity" }}
             >
                 {/* Upward arrow */}
-                <svg
-                    width="13"
-                    height="13"
-                    viewBox="0 0 13 13"
-                    fill="none"
-                    aria-hidden="true"
-                    className="transition-transform duration-300 ease-out group-hover:-translate-y-0.5"
-                >
-                    <path
-                        d="M6.5 11V2M6.5 2L2 6.5M6.5 2L11 6.5"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                </svg>
+                <Icon icon="ph:arrow-up-light" className="w-5 h-5 transition-transform duration-300 ease-out group-hover:-translate-y-0.5" />
             </button>
         </>
     );

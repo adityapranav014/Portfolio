@@ -1,16 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Typewriter — pure React, no extra dependencies.
+ * Typewriter - pure React, no extra dependencies.
  * Cycles through `texts[]`, typing then deleting each phrase.
  *
  * Props:
- *  texts        string[]   — phrases to cycle through
- *  speed        number     — ms per character typed   (default 60)
- *  deleteSpeed  number     — ms per character deleted (default 35)
- *  waitTime     number     — ms to pause before deleting (default 1800)
- *  className    string     — class on the typed span
- *  cursorChar   string     — cursor glyph (default "_")
+ *  texts        string[]   - phrases to cycle through
+ *  speed        number     - ms per character typed   (default 60)
+ *  deleteSpeed  number     - ms per character deleted (default 35)
+ *  waitTime     number     - ms to pause before deleting (default 1800)
+ *  className    string     - class on the typed span
+ *  cursorChar   string     - cursor glyph (default "_")
  */
 const Typewriter = ({
     texts = [],
@@ -36,7 +36,7 @@ const Typewriter = ({
                     setCharIdx((i) => i + 1);
                 }, speed);
             } else {
-                // Fully typed — wait then start deleting
+                // Fully typed - wait then start deleting
                 timeout.current = setTimeout(() => setIsDeleting(true), waitTime);
             }
         } else {
@@ -45,7 +45,7 @@ const Typewriter = ({
                     setDisplay((d) => d.slice(0, -1));
                 }, deleteSpeed);
             } else {
-                // Fully deleted — move to next text
+                // Fully deleted - move to next text
                 setIsDeleting(false);
                 setCharIdx(0);
                 setTextIdx((i) => (i + 1) % texts.length);

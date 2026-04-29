@@ -1,70 +1,36 @@
-import { useEffect, useRef } from "react";
-
 /**
- * Noise — adds a subtle film-grain texture over the entire page.
- * Uses an SVG feTurbulence filter rendered to a canvas,
- * then drawn as a fixed overlay with low opacity.
- * pointer-events:none so it never blocks interaction.
+ * Noise - adds a shimmering film-grain texture over the entire page.
+ * Uses a static base64 noise pattern with a CSS animation to create a "shimmering" effect.
+ * Extremely performance efficient compared to canvas-based random pixel generation.
  */
 const Noise = () => {
-    const canvasRef = useRef(null);
-
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-
-        const ctx = canvas.getContext("2d");
-        let animFrame;
-
-        const resize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        };
-
-        // Throttle to ~10 fps — grain is imperceptible faster and
-        // running at 60 fps costs ~500 MB/s of random pixel writes.
-        const FPS = 10;
-        const INTERVAL = 1000 / FPS;
-        let lastTime = 0;
-
-        const drawNoise = (timestamp) => {
-            animFrame = requestAnimationFrame(drawNoise);
-            if (timestamp - lastTime < INTERVAL) return;
-            lastTime = timestamp;
-
-            const { width, height } = canvas;
-            const imageData = ctx.createImageData(width, height);
-            const data = imageData.data;
-
-            for (let i = 0; i < data.length; i += 4) {
-                const value = (Math.random() * 255) | 0;
-                data[i] = value;
-                data[i + 1] = value;
-                data[i + 2] = value;
-                data[i + 3] = 18; // ~7% alpha per pixel
-            }
-
-            ctx.putImageData(imageData, 0, 0);
-        };
-
-        resize();
-        drawNoise(0);
-        window.addEventListener("resize", resize);
-
-        return () => {
-            cancelAnimationFrame(animFrame);
-            window.removeEventListener("resize", resize);
-        };
-    }, []);
-
-    return (
-        <canvas
-            ref={canvasRef}
-            className="fixed inset-0 z-[9996] pointer-events-none"
-            style={{ opacity: 0.04, mixBlendMode: "overlay" }}
-            aria-hidden="true"
-        />
-    );
+  return (
+    <div
+      className="fixed inset-0 z-[9996] pointer-events-none opacity-[0.035] mix-blend-overlay"
+      style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        animation: "noise-shimmer 0.2s infinite steps(2)",
+      }}
+      aria-hidden="true"
+    >
+      <style>{`
+        @keyframes noise-shimmer {
+          0% { transform: translate(0, 0); }
+          10% { transform: translate(-1%, -1%); }
+          20% { transform: translate(-2%, 1%); }
+          30% { transform: translate(1%, -2%); }
+          40% { transform: translate(-1%, 3%); }
+          50% { transform: translate(-2%, 1%); }
+          60% { transform: translate(3%, 0); }
+          70% { transform: translate(0, 2%); }
+          80% { transform: translate(-3%, 1%); }
+          90% { transform: translate(1%, 2%); }
+          100% { transform: translate(1%, 1%); }
+        }
+      `}</style>
+    </div>
+  );
 };
 
 export default Noise;
+

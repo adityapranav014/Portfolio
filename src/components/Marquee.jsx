@@ -1,4 +1,6 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
+import UseAnimations from "react-useanimations";
+import star from "react-useanimations/lib/star";
 import gsap from "gsap";
 import { Observer } from "gsap/all";
 import { useEffect, useRef } from "react";
@@ -6,7 +8,7 @@ gsap.registerPlugin(Observer);
 const Marquee = ({
   items,
   className = "text-white bg-black",
-  icon = "mdi:star-four-points",
+  icon = star,
   iconClassName = "",
   reverse = false,
 }) => {
@@ -154,7 +156,14 @@ const Marquee = ({
             ref={(el) => (itemsRef.current[index] = el)}
             className="flex items-center px-16 gap-x-32"
           >
-            {text} <Icon icon={icon} className={iconClassName} />
+            {text}
+            <div className={iconClassName}>
+              {typeof icon === "string" ? (
+                <Icon icon={icon} className="w-full h-full" />
+              ) : (
+                <UseAnimations animation={icon} size={40} strokeColor="currentColor" autoplay={true} loop={true} />
+              )}
+            </div>
           </span>
         ))}
       </div>

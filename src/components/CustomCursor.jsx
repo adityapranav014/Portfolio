@@ -2,36 +2,43 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 /**
- * CustomCursor — A smooth, magnetic dot cursor with label support.
+ * CustomCursor - A smooth, magnetic dot cursor with label support.
  * Shows a small dot by default, expands to show "View" on [data-cursor-label] elements.
  * Hidden on touch devices.
  */
 const CustomCursor = () => {
   const dotRef = useRef(null);
+  const ringRef = useRef(null);
   const labelRef = useRef(null);
   const pos = useRef({ x: 0, y: 0 });
   const isTouch = useRef(false);
 
   useEffect(() => {
-    // Skip on touch devices
     if ("ontouchstart" in window || navigator.maxTouchPoints > 0) {
       isTouch.current = true;
       return;
     }
 
     const dot = dotRef.current;
+    const ring = ringRef.current;
     const label = labelRef.current;
-    if (!dot || !label) return;
+    if (!dot || !ring || !label) return;
 
-    // Smooth follow with quickTo
-    const xTo = gsap.quickTo(dot, "x", { duration: 0.6, ease: "power3.out" });
-    const yTo = gsap.quickTo(dot, "y", { duration: 0.6, ease: "power3.out" });
+    // Smooth follow for dot (tight)
+    const xDotTo = gsap.quickTo(dot, "x", { duration: 0.1, ease: "none" });
+    const yDotTo = gsap.quickTo(dot, "y", { duration: 0.1, ease: "none" });
+
+    // Smooth follow for ring (laggy/elastic)
+    const xRingTo = gsap.quickTo(ring, "x", { duration: 0.5, ease: "expo.out" });
+    const yRingTo = gsap.quickTo(ring, "y", { duration: 0.5, ease: "expo.out" });
 
     const handleMove = (e) => {
       pos.current.x = e.clientX;
       pos.current.y = e.clientY;
-      xTo(e.clientX);
-      yTo(e.clientY);
+      xDotTo(e.clientX);
+      yDotTo(e.clientY);
+      xRingTo(e.clientX);
+      yRingTo(e.clientY);
     };
 
     const handleEnter = (e) => {
@@ -39,13 +46,19 @@ const CustomCursor = () => {
       if (target) {
         const text = target.getAttribute("data-cursor-label") || "View";
         label.textContent = text;
-        gsap.to(dot, {
+        
+        // Expand ring
+        gsap.to(ring, {
           width: 80,
           height: 80,
-          duration: 0.35,
-          ease: "power2.out",
-          backgroundColor: "rgba(77, 163, 255, 0.9)",
+          duration: 0.5,
+          ease: "elastic.out(1, 0.75)",
+          backgroundColor: "rgba(207, 163, 85, 0.9)", // Solar Gold
+          borderColor: "rgba(207, 163, 85, 0)",
         });
+        
+        // Hide dot
+        gsap.to(dot, { scale: 0, duration: 0.2 });
         gsap.to(label, { autoAlpha: 1, duration: 0.2 });
       }
     };
@@ -53,25 +66,24 @@ const CustomCursor = () => {
     const handleLeave = (e) => {
       const target = e.target.closest("[data-cursor-label]");
       if (target) {
-        gsap.to(dot, {
-          width: 12,
-          height: 12,
-          duration: 0.35,
+        gsap.to(ring, {
+          width: 40,
+          height: 40,
+          duration: 0.5,
           ease: "power2.out",
-          backgroundColor: "rgba(255, 255, 255, 0.8)",
+          backgroundColor: "transparent",
+          borderColor: "rgba(207, 163, 85, 0.5)",
         });
+        gsap.to(dot, { scale: 1, duration: 0.2 });
         gsap.to(label, { autoAlpha: 0, duration: 0.2 });
       }
     };
 
-    // Hide default cursor
     document.body.style.cursor = "none";
-
-    // Links and buttons get pointer cursor hidden too
     const styleSheet = document.createElement("style");
     styleSheet.id = "custom-cursor-styles";
     styleSheet.textContent = `
-      a, button, [role="button"], input, textarea, select, [data-cursor-label] {
+      a, button, [role="button"], input, textarea, select, [data-cursor-label], .cursor-pointer {
         cursor: none !important;
       }
     `;
@@ -81,9 +93,12 @@ const CustomCursor = () => {
     document.addEventListener("mouseover", handleEnter);
     document.addEventListener("mouseout", handleLeave);
 
-    // Hide cursor when leaving window
-    const handleWindowLeave = () => gsap.to(dot, { autoAlpha: 0, duration: 0.2 });
-    const handleWindowEnter = () => gsap.to(dot, { autoAlpha: 1, duration: 0.2 });
+    const handleWindowLeave = () => {
+      gsap.to([dot, ring], { autoAlpha: 0, duration: 0.2 });
+    };
+    const handleWindowEnter = () => {
+      gsap.to([dot, ring], { autoAlpha: 1, duration: 0.2 });
+    };
     document.addEventListener("mouseleave", handleWindowLeave);
     document.addEventListener("mouseenter", handleWindowEnter);
 
@@ -104,25 +119,40 @@ const CustomCursor = () => {
   }
 
   return (
-    <div
-      ref={dotRef}
-      className="fixed top-0 left-0 z-[9997] pointer-events-none rounded-full flex items-center justify-center mix-blend-difference"
-      style={{
-        width: 12,
-        height: 12,
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
-        transform: "translate(-50%, -50%)",
-        willChange: "transform, width, height",
-      }}
-    >
-      <span
-        ref={labelRef}
-        className="text-[9px] font-light uppercase tracking-[0.2em] text-white opacity-0 pointer-events-none select-none whitespace-nowrap"
+    <>
+      {/* Lagging Ring */}
+      <div
+        ref={ringRef}
+        className="fixed top-0 left-0 z-[9998] pointer-events-none rounded-full flex items-center justify-center border border-accent/50"
+        style={{
+          width: 40,
+          height: 40,
+          transform: "translate(-50%, -50%)",
+          willChange: "transform, width, height",
+        }}
       >
-        View
-      </span>
-    </div>
+        <span
+          ref={labelRef}
+          className="text-[10px] font-medium uppercase tracking-[0.2em] text-white opacity-0 pointer-events-none select-none"
+        >
+          View
+        </span>
+      </div>
+
+      {/* Center Dot */}
+      <div
+        ref={dotRef}
+        className="fixed top-0 left-0 z-[9999] pointer-events-none rounded-full bg-accent"
+        style={{
+          width: 6,
+          height: 6,
+          transform: "translate(-50%, -50%)",
+          willChange: "transform",
+        }}
+      />
+    </>
   );
 };
+
 
 export default CustomCursor;

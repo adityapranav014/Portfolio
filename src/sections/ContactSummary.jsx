@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Typewriter from "../components/Typewriter";
 import { Link } from "react-scroll";
+import { Icon } from "@iconify/react";
 
 const ContactSummary = () => {
   const containerRef = useRef(null);
@@ -38,7 +39,7 @@ const ContactSummary = () => {
   return (
     <section
       ref={containerRef}
-      className="flex flex-col items-center justify-between min-h-dvh gap-12 mt-16"
+      className="flex flex-col items-center justify-center gap-20 md:justify-between min-h-[60dvh] md:min-h-dvh md:gap-12 mt-16 bg-[#e5e5e0] relative z-20 w-full"
     >
       <Marquee items={items} />
       <div className="flex flex-col items-center gap-10 font-light text-center contact-text-responsive px-6">
@@ -61,7 +62,6 @@ const ContactSummary = () => {
           />
         </p>
 
-        {/* CTA — matches Hero button */}
         <Link
           to="contact"
           smooth
@@ -73,8 +73,8 @@ const ContactSummary = () => {
           <span className="relative z-10 text-[10px] uppercase tracking-[0.22em] font-light transition-colors duration-500">
             Begin a Conversation
           </span>
-          <span className="relative z-10 text-sm transition-transform duration-300 group-hover:translate-x-1">
-            →
+          <span className="relative z-10 text-sm transition-transform duration-300 group-hover:translate-x-1 flex items-center">
+            <Icon icon="ph:arrow-right-light" className="w-[1.2em] h-[1.2em]" />
           </span>
           {/* accent sweep */}
           <span className="absolute inset-0 bg-accent translate-y-[102%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
