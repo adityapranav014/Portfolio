@@ -226,7 +226,6 @@ const Hero = () => {
             duration={1800}
             offset={0}
             className="group relative flex items-center gap-3 bg-white text-black px-[clamp(1.2rem,3.5vw,2rem)] py-[clamp(0.7rem,1.8dvh,1rem)] overflow-hidden cursor-pointer select-none"
-            data-cursor-label="Let's go"
           >
             <span className="relative z-10 text-[clamp(0.5rem,1.2dvh,10px)] uppercase tracking-[0.22em] font-medium transition-colors duration-500">
               Start a Project

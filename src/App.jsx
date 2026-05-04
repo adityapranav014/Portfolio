@@ -12,7 +12,7 @@ import ContactSummary from "./sections/ContactSummary";
 import Contact from "./sections/Contact";
 import { ImageKitProvider } from "@imagekit/react";
 import Noise from "./components/Noise";
-import CustomCursor from "./components/CustomCursor";
+
 import ScrollUI from "./components/ScrollUI";
 import Transition from "./components/Transition";
 import Preloader from "./components/Preloader";
@@ -95,7 +95,6 @@ const App = () => {
   return (
     <ImageKitProvider urlEndpoint="https://ik.imagekit.io/gglxgr4rz">
       <Noise />
-      <CustomCursor />
 
       {/* Cinematic preloader - renders on top while app loads beneath */}
       {showPreloader && (

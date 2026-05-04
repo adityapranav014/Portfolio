@@ -1,13 +1,9 @@
-import { useRef } from "react";
 import Marquee from "../components/Marquee";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import Typewriter from "../components/Typewriter";
 import { Link } from "react-scroll";
 import { Icon } from "@iconify/react";
 
 const ContactSummary = () => {
-  const containerRef = useRef(null);
   const items = [
     "Innovation",
     "Precision",
@@ -23,22 +19,8 @@ const ContactSummary = () => {
     "contact us",
   ];
 
-  useGSAP(() => {
-    gsap.to(containerRef.current, {
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "center center",
-        end: "+=800 center",
-        scrub: 0.5,
-        pin: true,
-        pinSpacing: true,
-        markers: false,
-      },
-    });
-  }, []);
   return (
     <section
-      ref={containerRef}
       className="flex flex-col items-center justify-center gap-20 md:justify-between min-h-[60dvh] md:min-h-dvh md:gap-12 mt-16 bg-[#e5e5e0] relative z-20 w-full"
     >
       <Marquee items={items} />
@@ -68,7 +50,6 @@ const ContactSummary = () => {
           duration={1800}
           offset={0}
           className="group relative flex items-center gap-3 bg-DarkLava text-primary px-7 py-3.5 overflow-hidden cursor-pointer select-none"
-          data-cursor-label="Say hi"
         >
           <span className="relative z-10 text-[10px] uppercase tracking-[0.22em] font-light transition-colors duration-500">
             Begin a Conversation

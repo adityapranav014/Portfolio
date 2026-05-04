@@ -178,7 +178,6 @@ const Works = () => {
             role="button"
             tabIndex={0}
             className="project-item relative flex flex-col gap-1 py-8 cursor-pointer group md:gap-0"
-            data-cursor-label="View"
             onClick={() => openProject(project.slug)}
             onKeyDown={(e) =>
               (e.key === "Enter" || e.key === " ") && openProject(project.slug)
