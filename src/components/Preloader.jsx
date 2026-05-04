@@ -136,14 +136,14 @@ const Preloader = ({ onComplete }) => {
                         &#x2022;
                     </span>
                     {/* overflow-hidden acts as the clip mask for the word */}
-                    <div style={{ overflow: "hidden", paddingTop: "0.35em", paddingBottom: "0.15em" }}>
+                    <div style={{ overflow: "hidden", paddingTop: "1em", marginTop: "-0.4em", paddingBottom: "0.15em" }}>
                         <span
                             ref={wordRef}
                             className="block text-white"
                             style={{
                                 fontSize: "clamp(4.5rem, 12vw, 11rem)",
                                 fontWeight: 300,
-                                lineHeight: 1.05,
+                                lineHeight: 1.2,
                             }}
                         />
                     </div>
