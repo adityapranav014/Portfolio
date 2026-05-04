@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { Component, useEffect, useRef, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import Navbar from "./sections/Navbar";
@@ -10,8 +10,45 @@ import About from "./sections/About";
 import Works from "./sections/Works";
 import ContactSummary from "./sections/ContactSummary";
 import Contact from "./sections/Contact";
+import Footer from "./components/Footer";
 import { ImageKitProvider } from "@imagekit/react";
 import Noise from "./components/Noise";
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-6 px-6 text-center">
+          <p className="text-white/40 text-[10px] uppercase tracking-[0.35em]">Something went wrong</p>
+          <button
+            onClick={() => { this.setState({ hasError: false }); window.location.reload(); }}
+            className="text-white text-xs uppercase tracking-widest border border-white/20 px-6 py-3 hover:bg-white/10 transition-colors duration-300"
+          >
+            Reload
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+const NotFound = () => (
+  <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-6 px-6 text-center font-amiamie">
+    <span className="text-[10px] uppercase tracking-[0.4em] text-white/30">404</span>
+    <h1 className="text-[clamp(4rem,12vw,10rem)] font-light leading-none tracking-tighter text-white">Not Found</h1>
+    <a href="/" className="text-[10px] uppercase tracking-widest text-white/40 hover:text-white transition-colors duration-300 border-b border-white/20 pb-px">
+      Return to Index
+    </a>
+  </div>
+);
 
 import ScrollUI from "./components/ScrollUI";
 import Transition from "./components/Transition";
@@ -49,6 +86,7 @@ const HomePage = () => (
       <Works />
       <ContactSummary />
       <Contact />
+      <Footer />
     </ReactLenis>
   </Transition>
 );
@@ -116,10 +154,13 @@ const App = () => {
 
       {/* App renders immediately so the hero video starts buffering */}
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/work/:slug" element={<ProjectDetail />} />
-        </Routes>
+        <ErrorBoundary>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/work/:slug" element={<ProjectDetail />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </ErrorBoundary>
       </BrowserRouter>
       <SpeedInsights />
     </ImageKitProvider>

@@ -1,6 +1,5 @@
 import { useGSAP } from "@gsap/react";
 import { useState, useRef, useEffect } from "react";
-import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
 import { socialImgs } from "../constants";
 import gsap from "gsap";
 import { VideoHover } from "../components/ui/image-reveal";
@@ -26,7 +25,24 @@ const Contact = () => {
   const text = `Have a project in mind? I work with companies from
     all over the world and would love to hear what 
      you’re building. Let’s make it happen.`;
+  const contactBandRef = useRef(null);
+  const contactTitleRef = useRef(null);
   useGSAP(() => {
+    // Header index band
+    gsap.from(contactBandRef.current, {
+      opacity: 0,
+      y: 20,
+      duration: 1,
+      ease: "power3.out",
+      scrollTrigger: { trigger: contactBandRef.current, start: "top 90%" },
+    });
+    // Contact title clip reveal
+    gsap.from(contactTitleRef.current, {
+      yPercent: 110,
+      duration: 1.4,
+      ease: "expo.out",
+      scrollTrigger: { trigger: contactTitleRef.current, start: "top 95%" },
+    });
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -86,13 +102,34 @@ const Contact = () => {
       className="flex flex-col justify-between min-h-dvh bg-black"
     >
       <div>
-        <AnimatedHeaderSection
-          subTitle={"Let's start a project together"}
-          title={"Contact"}
-          text={text}
-          textColor={"text-white"}
-          withScrollTrigger={true}
-        />
+        {/* ── SECTION HEADER: Two-line indented statement ──── */}
+        <div className="pt-[clamp(3rem,8dvh,6rem)]">
+          {/* Rule + index band */}
+          <div
+            ref={contactBandRef}
+            className="flex items-center justify-between px-10 pb-5 border-b border-white/[0.12]"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] font-light tracking-[0.35em] text-white/30 tabular-nums">05</span>
+              <span className="w-8 h-px bg-white/15 shrink-0" />
+              <span className="text-[10px] font-light tracking-[0.28em] text-white/20 uppercase">Let&apos;s talk</span>
+            </div>
+            <p className="hidden md:block font-light text-[11px] tracking-wider text-white/25 max-w-[30ch] text-right leading-relaxed">
+              Available for new projects — from anywhere in the world.
+            </p>
+          </div>
+          {/* Two-line indented display title */}
+          <div className="px-10 pt-10 pb-12 overflow-hidden">
+            <p
+              ref={contactTitleRef}
+              className="banner-text-responsive font-light leading-[0.92] tracking-tighter text-white"
+            >
+              Let&apos;s
+              <br />
+              <span className="pl-[0.3em] md:pl-[0.5em]">work together.</span>
+            </p>
+          </div>
+        </div>
         <div
           className="relative px-10 font-light text-white lg:text-[32px] text-[26px] leading-none mb-10"
           ref={containerRef}

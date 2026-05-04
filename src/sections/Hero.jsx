@@ -75,8 +75,16 @@ const Hero = () => {
     if (window.isPreloaderDone) {
       gsap.delayedCall(0.5, onAnimate);
     } else {
-      window.addEventListener("hero:animate", onAnimate);
-      return () => window.removeEventListener("hero:animate", onAnimate);
+      let fired = false;
+      const handle = () => { fired = true; onAnimate(); };
+      window.addEventListener("hero:animate", handle, { once: true });
+      // Safety net: if the event was dispatched before this listener attached,
+      // fall back to animating after a reasonable delay.
+      const fallback = setTimeout(() => { if (!fired) onAnimate(); }, 4000);
+      return () => {
+        window.removeEventListener("hero:animate", handle);
+        clearTimeout(fallback);
+      };
     }
   }, []);
 
@@ -92,6 +100,7 @@ const Hero = () => {
         loop
         muted
         playsInline
+        poster="https://ik.imagekit.io/gglxgr4rz/Portfolio/hero.mp4/ik-thumbnail.jpg"
         className="absolute inset-0 h-full w-full object-cover -z-50"
       >
         <source
@@ -99,109 +108,30 @@ const Hero = () => {
           type="video/mp4"
         />
       </video>
-      {/* Base gradient – bottom darkening for text readability only */}
+      {/* Base gradient – bottom darkening for text readability */}
       <div className="pointer-events-none absolute inset-0 -z-40 bg-gradient-to-b from-transparent via-transparent to-black/65" />
 
-      {/* ── REALISTIC VOLUMETRIC SUN LIGHT (TOP-RIGHT SOURCE) ──────────── */}
-
-      {/* ── NATURAL "RAY OF HOPE" VOLUMETRIC LIGHTING ──────────── */}
-
-      {/* Core Sun Brightness - Soft, pure light breaking the clouds */}
+      {/* Ambient corner glow — single clean light source */}
       <div
-        className="pointer-events-none absolute mix-blend-screen"
+        className="pointer-events-none absolute inset-0 mix-blend-screen"
         style={{
-          top: "20%",
-          left: "80%",
-          width: "70vw",
-          height: "70vw",
-          transform: "translate(-50%, -50%)",
           zIndex: -35,
-          background: "radial-gradient(circle closest-side, rgba(255,252,240,0.6) 0%, rgba(207,163,85,0.2) 40%, transparent 100%)",
-          animation: "sun-flare-pulse 8s ease-in-out infinite",
-          filter: "blur(40px)",
+          background: "radial-gradient(ellipse 80% 70% at 82% 10%, rgba(255,248,225,0.55) 0%, rgba(207,163,85,0.18) 35%, transparent 70%)",
+          filter: "blur(60px)",
         }}
       />
 
-      {/* Inner Hotspot for realism */}
+      {/* Directional crepuscular ray */}
       <div
-        className="pointer-events-none absolute mix-blend-screen"
-        style={{
-          top: "20%",
-          left: "80%",
-          width: "25vw",
-          height: "25vw",
-          transform: "translate(-50%, -50%)",
-          zIndex: -34,
-          background: "radial-gradient(circle closest-side, rgba(255,255,255,0.9) 0%, rgba(255,245,210,0.4) 40%, transparent 100%)",
-          filter: "blur(15px)",
-        }}
-      />
-
-      {/* Main Ray of Hope - Desktop (Aimed perfectly at face area at ~-38deg) */}
-      <div
-        className="pointer-events-none absolute inset-0 hidden md:block mix-blend-screen"
+        className="pointer-events-none absolute inset-0 mix-blend-screen"
         style={{
           zIndex: -34,
-          background: "radial-gradient(ellipse 120% 25% at 80% 20%, rgba(255,252,240,0.2) 0%, rgba(207,163,85,0.08) 40%, transparent 80%)",
-          transformOrigin: "80% 20%",
-          transform: "rotate(-38deg)",
-          filter: "blur(40px)",
-          animation: "hero-light-breathe 10s ease-in-out infinite",
+          background: "radial-gradient(ellipse 110% 18% at 82% 10%, rgba(255,250,230,0.18) 0%, rgba(207,163,85,0.06) 50%, transparent 80%)",
+          transformOrigin: "82% 10%",
+          transform: "rotate(-35deg)",
+          filter: "blur(30px)",
         }}
       />
-
-      {/* Secondary Inner Ray - Desktop (Tighter, brighter core to the beam) */}
-      <div
-        className="pointer-events-none absolute inset-0 hidden md:block mix-blend-screen"
-        style={{
-          zIndex: -33,
-          background: "radial-gradient(ellipse 100% 12% at 80% 20%, rgba(255,255,255,0.25) 0%, rgba(207,163,85,0.1) 50%, transparent 80%)",
-          transformOrigin: "80% 20%",
-          transform: "rotate(-40deg)",
-          filter: "blur(20px)",
-          animation: "hero-light-breathe 8s ease-in-out infinite alternate-reverse",
-        }}
-      />
-
-      {/* Main Ray - Mobile (Points more vertically downward) */}
-      <div
-        className="pointer-events-none absolute inset-0 md:hidden mix-blend-screen"
-        style={{
-          zIndex: -34,
-          background: "radial-gradient(ellipse 140% 35% at 80% 20%, rgba(255,252,240,0.15) 0%, rgba(207,163,85,0.08) 45%, transparent 80%)",
-          transformOrigin: "80% 20%",
-          transform: "rotate(-75deg)",
-          filter: "blur(40px)",
-          animation: "hero-light-breathe 10s ease-in-out infinite",
-        }}
-      />
-
-      {/* Atmospheric Gold Wash */}
-      <div
-        className="pointer-events-none absolute inset-0 mix-blend-overlay"
-        style={{
-          zIndex: -33,
-          background: "radial-gradient(ellipse 100% 100% at 80% 20%, rgba(207,163,85,0.2) 0%, transparent 70%)",
-        }}
-      />
-
-      {/* Deep Shadow Contrast for Volumetric Pop */}
-      <div
-        className="pointer-events-none absolute inset-0 mix-blend-multiply"
-        style={{
-          zIndex: -32,
-          background: "radial-gradient(ellipse 80% 70% at -10% 110%, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 75%)",
-        }}
-      />
-      {/* 7. Text Legibility Gradient - A subtle dark scrim pinned to the right edge wrapping the paragraph */}
-      <div
-        className="pointer-events-none absolute inset-0 mix-blend-multiply"
-        style={{
-          zIndex: -31,
-          background: "radial-gradient(ellipse 70% 60% at 85% 45%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 45%, transparent 80%)",
-        }}
-      />
-      {/* ────────────────────────────────────────────────────────────────────── */}
 
       <div ref={headerRef} className="relative z-10">
         <AnimatedHeaderSection

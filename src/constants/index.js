@@ -2,6 +2,7 @@
 export const servicesData = [
   {
     title: "Full-Stack Development",
+    icon: "ph:brackets-curly-light",
     description:
       "With a solid track record building web applications end to end, I deliver clean, well-structured code that scales. From REST APIs and auth systems to polished React interfaces, I handle the full picture so you don't have to stitch pieces together.",
     items: [
@@ -21,6 +22,7 @@ export const servicesData = [
   },
   {
     title: "Cloud & DevOps",
+    icon: "ph:cloud-light",
     description:
       "I set up reliable, automated deployment pipelines that let your team ship with confidence. Clean infrastructure, zero-downtime deployments, and performance tuning so your platform stays fast and available as you grow.",
     items: [
@@ -40,6 +42,7 @@ export const servicesData = [
   },
   {
     title: "Security & Optimisation",
+    icon: "ph:shield-check-light",
     description:
       "A slow or vulnerable site costs you trust. I audit your codebase, address security gaps, and optimise every bottleneck so your application is both safe for your users and fast enough to keep them.",
     items: [
@@ -59,6 +62,7 @@ export const servicesData = [
   },
   {
     title: "Web & Mobile Apps",
+    icon: "ph:device-mobile-light",
     description:
       "A great user experience is what turns visitors into customers. I build high-quality web and mobile applications focused on smooth interactions, fast load times, and interfaces that feel intuitive from the very first tap.",
     items: [

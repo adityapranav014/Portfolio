@@ -1,12 +1,11 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { projects } from "../constants";
 import Transition from "../components/Transition";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import UseAnimations from "react-useanimations";
-import arrowUp from "react-useanimations/lib/arrowUp";
 
 const ProjectDetail = () => {
     const { slug } = useParams();
@@ -18,6 +17,8 @@ const ProjectDetail = () => {
     const bodyRef = useRef(null);
     const imgRef = useRef(null);
     const imgOverlayRef = useRef(null);
+    const curtainRef = useRef(null);
+    const [curtainActive, setCurtainActive] = useState(false);
 
     // Redirect to home if slug not found
     useEffect(() => {
@@ -67,39 +68,58 @@ const ProjectDetail = () => {
     const nextProject = projects[currentIndex + 1] ?? null;
 
     const navigateWithCurtain = (targetSlug) => {
-        const curtain = document.createElement("div");
-        curtain.style.cssText = "position:fixed;inset:0;background:#000;z-index:9990;transform:translateY(100%)";
-        document.body.appendChild(curtain);
-        gsap.to(curtain, {
-            yPercent: 0,
-            duration: 0.7,
-            ease: "expo.inOut",
-            onComplete: () => {
-                navigate(`/work/${targetSlug}`);
-                document.body.removeChild(curtain);
-                window.scrollTo(0, 0);
-            },
+        setCurtainActive(true);
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                gsap.fromTo(curtainRef.current,
+                    { yPercent: 100 },
+                    {
+                        yPercent: 0,
+                        duration: 0.7,
+                        ease: "expo.inOut",
+                        onComplete: () => {
+                            navigate(`/work/${targetSlug}`);
+                            window.scrollTo(0, 0);
+                            setCurtainActive(false);
+                        },
+                    }
+                );
+            });
         });
     };
 
     const goHome = () => {
-        const curtain = document.createElement("div");
-        curtain.style.cssText = "position:fixed;inset:0;background:#000;z-index:9990;transform:translateY(100%)";
-        document.body.appendChild(curtain);
-        gsap.to(curtain, {
-            yPercent: 0,
-            duration: 0.7,
-            ease: "expo.inOut",
-            onComplete: () => {
-                navigate("/");
-                document.body.removeChild(curtain);
-                window.scrollTo(0, 0);
-            },
+        setCurtainActive(true);
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                gsap.fromTo(curtainRef.current,
+                    { yPercent: 100 },
+                    {
+                        yPercent: 0,
+                        duration: 0.7,
+                        ease: "expo.inOut",
+                        onComplete: () => {
+                            navigate("/");
+                            window.scrollTo(0, 0);
+                            setCurtainActive(false);
+                        },
+                    }
+                );
+            });
         });
     };
 
     return (
         <Transition>
+            {/* React-portal curtain — lifecycle tied to this component */}
+            {curtainActive && createPortal(
+                <div
+                    ref={curtainRef}
+                    style={{ position: "fixed", inset: 0, background: "#000", zIndex: 9990, transform: "translateY(100%)" }}
+                    aria-hidden="true"
+                />,
+                document.body
+            )}
             <div className="min-h-screen bg-primary font-amiamie overflow-x-hidden text-black selection:bg-black selection:text-white">
                 {/* Custom Cursor/Back Button overlaying hero roughly */}
                 <div className="fixed top-8 left-8 md:top-12 md:left-12 z-50 mix-blend-difference">
@@ -167,9 +187,10 @@ const ProjectDetail = () => {
                                         className="inline-flex items-center gap-3 text-xs uppercase tracking-widest border border-black px-6 py-3 hover:bg-black hover:text-white transition-all duration-500 cursor-none group"
                                     >
                                         Visit Live Site
-                                        <div className="size-4 sm:size-5 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500 rotate-45">
-                                            <UseAnimations animation={arrowUp} size={20} strokeColor="currentColor" autoplay={true} loop={true} />
-                                        </div>
+                                        <Icon
+                                            icon="ph:arrow-up-right-light"
+                                            className="w-4 h-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                                        />
                                     </a>
                                 </div>
                             )}

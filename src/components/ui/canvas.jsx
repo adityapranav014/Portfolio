@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 
-// Canvas lines effect component
+// Minimal monochrome cursor trail — tonally consistent with the editorial aesthetic.
+// Disabled on touch/mobile devices (no cursor present).
 let ctx,
-    f,
     pos = { x: 0, y: 0 },
     lines = [],
     E = {
         friction: 0.5,
-        trails: 80,
-        size: 50,
+        trails: 40,
+        size: 40,
         dampening: 0.025,
         tension: 0.99,
     };
@@ -105,25 +105,11 @@ function onMousemove(e) {
             lines.push(new Line({ spring: 0.45 + (e / E.trails) * 0.025 }));
     }
     function c(e) {
-        if (e.touches) {
-            pos.x = e.touches[0].pageX;
-            pos.y = e.touches[0].pageY;
-        } else {
-            pos.x = e.clientX;
-            pos.y = e.clientY;
-        }
-    }
-    function l(e) {
-        if (e.touches.length === 1) {
-            pos.x = e.touches[0].pageX;
-            pos.y = e.touches[0].pageY;
-        }
+        pos.x = e.clientX;
+        pos.y = e.clientY;
     }
     document.removeEventListener("mousemove", onMousemove);
-    document.removeEventListener("touchstart", onMousemove);
     document.addEventListener("mousemove", c);
-    document.addEventListener("touchmove", c);
-    document.addEventListener("touchstart", l);
     c(e);
     o();
     render();
@@ -134,10 +120,9 @@ function render() {
         ctx.globalCompositeOperation = "source-over";
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         ctx.globalCompositeOperation = "lighter";
-
-        // Using exactly the effect and color from the provided prompt
-        ctx.strokeStyle = "hsla(" + Math.round(f.update()) + ",100%,50%,0.025)";
-        ctx.lineWidth = 10;
+        // Monochrome cream trail — matches the site's #e5e5e0 palette
+        ctx.strokeStyle = "rgba(229, 229, 224, 0.05)";
+        ctx.lineWidth = 6;
 
         for (var e, t = 0; t < E.trails; t++) {
             e = lines[t];
@@ -159,21 +144,17 @@ function resizeCanvas() {
 }
 
 const renderCanvas = function () {
+    // Do not run on touch-only devices — no cursor to trail
+    if (window.matchMedia("(hover: none)").matches) return;
+
     const canvasEl = document.getElementById("canvas");
     if (!canvasEl) return;
 
     ctx = canvasEl.getContext("2d");
     ctx.running = true;
     ctx.frame = 1;
-    f = new n({
-        phase: Math.random() * 2 * Math.PI,
-        amplitude: 85,
-        frequency: 0.0015,
-        offset: 285,
-    });
 
     document.addEventListener("mousemove", onMousemove);
-    document.addEventListener("touchstart", onMousemove);
     document.body.addEventListener("orientationchange", resizeCanvas);
     window.addEventListener("resize", resizeCanvas);
     window.addEventListener("focus", () => {
@@ -195,7 +176,6 @@ export function CanvasLines() {
         return () => {
             if (ctx) ctx.running = false;
             document.removeEventListener("mousemove", onMousemove);
-            document.removeEventListener("touchstart", onMousemove);
             window.removeEventListener("resize", resizeCanvas);
         };
     }, []);

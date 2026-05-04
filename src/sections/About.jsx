@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Image } from "@imagekit/react";
@@ -33,8 +32,25 @@ const About = () => {
   const introRef = useRef(null);
   const labelRef = useRef(null);
   const itemRefs = useRef([]);
+  const sectionBandRef = useRef(null);
+  const aboutTitleRef = useRef(null);
 
   useGSAP(() => {
+    // Header index band
+    gsap.from(sectionBandRef.current, {
+      opacity: 0,
+      y: 20,
+      duration: 1,
+      ease: "power3.out",
+      scrollTrigger: { trigger: sectionBandRef.current, start: "top 90%" },
+    });
+    // About title clip reveal
+    gsap.from(aboutTitleRef.current, {
+      yPercent: 110,
+      duration: 1.4,
+      ease: "expo.out",
+      scrollTrigger: { trigger: aboutTitleRef.current, start: "top 95%" },
+    });
     gsap.to("#about", {
       scale: 0.95,
       scrollTrigger: {
@@ -90,13 +106,44 @@ const About = () => {
 
   return (
     <section id="about" className="min-h-screen bg-black rounded-b-4xl">
-      <AnimatedHeaderSection
-        subTitle={"Always exploring..."}
-        title={"About"}
-        text={text}
-        textColor={"text-white"}
-        withScrollTrigger={true}
-      />
+      {/* ── SECTION HEADER: Watermark split ────────────── */}
+      <div className="pt-[clamp(3rem,8dvh,6rem)] relative">
+        {/* Rule + index band */}
+        <div
+          ref={sectionBandRef}
+          className="flex items-center justify-between px-10 pb-5 border-b border-white/[0.12]"
+        >
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-light tracking-[0.35em] text-white/30 tabular-nums">03</span>
+            <span className="w-8 h-px bg-white/15 shrink-0" />
+            <span className="text-[10px] font-light tracking-[0.28em] text-white/20 uppercase">The person</span>
+          </div>
+          <p className="hidden md:block font-light text-[11px] tracking-wider text-white/25 max-w-[32ch] text-right leading-relaxed">
+            Passion for design, code &amp; interaction — quality that shows in every project.
+          </p>
+        </div>
+        {/* Display title + ghost watermark numeral */}
+        <div className="relative px-10 pt-10 pb-12 overflow-hidden">
+          <span
+            aria-hidden="true"
+            className="absolute top-0 right-4 font-light leading-none tracking-tighter text-white/[0.045] select-none pointer-events-none"
+            style={{ fontSize: "clamp(5rem, 22vw, 20rem)" }}
+          >
+            03
+          </span>
+          <div className="overflow-hidden relative z-10">
+            <h2
+              ref={aboutTitleRef}
+              className="banner-text-responsive font-light leading-[0.95] tracking-tighter text-white"
+            >
+              About
+            </h2>
+          </div>
+          <p className="hidden lg:block font-light italic text-white/25 text-sm mt-4 max-w-[26ch] text-right ml-auto leading-relaxed relative z-10">
+            Always exploring,<br />always building.
+          </p>
+        </div>
+      </div>
       <div className="flex flex-col items-center justify-between gap-16 px-10 pb-16 lg:flex-row">
         {/* Photo */}
         <div ref={imgRef} className="w-full max-w-md rounded-3xl overflow-hidden shrink-0">

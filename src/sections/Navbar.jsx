@@ -133,12 +133,13 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when open
+  // Lock body scroll when menu is open — only act when actually opening,
+  // so the initial render with isOpen=false doesn't race against the preloader.
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      return () => { document.body.style.overflow = ""; };
+    }
   }, [isOpen]);
 
   const toggleMenu = () => {

@@ -1,7 +1,4 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import UseAnimations from "react-useanimations";
-import arrowUp from "react-useanimations/lib/arrowUp";
-import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
 import { projects } from "../constants";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -40,9 +37,26 @@ const Works = () => {
   const mouse = useRef({ x: 0, y: 0 });
   const moveX = useRef(null);
   const moveY = useRef(null);
+  const worksHeaderRef = useRef(null);
+  const worksTitleRef = useRef(null);
 
   useGSAP(
     () => {
+      // Header index band
+      gsap.from(worksHeaderRef.current, {
+        opacity: 0,
+        y: 20,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: { trigger: worksHeaderRef.current, start: "top 90%" },
+      });
+      // Title clip reveal
+      gsap.from(worksTitleRef.current, {
+        yPercent: 110,
+        duration: 1.4,
+        ease: "expo.out",
+        scrollTrigger: { trigger: worksTitleRef.current, start: "top 95%" },
+      });
       moveX.current = gsap.quickTo(previewRef.current, "x", {
         duration: 1.5,
         ease: "power3.out",
@@ -160,13 +174,31 @@ const Works = () => {
 
   return (
     <section id="work" ref={containerRef} className="flex flex-col min-h-dvh">
-      <AnimatedHeaderSection
-        subTitle={"Creating next level digital products"}
-        title={"Works"}
-        text={text}
-        textColor={"text-black"}
-        withScrollTrigger={true}
-      />
+      {/* ── SECTION HEADER: Counter rule layout ────────── */}
+      <div className="pt-[clamp(3rem,8dvh,6rem)]" ref={worksHeaderRef}>
+        {/* Spread rule with embedded labels */}
+        <div className="flex items-center gap-4 px-6 md:px-10 pb-5 border-b border-black/[0.1]">
+          <span className="text-[10px] font-light tracking-[0.35em] text-black/30 tabular-nums shrink-0">04</span>
+          <div className="flex-1 h-px bg-black/10" />
+          <span className="text-[10px] font-light tracking-[0.3em] text-black/25 uppercase shrink-0">Selected Work</span>
+          <div className="flex-1 h-px bg-black/10" />
+          <span className="hidden md:block text-[10px] font-light tracking-[0.3em] text-black/20 tabular-nums shrink-0">2023 — 2025</span>
+        </div>
+        {/* Title row */}
+        <div className="flex items-end justify-between gap-6 px-6 md:px-10 pt-8 pb-10">
+          <div className="overflow-hidden">
+            <h2
+              ref={worksTitleRef}
+              className="banner-text-responsive font-light leading-[0.95] tracking-tighter text-black"
+            >
+              Works
+            </h2>
+          </div>
+          <p className="hidden md:block font-light text-[11px] tracking-wider text-black/35 max-w-[26ch] text-right leading-relaxed pb-2">
+            Each project built with intent — thoughtful design, clean code, results that matter.
+          </p>
+        </div>
+      </div>
       <div
         className="relative flex flex-col font-light"
         onMouseMove={handleMouseMove}
@@ -210,13 +242,10 @@ const Works = () => {
                 </span>
               </div>
               <Magnetic strength={0.3}>
-                <div className="md:w-8 md:h-8 w-6 h-6 mt-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 rotate-45 flex items-center justify-center">
-                  <UseAnimations
-                    animation={arrowUp}
-                    size={32}
-                    strokeColor="currentColor"
-                    autoplay={true}
-                    loop={true}
+                <div className="md:w-8 md:h-8 w-6 h-6 mt-1 flex items-center justify-center">
+                  <Icon
+                    icon="ph:arrow-up-right-light"
+                    className="w-full h-full transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   />
                 </div>
               </Magnetic>
