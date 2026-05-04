@@ -23,9 +23,9 @@ const Contact = () => {
     setHasCopiedPhone(true);
     setTimeout(() => setHasCopiedPhone(false), 2000);
   };
-  const text = `Ready to dominate your market? Secure my expertise 
-    to architect a relentless digital weapon that will 
-    leave your competition entirely obsolete.`;
+  const text = `Have a project in mind? I work with companies
+    from all over the world and would love to hear
+    what you’re building. Let’s make it happen.`;
   useGSAP(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -87,7 +87,7 @@ const Contact = () => {
     >
       <div>
         <AnimatedHeaderSection
-          subTitle={"Command Your Digital Empire"}
+          subTitle={"Let's start a project together"}
           title={"Contact"}
           text={text}
           textColor={"text-white"}

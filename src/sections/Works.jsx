@@ -33,9 +33,9 @@ const Works = () => {
       },
     });
   };
-  const text = `I don't build generic websites. I launch lethal,
-    high-conversion market weapons engineered to captivate
-    audiences and crush revenue targets indiscriminately.`;
+  const text = `Each project is built with intent: thoughtful design,
+    clean code, and a focus on results that actually
+    matter to your business and your users.`;
 
   const mouse = useRef({ x: 0, y: 0 });
   const moveX = useRef(null);
@@ -161,7 +161,7 @@ const Works = () => {
   return (
     <section id="work" ref={containerRef} className="flex flex-col min-h-dvh">
       <AnimatedHeaderSection
-        subTitle={"An Arsenal of Digital Masterpieces"}
+        subTitle={"Creating next level digital products"}
         title={"Works"}
         text={text}
         textColor={"text-black"}

@@ -52,7 +52,7 @@ const ContactSummary = () => {
           className="group relative flex items-center gap-3 bg-DarkLava text-primary px-7 py-3.5 overflow-hidden cursor-pointer select-none"
         >
           <span className="relative z-10 text-[10px] uppercase tracking-[0.22em] font-light transition-colors duration-500">
-            Begin a Conversation
+            Start a project
           </span>
           <span className="relative z-10 text-sm transition-transform duration-300 group-hover:translate-x-1 flex items-center">
             <Icon icon="ph:arrow-right-light" className="w-[1.2em] h-[1.2em]" />

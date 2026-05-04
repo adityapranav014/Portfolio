@@ -12,9 +12,9 @@ const Hero = () => {
   const ctaRef = useRef(null);
   const pillRef = useRef(null);
 
-  const text = `I forge category-defining digital empires that manipulate 
-    psychology and raw compute power, arming visionary 
-    leaders with products their competitors will fear.`;
+  const text = `I help brands build meaningful digital experiences, from clean, 
+    fast interfaces to solid, scalable backends. Together  
+    we will create something worth noticing.`;
 
   useEffect(() => {
     // Hold all content invisible until preloader exits
@@ -205,7 +205,7 @@ const Hero = () => {
 
       <div ref={headerRef} className="relative z-10">
         <AnimatedHeaderSection
-          subTitle={"Architect of Digital Dominance"}
+          subTitle={"Freelance Designer & Developer"}
           title={"Aditya Pranav"}
           text={text}
           textColor={"text-white [text-shadow:0_4px_24px_rgba(0,0,0,1),0_2px_6px_rgba(0,0,0,0.5)]"}

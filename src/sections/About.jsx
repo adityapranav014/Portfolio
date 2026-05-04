@@ -8,27 +8,27 @@ import Magnetic from "../components/ui/Magnetic";
 
 const whenItems = [
   {
-    label: "Open-sourcing my latest experiment (or hacking on yours)",
+    label: "Contributing to open-source projects and experimenting with new tech",
     icon: <Icon icon="ph:terminal-window-light" className="w-5 h-5" />,
   },
   {
-    label: "Teaching devs, because rising tides lift all ships",
+    label: "Sharing what I learn, because good ideas grow when shared",
     icon: <Icon icon="ph:chalkboard-teacher-light" className="w-5 h-5" />,
   },
   {
-    label: "Rock climbing, problem-solving with real stakes",
+    label: "Rock climbing: problem solving with a bit more at stake",
     icon: <Icon icon="ph:mountains-light" className="w-5 h-5" />,
   },
   {
-    label: "Strumming chords while CI pipelines pass",
+    label: "Strumming guitar while a build passes in the background",
     icon: <Icon icon="ph:guitar-light" className="w-5 h-5" />,
   },
 ];
 
 const About = () => {
-  const text = `I am the architect behind elite digital armories, 
-    fusing mathematical precision with cinematic motion 
-    to convert casual onlookers into brand zealots.`;
+  const text = `The combination of my passion for design, code &
+    interaction puts me in a unique place in the web world.
+    I care deeply about quality, and it shows in every project.`;
   const imgRef = useRef(null);
   const introRef = useRef(null);
   const labelRef = useRef(null);
@@ -91,7 +91,7 @@ const About = () => {
   return (
     <section id="about" className="min-h-screen bg-black rounded-b-4xl">
       <AnimatedHeaderSection
-        subTitle={"Engineered to Lead, Scaled to Dominate"}
+        subTitle={"Always exploring..."}
         title={"About"}
         text={text}
         textColor={"text-white"}
@@ -115,8 +115,8 @@ const About = () => {
             ref={introRef}
             className="text-xl font-light leading-relaxed tracking-wide text-white/60 md:text-2xl lg:text-3xl text-pretty"
           >
-            Obsessed with building fast, intuitive apps from pixel-perfect UIs
-            to bulletproof serverless backends. Every line of code is a promise:{" "}
+            Obsessed with building fast, intuitive apps, from pixel-perfect
+            UIs to reliable backends. Every line of code is a promise:{" "}
             <em className="text-white/90 not-italic">quality that users feel.</em>
           </p>
 

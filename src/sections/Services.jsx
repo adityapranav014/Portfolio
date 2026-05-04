@@ -5,9 +5,9 @@ import { useMediaQuery } from "react-responsive";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 const Services = () => {
-  const text = `I architect secure, hyper-performant technological
-    ecosystems designed to scale ruthlessly and 
-    dominate your entire industry sector.`;
+  const text = `I build clean, performant digital solutions tailored
+    to your business. No fluff, just work that lasts
+    and scales as you grow.`;
   const serviceRefs = useRef([]);
   const isDesktop = useMediaQuery({ minWidth: "48rem" }); //768px
   useGSAP(() => {
@@ -28,7 +28,7 @@ const Services = () => {
   return (
     <section id="services" className="min-h-dvh bg-black rounded-t-4xl">
       <AnimatedHeaderSection
-        subTitle={"Unfair Technological Advantages"}
+        subTitle={"I can help you with..."}
         title={"Service"}
         text={text}
         textColor={"text-white"}
