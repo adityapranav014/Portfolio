@@ -1,6 +1,4 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import UseAnimations from "react-useanimations";
-import star from "react-useanimations/lib/star";
 import gsap from "gsap";
 import { Observer } from "gsap/all";
 import { useEffect, useRef } from "react";
@@ -8,7 +6,7 @@ gsap.registerPlugin(Observer);
 const Marquee = ({
   items,
   className = "text-white bg-black",
-  icon = star,
+  icon = null,
   iconClassName = "",
   reverse = false,
 }) => {
@@ -19,12 +17,12 @@ const Marquee = ({
     items = gsap.utils.toArray(items);
     config = config || {};
     let tl = gsap.timeline({
-        repeat: config.repeat,
-        paused: config.paused,
-        defaults: { ease: "none" },
-        onReverseComplete: () =>
-          tl.totalTime(tl.rawTime() + tl.duration() * 100),
-      }),
+      repeat: config.repeat,
+      paused: config.paused,
+      defaults: { ease: "none" },
+      onReverseComplete: () =>
+        tl.totalTime(tl.rawTime() + tl.duration() * 100),
+    }),
       length = items.length,
       startX = items[0].offsetLeft,
       times = [],
@@ -46,7 +44,7 @@ const Marquee = ({
         let w = (widths[i] = parseFloat(gsap.getProperty(el, "width", "px")));
         xPercents[i] = snap(
           (parseFloat(gsap.getProperty(el, "x", "px")) / w) * 100 +
-            gsap.getProperty(el, "xPercent")
+          gsap.getProperty(el, "xPercent")
         );
         return xPercents[i];
       },
@@ -57,7 +55,7 @@ const Marquee = ({
       (xPercents[length - 1] / 100) * widths[length - 1] -
       startX +
       items[length - 1].offsetWidth *
-        gsap.getProperty(items[length - 1], "scaleX") +
+      gsap.getProperty(items[length - 1], "scaleX") +
       (parseFloat(config.paddingRight) || 0);
     for (i = 0; i < length; i++) {
       item = items[i];
@@ -161,7 +159,11 @@ const Marquee = ({
               {typeof icon === "string" ? (
                 <Icon icon={icon} className="w-full h-full" />
               ) : (
-                <UseAnimations animation={icon} size={40} strokeColor="currentColor" autoplay={true} loop={true} />
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 23.02">
+                  <g transform="matrix(0.9974913001060486,0,0,0.9974913001060486,12,11.510000228881836)">
+                    <path strokeLinecap="round" strokeLinejoin="round" fill="none" stroke="currentColor" strokeWidth="2" d="M0,-9.510000228881836 C0,-9.510000228881836 3.0899999141693115,-3.25 3.0899999141693115,-3.25 C3.0899999141693115,-3.25 10,-2.240000009536743 10,-2.240000009536743 C10,-2.240000009536743 5,2.630000114440918 5,2.630000114440918 C5,2.630000114440918 6.179999828338623,9.510000228881836 6.179999828338623,9.510000228881836 C6.179999828338623,9.510000228881836 0,6.260000228881836 0,6.260000228881836 C0,6.260000228881836 -6.179999828338623,9.510000228881836 -6.179999828338623,9.510000228881836 C-6.179999828338623,9.510000228881836 -5,2.630000114440918 -5,2.630000114440918 C-5,2.630000114440918 -10,-2.240000009536743 -10,-2.240000009536743 C-10,-2.240000009536743 -3.0899999141693115,-3.25 -3.0899999141693115,-3.25 C-3.0899999141693115,-3.25 0,-9.510000228881836 0,-9.510000228881836z" />
+                  </g>
+                </svg>
               )}
             </div>
           </span>
