@@ -1,162 +1,160 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 
-/**
- * Preloader - award-worthy cinematic entrance.
- *
- * Layout:
- *  - Top bar:   "AP" monogram (left)  |  "2026" (right)
- *  - Center:    Massive percentage counter (the primary focus)
- *  - Sub-label: "Loading portfolio of Aditya Pranav" slides up below counter
- *  - Bottom:    Thin horizontal progress line
- *
- * Timeline:
- *  0.0s  Top-bar labels fade in
- *  0.2s  Counter clip-reveal: starts at 0, counts to 100 over ~2.2s
- *  0.3s  Sub-label slides up from clip
- *  0.4s  Progress line fills left → right in sync with counter
- *  ~2.6s Brief hold - all content fades
- *  ~3.0s Two-panel split exit: top half rises, bottom half drops (expo.inOut)
- *  ~4.0s onComplete fires → parent unmounts
- */
+const greetings = [
+    "Hello",
+    "Bonjour",
+    "Ciao",
+    "Olá",
+    "こんにちは",
+    "Hallå",
+    "Guten Tag",
+    "Hallo",
+    "नमस्ते",
+    "مرحبا",
+    "你好",
+];
+
+const TOTAL = greetings.length;
+
 const Preloader = ({ onComplete }) => {
     const topPanelRef = useRef(null);
     const btmPanelRef = useRef(null);
     const contentRef = useRef(null);
-    const counterRef = useRef(null);
-    const pctRef = useRef(null);
+    const wordRef = useRef(null);
+    const dotRef = useRef(null);
     const lineRef = useRef(null);
-    const topBarRef = useRef(null);
-    const labelRef = useRef(null);
+    const indexRef = useRef(null);
+    const totalLblRef = useRef(null);
 
     useEffect(() => {
-        const obj = { val: 0 };
+        const el = wordRef.current;
+        const dot = dotRef.current;
+        const line = lineRef.current;
+        const idx = indexRef.current;
+        const lbl = totalLblRef.current;
+        const content = contentRef.current;
+        const top = topPanelRef.current;
+        const btm = btmPanelRef.current;
+
+        // ── initial states ──────────────────────────────────────────────
+        gsap.set([dot, idx, lbl], { opacity: 0, y: 8 });
+        gsap.set(el, { opacity: 0 });
+        gsap.set(line, { scaleX: 0, transformOrigin: "left center" });
 
         const tl = gsap.timeline({ onComplete });
 
-        // 0 - initial states
-        gsap.set([topBarRef.current, labelRef.current], { opacity: 0, y: 12 });
-        gsap.set(counterRef.current, { opacity: 0, y: 40 });
+        // ── chrome fades in ─────────────────────────────────────────────
+        tl.to([dot, idx, lbl], { opacity: 1, y: 0, duration: 0.55, ease: "power3.out", stagger: 0.06 }, 0);
 
-        // 1 - top bar fades in
-        tl.to(topBarRef.current, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0);
+        // ── word reel ───────────────────────────────────────────────────
+        greetings.forEach((word, i) => {
+            const speed = Math.pow(0.80, i);          // each word ~20% faster
+            const animIn = 0.40 * speed;
+            const hold = 0.10 * speed;
+            const animOut = 0.26 * speed;
+            const progress = (i + 1) / TOTAL;
 
-        // 2 - counter rises in
-        tl.to(counterRef.current, { opacity: 1, y: 0, duration: 0.9, ease: "expo.out" }, 0.15);
+            tl.call(() => {
+                el.textContent = word;
+                idx.textContent = String(i + 1).padStart(2, "0");
+            });
 
-        // 3 - sub-label slides up
-        tl.to(labelRef.current, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.3);
+            // enter: clip up + scale snap + letter-spacing contract
+            tl.set(el, { yPercent: 112, opacity: 1, scale: 0.88, filter: "blur(4px)", letterSpacing: "0.12em" });
+            tl.to(el, {
+                yPercent: 0,
+                scale: 1,
+                filter: "blur(0px)",
+                letterSpacing: "0em",
+                duration: animIn,
+                ease: "expo.out",
+            });
 
-        // 4 - count 0 → 100
-        tl.to(
-            obj,
-            {
-                val: 100,
-                duration: 2.2,
-                ease: "power1.inOut",
-                onUpdate() {
-                    const v = Math.round(obj.val);
-                    if (pctRef.current)
-                        pctRef.current.textContent = String(v).padStart(2, "0");
-                    if (lineRef.current)
-                        lineRef.current.style.transform = `scaleX(${v / 100})`;
-                },
-            },
-            0.25
-        );
+            // progress line in sync
+            tl.to(line, { scaleX: progress, duration: animIn + hold, ease: "power1.out" }, "<");
 
-        // 5 - hold at 100
-        tl.to({}, { duration: 0.25 });
+            tl.to({}, { duration: hold });
 
-        // 6 - content fades out
-        tl.to(contentRef.current, {
-            opacity: 0,
-            duration: 0.4,
-            ease: "power2.in",
+            if (i < TOTAL - 1) {
+                // exit: shoot up + blur out
+                tl.to(el, {
+                    yPercent: -112,
+                    scale: 0.95,
+                    filter: "blur(3px)",
+                    duration: animOut,
+                    ease: "expo.in",
+                });
+            }
         });
 
-        // 7 - two-panel split exit
-        tl.to(
-            topPanelRef.current,
-            { yPercent: -100, duration: 1.1, ease: "expo.inOut" },
-            "-=0.1"
-        );
-        tl.to(
-            btmPanelRef.current,
-            { yPercent: 100, duration: 1.1, ease: "expo.inOut" },
-            "<"
-        );
+        // ── hold on last word ───────────────────────────────────────────
+        tl.to({}, { duration: 0.45 });
+
+        // ── fade content ────────────────────────────────────────────────
+        tl.to(content, { opacity: 0, duration: 0.35, ease: "power2.in" });
+
+        // ── two-panel split exit ─────────────────────────────────────────
+        tl.to(top, { yPercent: -100, duration: 1.0, ease: "expo.inOut" }, "-=0.05");
+        tl.to(btm, { yPercent: 100, duration: 1.0, ease: "expo.inOut" }, "<");
 
         return () => tl.kill();
     }, [onComplete]);
 
     return (
         <>
-            {/* Top half panel */}
-            <div
-                ref={topPanelRef}
-                className="fixed inset-x-0 top-0 h-1/2 z-[10001] bg-black"
-                aria-hidden="true"
-            />
-            {/* Bottom half panel */}
-            <div
-                ref={btmPanelRef}
-                className="fixed inset-x-0 bottom-0 h-1/2 z-[10001] bg-black"
-                aria-hidden="true"
-            />
+            {/* Split exit panels */}
+            <div ref={topPanelRef} className="fixed inset-x-0 top-0 h-1/2 z-[10001] bg-[#0e0e0e]" aria-hidden="true" />
+            <div ref={btmPanelRef} className="fixed inset-x-0 bottom-0 h-1/2 z-[10001] bg-[#0e0e0e]" aria-hidden="true" />
 
-            {/* Content layer - sits on top of both panels */}
+            {/* Content — sits above both panels */}
             <div
                 ref={contentRef}
-                className="fixed inset-0 z-[10002] flex flex-col justify-between px-8 py-8 md:px-14 md:py-10 pointer-events-none select-none"
+                className="fixed inset-0 z-[10002] flex flex-col justify-between px-8 py-9 md:px-14 md:py-11 pointer-events-none select-none"
                 aria-hidden="true"
             >
-                {/* Top bar */}
-                <div ref={topBarRef} className="flex justify-between items-center">
-                    <span className="text-xs font-black tracking-[0.08em] text-white uppercase">
-                        AP
+                {/* Top row: label left | counter right */}
+                <div className="flex justify-between items-end">
+                    <span className="text-[9px] md:text-[10px] tracking-[0.55em] text-white/25 font-light uppercase">
+                        greeting
                     </span>
-                    <span className="text-[9px] uppercase tracking-[0.5em] text-white/30 font-light">
-                        2026
-                    </span>
-                </div>
-
-                {/* Center - percentage counter */}
-                <div className="flex flex-col items-center gap-4">
-                    <div ref={counterRef} className="relative flex items-end leading-none">
-                        <span
-                            ref={pctRef}
-                            className="font-black tabular-nums text-white"
-                            style={{ fontSize: "clamp(7rem, 22vw, 22rem)", letterSpacing: "-0.04em" }}
-                        >
-                            00
-                        </span>
-                        <span
-                            className="font-light text-white/40 mb-[1.5vw]"
-                            style={{ fontSize: "clamp(1.5rem, 4vw, 5rem)" }}
-                        >
-                            %
+                    <div className="flex items-baseline gap-1 tabular-nums">
+                        <span ref={indexRef} className="text-[11px] md:text-[13px] text-white/60 font-light">01</span>
+                        <span ref={totalLblRef} className="text-[9px] md:text-[10px] text-white/20 font-light">
+                            / {String(TOTAL).padStart(2, "0")}
                         </span>
                     </div>
-
-                    {/* Sub-label */}
-                    <p
-                        ref={labelRef}
-                        className="text-[9px] md:text-[10px] tracking-[0.45em] text-white/35 font-light text-center"
-                    >
-                        Loading portfolio of&nbsp;Aditya&nbsp;Pranav
-                    </p>
                 </div>
 
-                {/* Bottom - progress line */}
-                <div className="flex flex-col gap-3">
-                    <div className="relative h-px w-full overflow-hidden bg-white/10">
-                        <div
-                            ref={lineRef}
-                            className="absolute inset-0 bg-white origin-left"
-                            style={{ transform: "scaleX(0)" }}
+                {/* Center: bullet + massive word */}
+                <div className="flex items-center gap-5 md:gap-7 -mt-6">
+                    <span
+                        ref={dotRef}
+                        className="text-white/40 flex-shrink-0"
+                        style={{ fontSize: "clamp(0.65rem, 1.2vw, 1rem)" }}
+                    >
+                        &#x2022;
+                    </span>
+                    {/* overflow-hidden acts as the clip mask for the word */}
+                    <div style={{ overflow: "hidden", paddingTop: "0.35em", paddingBottom: "0.15em" }}>
+                        <span
+                            ref={wordRef}
+                            className="block text-white"
+                            style={{
+                                fontSize: "clamp(4.5rem, 12vw, 11rem)",
+                                fontWeight: 300,
+                                lineHeight: 1.05,
+                            }}
                         />
                     </div>
+                </div>
+
+                {/* Bottom: thin progress line */}
+                <div className="relative h-px w-full bg-white/8">
+                    <div
+                        ref={lineRef}
+                        className="absolute inset-0 bg-white/70"
+                    />
                 </div>
             </div>
         </>
