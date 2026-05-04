@@ -26,19 +26,19 @@ const ServiceSummary = () => {
 
       mm.add("(min-width: 768px)", () => {
         gsap.to(row1Ref.current, {
-          xPercent: 20,
+          xPercent: 12,
           scrollTrigger: { trigger: row1Ref.current, scrub: true },
         });
         gsap.to(row2Ref.current, {
-          xPercent: -30,
+          xPercent: -15,
           scrollTrigger: { trigger: row2Ref.current, scrub: true },
         });
         gsap.to(row3Ref.current, {
-          xPercent: 60,
+          xPercent: 18,
           scrollTrigger: { trigger: row3Ref.current, scrub: true },
         });
         gsap.to(row4Ref.current, {
-          xPercent: -60,
+          xPercent: -18,
           scrollTrigger: { trigger: row4Ref.current, scrub: true },
         });
       });
@@ -87,7 +87,7 @@ const ServiceSummary = () => {
         </div>
         <div
           ref={row2Ref}
-          className="flex items-center justify-center gap-1.5 md:gap-3 translate-x-2 md:translate-x-16"
+          className="flex items-center justify-center gap-1.5 md:gap-3 translate-x-2 md:translate-x-8"
         >
           <p className="font-normal">Development</p>
           <div className="w-5 h-0.5 md:h-1 md:w-32 bg-accent" />
@@ -95,7 +95,7 @@ const ServiceSummary = () => {
         </div>
         <div
           ref={row3Ref}
-          className="flex items-center justify-center gap-1.5 md:gap-3 -translate-x-4 md:-translate-x-48"
+          className="flex items-center justify-center gap-1.5 md:gap-3 -translate-x-2 md:-translate-x-16"
         >
           <p>APIs</p>
           <div className="w-5 h-0.5 md:h-1 md:w-32 bg-accent" />
@@ -103,7 +103,7 @@ const ServiceSummary = () => {
           <div className="w-5 h-0.5 md:h-1 md:w-32 bg-accent" />
           <p>Scalability</p>
         </div>
-        <div ref={row4Ref} className="translate-x-2 md:translate-x-48">
+        <div ref={row4Ref} className="translate-x-1 md:translate-x-20">
           <p>Databases</p>
         </div>
       </div>

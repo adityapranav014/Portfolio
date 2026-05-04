@@ -92,7 +92,19 @@ export const projects = [
     description:
       "A fast, clean storefront built for a premium mobile accessories brand. Focused on smooth browsing, real-time inventory, and smart product recommendations that help customers find exactly what they need.",
     fullDescription:
-      "The client needed a storefront that could handle product variants, bundle deals, and MagSafe compatibility filtering without slowing the browse experience. I architected a Next.js front-end backed by a Node.js/MongoDB API, with server-side rendering on category pages for SEO and client-side transitions for speed. The recommendation engine queries purchase history to surface related accessories per device model. Result: a sub-2-second first paint on 3G and a 34% increase in average order value from bundle suggestions.",
+      "The client needed a storefront that could handle product variants, bundle deals, and MagSafe compatibility filtering without slowing the browse experience. I architected a Next.js front-end backed by a Node.js/MongoDB API, with server-side rendering on category pages for SEO and client-side transitions for speed. The recommendation engine queries purchase history to surface related accessories per device model.",
+    challenge: "The existing Shopify store was slow — 6-second TTI on mobile — and the bundle logic required three separate page refreshes. The client was losing customers at the product page.",
+    process: [
+      { step: "01", title: "Audit & Architecture", body: "Ran Lighthouse and WebPageTest on the existing store. Mapped every API call and identified redundant fetches on product pages. Proposed a Next.js migration with ISR for category pages and client-side transitions for cart interactions." },
+      { step: "02", title: "Data Modelling", body: "Redesigned the product schema in MongoDB to flatten variant trees and precompute bundle compatibility at write time, eliminating N+1 queries on the product detail page." },
+      { step: "03", title: "Recommendation Engine", body: "Built a lightweight collaborative filter in Node.js that queries purchase co-occurrence. Integrated as a non-blocking sidebar component — it fails silently and never blocks the critical path." },
+      { step: "04", title: "Performance Tuning", body: "Applied image CDN transforms, HTTP/2 push for above-fold assets, and a service worker for repeat visitors. Achieved sub-2s FCP on throttled 3G in final Lighthouse audit." },
+    ],
+    outcomes: [
+      { metric: "2.0 s", label: "First Contentful Paint on 3G" },
+      { metric: "+34%", label: "Average order value from bundles" },
+      { metric: "91", label: "Lighthouse Performance score" },
+    ],
     href: "",
     image: "/assets/projects/mobile-accessories-store.jpg",
     bgImage: "/assets/backgrounds/blanket.jpg",
@@ -113,7 +125,19 @@ export const projects = [
     description:
       "A boutique e-commerce experience for a plant retailer who wanted their digital presence to feel as considered as their curation. Editorial-first layout, frictionless checkout, and content that genuinely drives organic traffic.",
     fullDescription:
-      "A boutique plant retailer wanted a digital presence as considered as their curation. I built a Next.js storefront with a headless CMS for care guides, Stripe for checkout, and an editorial-first layout that foregrounds photography. Lazy-loaded image grids and optimistic UI on the cart made the experience feel native despite the lean infrastructure. The care-guide section became the highest-traffic page, doubling as SEO content that drove 60% of organic acquisition.",
+      "A boutique plant retailer wanted a digital presence as considered as their curation. I built a Next.js storefront with a headless CMS for care guides, Stripe for checkout, and an editorial-first layout that foregrounds photography. Lazy-loaded image grids and optimistic UI on the cart made the experience feel native despite the lean infrastructure.",
+    challenge: "The client had great photography and zero online presence. Their only channel was Instagram — no checkout, no organic search footprint, and no way to capture repeat customers.",
+    process: [
+      { step: "01", title: "Content Strategy", body: "Identified that plant care guides were high-intent search queries with zero competition in their niche. Proposed a headless CMS (Sanity) so the owner could publish guides without developer involvement." },
+      { step: "02", title: "Photography-first Layout", body: "Designed a full-bleed grid that puts product photography at 100% viewport width. No sidebar, no clutter — the product is the hero on every page." },
+      { step: "03", title: "Checkout Flow", body: "Integrated Stripe Checkout with optimistic UI on the cart — items appear instantly and sync in the background. Reduced perceived cart-add latency to zero." },
+      { step: "04", title: "SEO & Indexability", body: "All care guide pages are statically generated with structured data markup. Within 3 months the guide section was ranking on page one for 14 long-tail plant care queries." },
+    ],
+    outcomes: [
+      { metric: "60%", label: "Organic acquisition from care guides" },
+      { metric: "14", label: "Page-one rankings within 3 months" },
+      { metric: "+28%", label: "Repeat purchase rate vs Instagram DMs" },
+    ],
     href: "",
     image: "/assets/projects/plant-shop.jpg",
     bgImage: "/assets/backgrounds/curtains.jpg",
@@ -133,7 +157,19 @@ export const projects = [
     description:
       "A high-performance marketplace for Apple products and accessories. Real-time price updates, fast filtering, and a clean admin dashboard that lets non-technical staff manage inventory without any developer help.",
     fullDescription:
-      "Working within a .NET stack, I built a Blazor WebAssembly front-end that communicates with an ASP.NET Core API and SQL Server database. The focus was performance: virtual scrolling on long product lists, debounced filter chains, and a SignalR-powered deal ticker that updates prices without page refreshes. The admin dashboard gives non-technical staff full control over promotions, inventory, and featured slots.",
+      "Working within a .NET stack, I built a Blazor WebAssembly front-end that communicates with an ASP.NET Core API and SQL Server database. The focus was performance: virtual scrolling on long product lists, debounced filter chains, and a SignalR-powered deal ticker that updates prices without page refreshes.",
+    challenge: "The client's existing .NET back-end was solid but the front-end was a jQuery monolith with full-page reloads on every filter change. The business needed a modern UI without a backend rewrite.",
+    process: [
+      { step: "01", title: "Blazor WASM Migration", body: "Chose Blazor WebAssembly to stay within the .NET ecosystem and reuse existing C# models. Component boundaries were drawn to match the existing API surface, minimising backend changes." },
+      { step: "02", title: "Virtual Scrolling", body: "Implemented windowed rendering for product lists with 500+ items. DOM node count dropped from ~4,000 to ~80, making scroll buttery smooth even on lower-end devices." },
+      { step: "03", title: "SignalR Deal Ticker", body: "Replaced polling with a SignalR hub that pushes price changes from the backend. Price updates now appear within 200ms across all connected clients." },
+      { step: "04", title: "Admin Dashboard", body: "Built a role-scoped admin interface with drag-and-drop featured slot management. Non-technical staff can run promotions end-to-end without filing a support ticket." },
+    ],
+    outcomes: [
+      { metric: "~80", label: "Active DOM nodes vs 4,000 previously" },
+      { metric: "200 ms", label: "Price update latency via SignalR" },
+      { metric: "0", label: "Developer tickets from ops staff post-launch" },
+    ],
     href: "",
     image: "/assets/projects/apple-tech-store.jpg",
     bgImage: "/assets/backgrounds/map.jpg",
@@ -153,7 +189,19 @@ export const projects = [
     description:
       "A retail platform built around time-limited flash sales across multiple product categories. Operators can schedule promotions weeks in advance, and the platform handles the complexity behind the scenes.",
     fullDescription:
-      "A regional electronics retailer needed a platform that could run time-limited flash sales across multiple product categories simultaneously. I built the Vue.js front-end with Vuex state management and a Laravel API that powered the sale-countdown logic, faceted search, and inventory reservation. The admin panel lets ops staff schedule sales weeks in advance with zero developer involvement. The flash-sale feature drove a 3× spike in daily revenue on launch day.",
+      "A regional electronics retailer needed a platform that could run time-limited flash sales across multiple product categories simultaneously. I built the Vue.js front-end with Vuex state management and a Laravel API that powered the sale-countdown logic, faceted search, and inventory reservation.",
+    challenge: "Flash sales drove 80% of the client's revenue but were run manually via spreadsheet and WhatsApp messages to staff. Race conditions on inventory meant overselling was a weekly occurrence.",
+    process: [
+      { step: "01", title: "Inventory Reservation Model", body: "Designed a pessimistic locking pattern in MySQL that reserves stock at cart-add time with a 15-minute TTL. Overselling dropped to zero on day one." },
+      { step: "02", title: "Scheduled Promotions", body: "Built a promotion scheduler in Laravel that activates pricing rules, countdown timers, and category visibility windows on a cron — no developer involvement required." },
+      { step: "03", title: "Faceted Search", body: "Implemented server-side facet aggregation with cached filter counts. Filter interactions respond in under 100ms even with 50,000 SKUs in the catalogue." },
+      { step: "04", title: "Load Testing", body: "Stress-tested the checkout flow with k6 at 5,000 concurrent users. Tuned Nginx worker counts, MySQL connection pooling, and enabled HTTP keep-alive before the launch." },
+    ],
+    outcomes: [
+      { metric: "3×", label: "Daily revenue spike on launch day" },
+      { metric: "0", label: "Oversell incidents since launch" },
+      { metric: "<100 ms", label: "Filter response at 50k SKUs" },
+    ],
     href: "",
     image: "/assets/projects/electronics-store.jpg",
     bgImage: "/assets/backgrounds/poster.jpg",
@@ -173,7 +221,19 @@ export const projects = [
     description:
       "An editorial-first marketplace for a luxury home decor brand. Photography leads the experience, while real-time wishlist syncing and shareable filter states keep the browsing smooth and the session time high.",
     fullDescription:
-      "The brief was editorial-first: product photography needed to lead, not compete with UI chrome. I built an Angular application with a GraphQL layer over Firebase, enabling real-time wishlist syncing across devices. The filtering system uses a faceted GraphQL query that composes from URL params, so every filter state is shareable and indexable. The whitespace-heavy layout and full-bleed imagery drove a 22% improvement in session duration versus the previous site.",
+      "The brief was editorial-first: product photography needed to lead, not compete with UI chrome. I built an Angular application with a GraphQL layer over Firebase, enabling real-time wishlist syncing across devices. The filtering system uses a faceted GraphQL query that composes from URL params, so every filter state is shareable and indexable.",
+    challenge: "The previous site was product-list heavy with small thumbnails and dense UI. Analytics showed users bounced within 10 seconds — they weren't engaging with the photography at all.",
+    process: [
+      { step: "01", title: "UX Audit", body: "Heatmaps showed users clicking on product images but landing on a detail page with even smaller photos. Redesigned the information architecture to surface full-bleed imagery at every level." },
+      { step: "02", title: "GraphQL Filter Layer", body: "Built a composable filter system where every selection is written to the URL as a GraphQL query fragment. Every filtered view is bookmarkable and shareable — customers now send links instead of screenshots." },
+      { step: "03", title: "Real-time Wishlist", body: "Implemented Firebase Realtime Database for wishlist state. Changes propagate across tabs and devices in under 50ms — the wishlist feels alive rather than stale." },
+      { step: "04", title: "Typography & Spacing", body: "Moved to a strict 8px baseline grid and reduced the number of font sizes from 11 to 5. White space doubled. The product became the focal point rather than the interface." },
+    ],
+    outcomes: [
+      { metric: "+22%", label: "Session duration vs previous site" },
+      { metric: "<50 ms", label: "Wishlist sync latency across devices" },
+      { metric: "5", label: "Font sizes (down from 11)" },
+    ],
     href: "",
     image: "/assets/projects/home-decor-store.jpg",
     bgImage: "/assets/backgrounds/table.jpg",
@@ -193,7 +253,19 @@ export const projects = [
     description:
       "A game store built to feel as fast as the titles it sells. Svelte's compile-time reactivity keeps filters instant, a WebSocket feed keeps the charts live, and the platform launched with 10k concurrent users on opening day.",
     fullDescription:
-      "A gaming startup wanted a store that felt as fast as the games it sold. Svelte's compile-time reactivity eliminated virtual DOM overhead, giving near-instant filter and search responses. The Node.js backend serves a top-sellers feed over WebSocket, updating the homepage chart in real time without polling. Genre-based discovery uses a tag graph to surface related titles beyond simple category matches. The platform launched with 10k concurrent users on opening weekend with zero downtime.",
+      "A gaming startup wanted a store that felt as fast as the games it sold. Svelte's compile-time reactivity eliminated virtual DOM overhead, giving near-instant filter and search responses. The Node.js backend serves a top-sellers feed over WebSocket, updating the homepage chart in real time without polling.",
+    challenge: "Gaming audiences expect sub-100ms interactions. The React prototype the startup had built felt sluggish on filter changes and the WebSocket chart prototype crashed under modest load in staging.",
+    process: [
+      { step: "01", title: "Framework Decision", body: "Benchmarked Svelte vs React for the filter interaction. Svelte's compiled output cut the JS bundle by 58% and eliminated virtual DOM diffing — filter changes now render in a single frame." },
+      { step: "02", title: "Tag Graph Discovery", body: "Modelled genres and themes as a graph in MongoDB. The discovery algorithm traverses two hops from the current title, surfacing related games that don't share an obvious category — leading to a 19% increase in pages per session." },
+      { step: "03", title: "WebSocket Architecture", body: "Built a Node.js pub/sub layer that aggregates sales events and pushes ranked updates to the homepage chart at 5-second intervals. Load-tested at 12,000 concurrent connections with no degradation." },
+      { step: "04", title: "Launch Readiness", body: "Ran a 72-hour pre-launch load test targeting 15,000 concurrent users. Tuned PM2 cluster mode, added Redis for session caching, and configured Cloudflare in front of the origin. Zero downtime on opening weekend." },
+    ],
+    outcomes: [
+      { metric: "10 k", label: "Concurrent users on opening weekend" },
+      { metric: "+19%", label: "Pages per session from tag-graph discovery" },
+      { metric: "−58%", label: "JS bundle vs React prototype" },
+    ],
     href: "",
     image: "/assets/projects/game-store.jpg",
     bgImage: "/assets/backgrounds/curtains.jpg",

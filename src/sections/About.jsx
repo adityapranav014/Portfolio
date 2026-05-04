@@ -7,20 +7,20 @@ import Magnetic from "../components/ui/Magnetic";
 
 const whenItems = [
   {
-    label: "Contributing to open-source projects and experimenting with new tech",
+    label: "Reverse-engineering things I admire — then rebuilding them better",
     icon: <Icon icon="ph:terminal-window-light" className="w-5 h-5" />,
   },
   {
-    label: "Sharing what I learn, because good ideas grow when shared",
-    icon: <Icon icon="ph:chalkboard-teacher-light" className="w-5 h-5" />,
+    label: "Writing about what I learn, because clarity of thought is a craft too",
+    icon: <Icon icon="ph:pencil-simple-line-light" className="w-5 h-5" />,
   },
   {
-    label: "Rock climbing: problem solving with a bit more at stake",
+    label: "Rock climbing — same problem-solving loop, higher consequences",
     icon: <Icon icon="ph:mountains-light" className="w-5 h-5" />,
   },
   {
-    label: "Strumming guitar while a build passes in the background",
-    icon: <Icon icon="ph:guitar-light" className="w-5 h-5" />,
+    label: "Playing guitar badly and pretending it's intentional",
+    icon: <Icon icon="ph:music-notes-light" className="w-5 h-5" />,
   },
 ];
 
@@ -162,9 +162,13 @@ const About = () => {
             ref={introRef}
             className="text-xl font-light leading-relaxed tracking-wide text-white/60 md:text-2xl lg:text-3xl text-pretty"
           >
-            Obsessed with building fast, intuitive apps, from pixel-perfect
-            UIs to reliable backends. Every line of code is a promise:{" "}
-            <em className="text-white/90 not-italic">quality that users feel.</em>
+            I started building for the web at 16, obsessed with the gap between
+            a design that looked good and one that{" "}
+            <em className="text-white/90 not-italic">felt inevitable</em>. That obsession
+            hasn't left. Today I work at the intersection of performance
+            engineering and interface craft — writing code that's fast enough
+            for real users, and considered enough for the people who care about
+            the details.
           </p>
 
           {/* Divider */}

@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { projects } from "../constants";
 import { useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -13,21 +14,28 @@ const Works = () => {
   const navigate = useNavigate();
 
   const [currentIndex, setCurrentIndex] = useState(null);
+  const [curtainActive, setCurtainActive] = useState(false);
+  const curtainRef = useRef(null);
 
   const openProject = (slug) => {
-    const curtain = document.createElement("div");
-    curtain.style.cssText =
-      "position:fixed;inset:0;background:#000;z-index:9990;transform:translateY(100%)";
-    document.body.appendChild(curtain);
-    gsap.to(curtain, {
-      yPercent: 0,
-      duration: 0.7,
-      ease: "expo.inOut",
-      onComplete: () => {
-        navigate(`/work/${slug}`);
-        window.scrollTo(0, 0);
-        document.body.removeChild(curtain);
-      },
+    setCurtainActive(true);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        gsap.fromTo(
+          curtainRef.current,
+          { yPercent: 100 },
+          {
+            yPercent: 0,
+            duration: 0.7,
+            ease: "expo.inOut",
+            onComplete: () => {
+              navigate(`/work/${slug}`);
+              window.scrollTo(0, 0);
+              setCurtainActive(false);
+            },
+          }
+        );
+      });
     });
   };
   const text = `Each project is built with intent: thoughtful design,
@@ -173,152 +181,162 @@ const Works = () => {
   };
 
   return (
-    <section id="work" ref={containerRef} className="flex flex-col min-h-dvh">
-      {/* ── SECTION HEADER: Counter rule layout ────────── */}
-      <div className="pt-[clamp(3rem,8dvh,6rem)]" ref={worksHeaderRef}>
-        {/* Spread rule with embedded labels */}
-        <div className="flex items-center gap-4 px-6 md:px-10 pb-5 border-b border-black/[0.1]">
-          <span className="text-[10px] font-light tracking-[0.35em] text-black/30 tabular-nums shrink-0">04</span>
-          <div className="flex-1 h-px bg-black/10" />
-          <span className="text-[10px] font-light tracking-[0.3em] text-black/25 uppercase shrink-0">Selected Work</span>
-          <div className="flex-1 h-px bg-black/10" />
-          <span className="hidden md:block text-[10px] font-light tracking-[0.3em] text-black/20 tabular-nums shrink-0">2023 — 2025</span>
-        </div>
-        {/* Title row */}
-        <div className="flex items-end justify-between gap-6 px-6 md:px-10 pt-8 pb-10">
-          <div className="overflow-hidden">
-            <h2
-              ref={worksTitleRef}
-              className="banner-text-responsive font-light leading-[0.95] tracking-tighter text-black"
-            >
-              Works
-            </h2>
+    <>
+      {curtainActive && createPortal(
+        <div
+          ref={curtainRef}
+          style={{ position: "fixed", inset: 0, background: "#000", zIndex: 9990, transform: "translateY(100%)" }}
+          aria-hidden="true"
+        />,
+        document.body
+      )}
+      <section id="work" ref={containerRef} className="flex flex-col min-h-dvh">
+        {/* ── SECTION HEADER: Counter rule layout ────────── */}
+        <div className="pt-[clamp(3rem,8dvh,6rem)]" ref={worksHeaderRef}>
+          {/* Spread rule with embedded labels */}
+          <div className="flex items-center gap-4 px-6 md:px-10 pb-5 border-b border-black/[0.1]">
+            <span className="text-[10px] font-light tracking-[0.35em] text-black/30 tabular-nums shrink-0">04</span>
+            <div className="flex-1 h-px bg-black/10" />
+            <span className="text-[10px] font-light tracking-[0.3em] text-black/25 uppercase shrink-0">Selected Work</span>
+            <div className="flex-1 h-px bg-black/10" />
+            <span className="hidden md:block text-[10px] font-light tracking-[0.3em] text-black/20 tabular-nums shrink-0">2023 — 2025</span>
           </div>
-          <p className="hidden md:block font-light text-[11px] tracking-wider text-black/35 max-w-[26ch] text-right leading-relaxed pb-2">
-            Each project built with intent — thoughtful design, clean code, results that matter.
-          </p>
+          {/* Title row */}
+          <div className="flex items-end justify-between gap-6 px-6 md:px-10 pt-8 pb-10">
+            <div className="overflow-hidden">
+              <h2
+                ref={worksTitleRef}
+                className="banner-text-responsive font-light leading-[0.95] tracking-tighter text-black"
+              >
+                Works
+              </h2>
+            </div>
+            <p className="hidden md:block font-light text-[11px] tracking-wider text-black/35 max-w-[26ch] text-right leading-relaxed pb-2">
+              Each project built with intent — thoughtful design, clean code, results that matter.
+            </p>
+          </div>
         </div>
-      </div>
-      <div
-        className="relative flex flex-col font-light"
-        onMouseMove={handleMouseMove}
-      >
-        {projects.map((project, index) => (
-          <div
-            key={project.id}
-            id={`project-${project.id}`}
-            role="button"
-            tabIndex={0}
-            className="project-item relative isolate flex flex-col gap-1 py-8 cursor-pointer group md:gap-0"
-            onClick={() => openProject(project.slug)}
-            onKeyDown={(e) =>
-              (e.key === "Enter" || e.key === " ") && openProject(project.slug)
-            }
-            onMouseEnter={(e) => handleMouseEnter(index, e)}
-            onMouseLeave={(e) => handleMouseLeave(index, e)}
-          >
-            {/* overlay */}
+        <div
+          className="relative flex flex-col font-light"
+          onMouseMove={handleMouseMove}
+        >
+          {projects.map((project, index) => (
             <div
-              ref={(el) => {
-                overlayRefs.current[index] = el;
-              }}
-              className="absolute inset-0 hidden md:block duration-200 bg-black -z-10 clip-path"
-            />
+              key={project.id}
+              id={`project-${project.id}`}
+              role="button"
+              tabIndex={0}
+              className="project-item relative isolate flex flex-col gap-1 py-8 cursor-pointer group md:gap-0"
+              onClick={() => openProject(project.slug)}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") && openProject(project.slug)
+              }
+              onMouseEnter={(e) => handleMouseEnter(index, e)}
+              onMouseLeave={(e) => handleMouseLeave(index, e)}
+            >
+              {/* overlay */}
+              <div
+                ref={(el) => {
+                  overlayRefs.current[index] = el;
+                }}
+                className="absolute inset-0 hidden md:block duration-200 bg-black -z-10 clip-path"
+              />
 
-            {/* title + meta */}
-            <div className="flex justify-between items-start px-6 md:px-10 text-black transition-all duration-500 md:group-hover:px-16 md:group-hover:text-white">
-              <div className="flex flex-col gap-1">
-                <h2 className="lg:text-[42px] text-[32px] leading-none font-medium tracking-tight">
-                  {project.name}
-                </h2>
-                <span className="flex items-center gap-3 text-[10px] md:text-xs uppercase tracking-[0.3em] text-black/40 md:group-hover:text-white/40 transition-colors duration-500">
-                  <span>{project.role}</span>
-                  <span className="inline-flex items-center justify-center text-accent md:group-hover:text-accent transition-colors duration-500">
-                    <svg viewBox="0 0 100 100" className="w-[0.9em] h-[0.9em] animate-[spin_8s_linear_infinite]" fill="currentColor" aria-hidden="true">
-                      <path d="M50 0 C50 27.6 27.6 50 0 50 C27.6 50 50 72.4 50 100 C50 72.4 72.4 50 100 50 C72.4 50 50 27.6 50 0 Z" />
-                    </svg>
+              {/* title + meta */}
+              <div className="flex justify-between items-start px-6 md:px-10 text-black transition-all duration-500 md:group-hover:px-16 md:group-hover:text-white">
+                <div className="flex flex-col gap-1">
+                  <h2 className="lg:text-[42px] text-[32px] leading-none font-medium tracking-tight">
+                    {project.name}
+                  </h2>
+                  <span className="flex items-center gap-3 text-[10px] md:text-xs uppercase tracking-[0.3em] text-black/40 md:group-hover:text-white/40 transition-colors duration-500">
+                    <span>{project.role}</span>
+                    <span className="inline-flex items-center justify-center text-accent md:group-hover:text-accent transition-colors duration-500">
+                      <svg viewBox="0 0 100 100" className="w-[0.9em] h-[0.9em] animate-[spin_8s_linear_infinite]" fill="currentColor" aria-hidden="true">
+                        <path d="M50 0 C50 27.6 27.6 50 0 50 C27.6 50 50 72.4 50 100 C50 72.4 72.4 50 100 50 C72.4 50 50 27.6 50 0 Z" />
+                      </svg>
+                    </span>
+                    <span>{project.year}</span>
                   </span>
-                  <span>{project.year}</span>
-                </span>
+                </div>
+                <Magnetic strength={0.3}>
+                  <div className="md:w-8 md:h-8 w-6 h-6 mt-1 flex items-center justify-center">
+                    <Icon
+                      icon="ph:arrow-up-right-light"
+                      className="w-full h-full transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    />
+                  </div>
+                </Magnetic>
               </div>
-              <Magnetic strength={0.3}>
-                <div className="md:w-8 md:h-8 w-6 h-6 mt-1 flex items-center justify-center">
-                  <Icon
-                    icon="ph:arrow-up-right-light"
-                    className="w-full h-full transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              {/* divider */}
+              <div className="w-full h-[1px] bg-black/10 mt-6 md:group-hover:bg-accent/30 transition-colors duration-500" />
+              {/* framework */}
+              <div className="flex flex-wrap px-6 md:px-10 text-[10px] md:text-sm leading-loose uppercase transition-all duration-500 gap-x-3 md:gap-x-5 md:group-hover:px-16 mt-2">
+                {project.frameworks.map((framework) => (
+                  <p
+                    key={framework.id}
+                    className="text-black/60 transition-colors duration-500 md:group-hover:text-white/40"
+                  >
+                    {framework.name}
+                  </p>
+                ))}
+              </div>
+              {/* mobile preview image */}
+              <div className="px-6 md:hidden w-full mt-4">
+                <div className="relative flex items-center justify-center w-full h-[400px] overflow-hidden rounded-xl bg-zinc-100">
+                  <img
+                    src={project.bgImage}
+                    alt={`${project.name} background`}
+                    loading="lazy"
+                    className="absolute inset-0 object-cover w-full h-full brightness-50"
+                  />
+                  <img
+                    src={project.image}
+                    alt={`${project.name} preview`}
+                    loading="lazy"
+                    className="relative z-10 object-contain w-full h-full p-8"
                   />
                 </div>
-              </Magnetic>
-            </div>
-            {/* divider */}
-            <div className="w-full h-[1px] bg-black/10 mt-6 md:group-hover:bg-accent/30 transition-colors duration-500" />
-            {/* framework */}
-            <div className="flex flex-wrap px-6 md:px-10 text-[10px] md:text-xs leading-loose uppercase transition-all duration-500 md:text-sm gap-x-3 md:gap-x-5 md:group-hover:px-16 mt-2">
-              {project.frameworks.map((framework) => (
-                <p
-                  key={framework.id}
-                  className="text-black/60 transition-colors duration-500 md:group-hover:text-white/40"
-                >
-                  {framework.name}
-                </p>
-              ))}
-            </div>
-            {/* mobile preview image */}
-            <div className="px-6 md:hidden w-full mt-4">
-              <div className="relative flex items-center justify-center w-full h-[400px] overflow-hidden rounded-xl bg-zinc-100">
-                <img
-                  src={project.bgImage}
-                  alt={`${project.name} background`}
-                  loading="lazy"
-                  className="absolute inset-0 object-cover w-full h-full brightness-50"
-                />
-                <img
-                  src={project.image}
-                  alt={`${project.name} preview`}
-                  loading="lazy"
-                  className="relative z-10 object-contain w-full h-full p-8"
-                />
               </div>
             </div>
+          ))}
+          {/* desktop floating preview image */}
+          <div
+            ref={previewRef}
+            className="fixed -top-1/4 left-0 z-50 overflow-hidden border-[12px] border-black pointer-events-none w-[600px] aspect-[4/3] md:block hidden opacity-0 shadow-2xl"
+          >
+            <div className="w-full h-full" style={{ filter: "url(#displacementFilter)" }}>
+              {currentIndex !== null && (
+                <img
+                  src={projects[currentIndex].image}
+                  alt={`${projects[currentIndex].name} preview`}
+                  className="object-cover w-full h-full scale-110"
+                />
+              )}
+            </div>
           </div>
-        ))}
-        {/* desktop floating preview image */}
-        <div
-          ref={previewRef}
-          className="fixed -top-1/4 left-0 z-50 overflow-hidden border-[12px] border-black pointer-events-none w-[600px] aspect-[4/3] md:block hidden opacity-0 shadow-2xl"
-        >
-          <div className="w-full h-full" style={{ filter: "url(#displacementFilter)" }}>
-            {currentIndex !== null && (
-              <img
-                src={projects[currentIndex].image}
-                alt={`${projects[currentIndex].name} preview`}
-                className="object-cover w-full h-full scale-110"
-              />
-            )}
-          </div>
-        </div>
 
-        {/* SVG Filter for Fluid Displacement */}
-        <svg className="hidden">
-          <filter id="displacementFilter">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.01"
-              numOctaves="1"
-              result="noise"
-            />
-            <feDisplacementMap
-              in="SourceGraphic"
-              in2="noise"
-              scale="0"
-              xChannelSelector="R"
-              yChannelSelector="G"
-              id="displacementMap"
-            />
-          </filter>
-        </svg>
-      </div>
-    </section>
+          {/* SVG Filter for Fluid Displacement */}
+          <svg className="hidden">
+            <filter id="displacementFilter">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.01"
+                numOctaves="1"
+                result="noise"
+              />
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="noise"
+                scale="0"
+                xChannelSelector="R"
+                yChannelSelector="G"
+                id="displacementMap"
+              />
+            </filter>
+          </svg>
+        </div>
+      </section>
+    </>
   );
 };
 

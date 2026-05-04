@@ -207,6 +207,54 @@ const ProjectDetail = () => {
                             </p>
                         </div>
                     </div>
+
+                    {/* Challenge */}
+                    {project.challenge && (
+                        <div className="mt-24 md:mt-32 grid grid-cols-1 lg:grid-cols-12 gap-y-8 gap-x-8 border-t border-black/10 pt-16">
+                            <div className="lg:col-span-4">
+                                <p className="text-[10px] uppercase tracking-[0.3em] text-black/40 font-light">The Challenge</p>
+                            </div>
+                            <div className="lg:col-span-8 lg:pl-10">
+                                <p className="text-xl md:text-2xl font-light leading-relaxed tracking-wide text-black/80">
+                                    {project.challenge}
+                                </p>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Process */}
+                    {project.process && project.process.length > 0 && (
+                        <div className="mt-24 md:mt-32">
+                            <div className="flex items-center gap-4 mb-12 border-t border-black/10 pt-16">
+                                <p className="text-[10px] uppercase tracking-[0.3em] text-black/40 font-light">Process</p>
+                                <div className="flex-1 h-px bg-black/10" />
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-black/10">
+                                {project.process.map((p) => (
+                                    <div key={p.step} className="bg-[#e5e5e0] p-8 md:p-10 flex flex-col gap-4">
+                                        <span className="text-[10px] uppercase tracking-[0.35em] text-black/30 font-light tabular-nums">{p.step}</span>
+                                        <h3 className="text-lg md:text-xl font-light tracking-tight text-black">{p.title}</h3>
+                                        <p className="text-sm font-light leading-relaxed text-black/60">{p.body}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Outcomes */}
+                    {project.outcomes && project.outcomes.length > 0 && (
+                        <div className="mt-24 md:mt-32 border-t border-black/10 pt-16">
+                            <p className="text-[10px] uppercase tracking-[0.3em] text-black/40 font-light mb-12">Outcomes</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-black/10">
+                                {project.outcomes.map((o, i) => (
+                                    <div key={i} className="bg-[#e5e5e0] p-8 md:p-10 flex flex-col gap-2">
+                                        <span className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter text-black leading-none">{o.metric}</span>
+                                        <span className="text-[10px] uppercase tracking-[0.25em] text-black/50 font-light">{o.label}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 {/* Next/Prev Navigation Footer */}

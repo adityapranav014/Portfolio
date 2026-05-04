@@ -11,6 +11,7 @@ import Works from "./sections/Works";
 import ContactSummary from "./sections/ContactSummary";
 import Contact from "./sections/Contact";
 import Footer from "./components/Footer";
+import StatsMarquee from "./sections/StatsMarquee";
 import { ImageKitProvider } from "@imagekit/react";
 import Noise from "./components/Noise";
 
@@ -84,6 +85,7 @@ const HomePage = () => (
       <Services />
       <About />
       <Works />
+      <StatsMarquee />
       <ContactSummary />
       <Contact />
       <Footer />

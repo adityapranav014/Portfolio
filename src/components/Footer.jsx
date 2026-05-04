@@ -29,7 +29,7 @@ const Footer = () => {
             className="group mt-4 inline-flex items-center gap-2 text-[10px] uppercase tracking-widest text-white/40 hover:text-white transition-colors duration-300"
           >
             Start a project
-            <Icon icon="ph:arrow-up-right-light" className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <Icon icon="ph:arrow-up-right-light" className="w-2.5 h-2.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </div>
 
