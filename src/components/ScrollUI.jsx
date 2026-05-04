@@ -76,7 +76,7 @@ const ScrollUI = () => {
         The arrow nudges up on hover for a subtle kinetic hint.
       */}
 
-            <div className="fixed bottom-8 right-8 z-[9999]">
+            <div className="fixed bottom-8 right-8 z-[39]">
                 <Tooltip text="Back to top" position="top">
                     <button
                         ref={btnRef}

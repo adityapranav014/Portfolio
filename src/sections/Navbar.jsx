@@ -221,7 +221,9 @@ const Navbar = () => {
               </Magnetic>
 
               {/* Divider */}
-              <div className="h-px bg-white/[0.06] transition-colors duration-300 group-hover:bg-white/[0.12]" />
+              {index < navLinks.length - 1 && (
+                <div className="h-px bg-white/[0.06] transition-colors duration-300 group-hover:bg-white/[0.12]" />
+              )}
             </div>
           ))}
         </div>
