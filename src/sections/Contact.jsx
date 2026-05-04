@@ -23,9 +23,9 @@ const Contact = () => {
     setHasCopiedPhone(true);
     setTimeout(() => setHasCopiedPhone(false), 2000);
   };
-  const text = `Have a project in mind? I work with companies
-    from all over the world and would love to hear
-    what you’re building. Let’s make it happen.`;
+  const text = `Have a project in mind? I work with companies from
+    all over the world and would love to hear what you’re building.
+     Let’s make it happen.`;
   useGSAP(() => {
     const tl = gsap.timeline({
       scrollTrigger: {

@@ -26,9 +26,9 @@ const whenItems = [
 ];
 
 const About = () => {
-  const text = `The combination of my passion for design, code &
-    interaction puts me in a unique place in the web world.
-    I care deeply about quality, and it shows in every project.`;
+  const text = `The combination of my passion for design, code & interaction 
+    puts me in a unique place in the web world. I care deeply
+    about quality, and it shows in every project.`;
   const imgRef = useRef(null);
   const introRef = useRef(null);
   const labelRef = useRef(null);
