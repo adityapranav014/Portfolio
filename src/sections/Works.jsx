@@ -177,7 +177,7 @@ const Works = () => {
             id={`project-${project.id}`}
             role="button"
             tabIndex={0}
-            className="project-item relative flex flex-col gap-1 py-8 cursor-pointer group md:gap-0"
+            className="project-item relative isolate flex flex-col gap-1 py-8 cursor-pointer group md:gap-0"
             onClick={() => openProject(project.slug)}
             onKeyDown={(e) =>
               (e.key === "Enter" || e.key === " ") && openProject(project.slug)
@@ -257,15 +257,16 @@ const Works = () => {
         <div
           ref={previewRef}
           className="fixed -top-1/4 left-0 z-50 overflow-hidden border-[12px] border-black pointer-events-none w-[600px] aspect-[4/3] md:block hidden opacity-0 shadow-2xl"
-          style={{ filter: "url(#displacementFilter)" }}
         >
-          {currentIndex !== null && (
-            <img
-              src={projects[currentIndex].image}
-              alt={`${projects[currentIndex].name} preview`}
-              className="object-cover w-full h-full scale-110" // scale slightly to avoid edges during distortion
-            />
-          )}
+          <div className="w-full h-full" style={{ filter: "url(#displacementFilter)" }}>
+            {currentIndex !== null && (
+              <img
+                src={projects[currentIndex].image}
+                alt={`${projects[currentIndex].name} preview`}
+                className="object-cover w-full h-full scale-110"
+              />
+            )}
+          </div>
         </div>
 
         {/* SVG Filter for Fluid Displacement */}
