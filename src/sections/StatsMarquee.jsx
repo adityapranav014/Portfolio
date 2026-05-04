@@ -27,6 +27,7 @@ const StatsMarquee = () => (
         <Marquee
             items={statItems}
             className="text-black bg-[#e5e5e0] text-[11px] uppercase tracking-[0.3em] font-light"
+            iconClassName="hidden"
         />
     </div>
 );

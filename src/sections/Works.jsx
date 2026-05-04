@@ -18,6 +18,7 @@ const Works = () => {
   const curtainRef = useRef(null);
 
   const openProject = (slug) => {
+    gsap.killTweensOf("#displacementMap");
     setCurtainActive(true);
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -245,7 +246,7 @@ const Works = () => {
               {/* title + meta */}
               <div className="flex justify-between items-start px-6 md:px-10 text-black transition-all duration-500 md:group-hover:px-16 md:group-hover:text-white">
                 <div className="flex flex-col gap-1">
-                  <h2 className="lg:text-[42px] text-[32px] leading-none font-medium tracking-tight">
+                  <h2 className="text-[22px] sm:text-[32px] lg:text-[42px] leading-none font-medium tracking-tight">
                     {project.name}
                   </h2>
                   <span className="flex items-center gap-3 text-[10px] md:text-xs uppercase tracking-[0.3em] text-black/40 md:group-hover:text-white/40 transition-colors duration-500">
@@ -282,7 +283,7 @@ const Works = () => {
               </div>
               {/* mobile preview image */}
               <div className="px-6 md:hidden w-full mt-4">
-                <div className="relative flex items-center justify-center w-full h-[400px] overflow-hidden rounded-xl bg-zinc-100">
+                <div className="relative flex items-center justify-center w-full h-[260px] sm:h-[380px] overflow-hidden rounded-xl bg-zinc-100">
                   <img
                     src={project.bgImage}
                     alt={`${project.name} background`}

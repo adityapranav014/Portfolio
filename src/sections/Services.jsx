@@ -46,7 +46,7 @@ const Services = () => {
         {/* Rule + index band */}
         <div
           ref={headerBandRef}
-          className="flex items-center justify-between px-10 pb-5 border-b border-white/[0.12]"
+          className="flex items-center justify-between px-5 sm:px-10 pb-5 border-b border-white/[0.12]"
         >
           <div className="flex items-center gap-3">
             <span className="text-[10px] font-light tracking-[0.35em] text-white/30 tabular-nums">02</span>
@@ -58,7 +58,7 @@ const Services = () => {
           </p>
         </div>
         {/* Title row: display heading left + service category tags right */}
-        <div className="flex items-end justify-between gap-8 px-10 pt-10 pb-12">
+        <div className="flex items-end justify-between gap-8 px-5 sm:px-10 pt-10 pb-12">
           <div className="overflow-hidden">
             <h2
               ref={titleClipRef}
@@ -84,7 +84,7 @@ const Services = () => {
         <div
           ref={(el) => (serviceRefs.current[index] = el)}
           key={index}
-          className="sticky px-10 pt-6 pb-12 text-white bg-black border-t-2 border-white/30 group/card transition-colors duration-500 hover:border-accent"
+          className="sticky px-5 sm:px-10 pt-6 pb-12 text-white bg-black border-t-2 border-white/30 group/card transition-colors duration-500 hover:border-accent"
           style={
             isDesktop
               ? {
@@ -97,7 +97,7 @@ const Services = () => {
           <div className="flex items-center justify-between gap-4 font-light">
             <div className="flex flex-col gap-6 w-full">
               <div className="flex items-baseline justify-between">
-                <h2 className="text-4xl lg:text-5xl group-hover/card:text-accent transition-colors duration-300">{service.title}</h2>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl group-hover/card:text-accent transition-colors duration-300">{service.title}</h2>
                 <div className="flex items-center gap-4">
                   {service.icon && (
                     <Icon
@@ -111,7 +111,7 @@ const Services = () => {
                   </span>
                 </div>
               </div>
-              <p className="text-xl leading-relaxed tracking-widest lg:text-2xl text-white/60 text-pretty normal-case">
+              <p className="text-base sm:text-xl leading-relaxed tracking-wide sm:tracking-widest lg:text-2xl text-white/60 text-pretty normal-case">
                 {service.description}
               </p>
               <div className="flex flex-col gap-2 text-2xl sm:gap-4 lg:text-3xl text-white/80">

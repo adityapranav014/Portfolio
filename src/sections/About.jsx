@@ -111,7 +111,7 @@ const About = () => {
         {/* Rule + index band */}
         <div
           ref={sectionBandRef}
-          className="flex items-center justify-between px-10 pb-5 border-b border-white/[0.12]"
+          className="flex items-center justify-between px-5 sm:px-10 pb-5 border-b border-white/[0.12]"
         >
           <div className="flex items-center gap-3">
             <span className="text-[10px] font-light tracking-[0.35em] text-white/30 tabular-nums">03</span>
@@ -123,7 +123,7 @@ const About = () => {
           </p>
         </div>
         {/* Display title + ghost watermark numeral */}
-        <div className="relative px-10 pt-10 pb-12 overflow-hidden">
+        <div className="relative px-5 sm:px-10 pt-10 pb-12 overflow-hidden">
           <span
             aria-hidden="true"
             className="absolute top-0 right-4 font-light leading-none tracking-tighter text-white/[0.045] select-none pointer-events-none"
@@ -144,7 +144,7 @@ const About = () => {
           </p>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-between gap-16 px-10 pb-16 lg:flex-row">
+      <div className="flex flex-col items-center justify-between gap-16 px-5 sm:px-10 pb-16 lg:flex-row">
         {/* Photo */}
         <div ref={imgRef} className="w-full max-w-md rounded-3xl overflow-hidden shrink-0">
           <Image

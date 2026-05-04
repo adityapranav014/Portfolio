@@ -107,7 +107,7 @@ const Contact = () => {
           {/* Rule + index band */}
           <div
             ref={contactBandRef}
-            className="flex items-center justify-between px-10 pb-5 border-b border-white/[0.12]"
+            className="flex items-center justify-between px-5 sm:px-10 pb-5 border-b border-white/[0.12]"
           >
             <div className="flex items-center gap-3">
               <span className="text-[10px] font-light tracking-[0.35em] text-white/30 tabular-nums">05</span>
@@ -119,7 +119,7 @@ const Contact = () => {
             </p>
           </div>
           {/* Two-line indented display title */}
-          <div className="px-10 pt-10 pb-12 overflow-hidden">
+          <div className="px-5 sm:px-10 pt-10 pb-12 overflow-hidden">
             <p
               ref={contactTitleRef}
               className="banner-text-responsive font-light leading-[0.92] tracking-tighter text-white"
@@ -131,7 +131,7 @@ const Contact = () => {
           </div>
         </div>
         <div
-          className="relative px-10 font-light text-white lg:text-[32px] text-[26px] leading-none mb-10"
+          className="relative px-5 sm:px-10 font-light text-white lg:text-[32px] text-[20px] sm:text-[26px] leading-none mb-10"
           ref={containerRef}
         >
           <VideoHover className="contact-video md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 w-full md:w-[45%] max-w-[1360px] block z-30 mb-10 md:mb-0 aspect-[1360/480]">
@@ -154,7 +154,7 @@ const Contact = () => {
                 <a
                   href="mailto:adityapranav014@gmail.com"
                   aria-label="Send email to Aditya Pranav"
-                  className="text-[15px] tracking-widest sm:text-xl lowercase md:text-2xl lg:text-3xl hover:text-white/70 transition-colors duration-300"
+                  className="text-[13px] tracking-normal sm:tracking-widest sm:text-xl lowercase md:text-2xl lg:text-3xl hover:text-white/70 transition-colors duration-300 break-all sm:break-normal"
                 >
                   adityapranav014@gmail.com
                 </a>

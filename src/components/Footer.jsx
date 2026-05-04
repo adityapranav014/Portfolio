@@ -17,7 +17,7 @@ const Footer = () => {
   return (
     <footer className="relative bg-black text-white border-t border-white/[0.06]">
       {/* Main footer body */}
-      <div className="px-10 md:px-14 pt-16 pb-10 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+      <div className="px-5 sm:px-10 md:px-14 pt-16 pb-10 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
         {/* Brand + tagline */}
         <div className="flex flex-col gap-4">
           <p className="text-[10px] uppercase tracking-[0.35em] text-white/20 font-light">Aditya Pranav</p>
@@ -70,7 +70,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/[0.06] px-10 md:px-14 py-5 flex flex-col md:flex-row justify-between items-center gap-2">
+      <div className="border-t border-white/[0.06] px-5 sm:px-10 md:px-14 py-5 flex flex-col md:flex-row justify-between items-center gap-2">
         <span className="text-[10px] uppercase tracking-[0.35em] text-white/20 font-light">
           © {year} Aditya Pranav
         </span>

@@ -45,7 +45,7 @@ const AnimatedHeaderSection = ({
           ref={headerRef}
           className="flex flex-col justify-center gap-[clamp(1.5rem,3dvh,3rem)] pt-[clamp(2rem,6dvh,4rem)]"
         >
-          <div className="pl-[clamp(1.5rem,5vw,6rem)] pr-[clamp(6rem,15vw,8rem)]">
+          <div className="pl-[clamp(1.5rem,5vw,6rem)] pr-[clamp(1rem,15vw,8rem)]">
             <Tag
               className={`flex flex-col gap-[clamp(1rem,2.5dvh,3rem)] banner-text-responsive md:block pb-[clamp(0.5rem,2dvh,1.5rem)] ${textColor}`}
             >
