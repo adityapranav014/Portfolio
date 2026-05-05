@@ -1,4 +1,4 @@
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Icon } from "@iconify/react";
@@ -52,6 +52,37 @@ const About = () => {
   const itemRefs = useRef([]);
   const sectionBandRef = useRef(null);
   const aboutTitleRef = useRef(null);
+
+  const [isMobileAlt, setIsMobileAlt] = useState(false);
+
+  useEffect(() => {
+    let interval;
+    const checkMobile = () => window.innerWidth < 768;
+
+    const startInterval = () => {
+      interval = setInterval(() => {
+        setIsMobileAlt((prev) => !prev);
+      }, 4000); // Crossfade every 4 seconds
+    };
+
+    if (checkMobile()) startInterval();
+
+    const handleResize = () => {
+      if (!checkMobile() && interval) {
+        clearInterval(interval);
+        setIsMobileAlt(false);
+        interval = null;
+      } else if (checkMobile() && !interval) {
+        startInterval();
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      if (interval) clearInterval(interval);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useGSAP(() => {
     // Header index band
@@ -166,24 +197,25 @@ const About = () => {
         {/* Photo — Premium subtle crossfade with scale */}
         <div
           ref={imgRef}
-          className="group w-full max-w-md rounded-3xl overflow-hidden shrink-0 relative cursor-pointer bg-black/20 tap-highlight-transparent"
+          className="group w-full max-w-md rounded-3xl overflow-hidden shrink-0 relative cursor-pointer bg-black/20"
+          style={{ WebkitTouchCallout: "none" }}
         >
           {/* Default image (visible before hover) */}
           <img
             src={DEFAULT_IMG}
             alt="Aditya Pranav, Creative Technologist"
-            className="w-full h-auto block transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:opacity-0 md:group-hover:scale-[1.03] active:opacity-0 active:scale-[1.03]"
+            className={`w-full h-auto block transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:opacity-0 md:group-hover:scale-[1.03] ${isMobileAlt ? 'opacity-0 scale-[1.03]' : ''}`}
             draggable={false}
           />
           {/* Hover image */}
           <img
             src={HOVER_IMG}
             alt="Aditya Pranav, Creative Technologist Hover"
-            className="absolute inset-0 w-full h-full object-cover opacity-0 scale-[1.08] transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:opacity-100 md:group-hover:scale-100 active:opacity-100 active:scale-100"
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:opacity-100 md:group-hover:scale-100 ${isMobileAlt ? 'opacity-100 scale-100' : 'opacity-0 scale-[1.08]'}`}
             draggable={false}
           />
           {/* Subtle dimming overlay to add depth on hover */}
-          <div className="absolute inset-0 bg-black/15 opacity-0 transition-opacity duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:opacity-100 active:opacity-100 pointer-events-none" />
+          <div className={`absolute inset-0 bg-black/15 transition-opacity duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:opacity-100 pointer-events-none ${isMobileAlt ? 'opacity-100' : 'opacity-0'}`} />
         </div>
 
         {/* Text block */}
@@ -193,13 +225,8 @@ const About = () => {
             ref={introRef}
             className="text-xl font-light leading-relaxed tracking-wide text-white/60 md:text-2xl lg:text-3xl text-pretty"
           >
-            I started building for the web at 16, obsessed with the gap between
-            a design that looked good and one that{" "}
-            <em className="text-white/90 not-italic">felt inevitable</em>. That obsession
-            hasn't left. Today I work at the intersection of performance
-            engineering and interface craft: writing code that's fast enough
-            for real users, and considered enough for the people who care about
-            the details.
+            I fell in love with making websites when I was 16. I was always chasing that magic feeling when a screen doesn't just look pretty, but actually{" "}
+            <em className="text-white/90 not-italic">feels right</em> when you touch it. That same spark still drives me everyday. Now, my goal is simple: I want to build things that are lightning fast for the people using them, while pouring my heart into the tiny details that most people might never even notice.
           </p>
 
           {/* Divider */}
