@@ -133,7 +133,7 @@ const Hero = () => {
         }}
       />
 
-      <div ref={headerRef} className="relative z-10">
+      <div ref={headerRef} className="relative z-10 font-montserrat">
         <AnimatedHeaderSection
           subTitle={"Freelance Designer & Developer"}
           title={"Aditya Pranav"}
@@ -146,7 +146,7 @@ const Hero = () => {
       {/* CTA row */}
       <div
         ref={ctaRef}
-        className="mt-auto flex items-center flex-wrap gap-[clamp(1rem,3dvh,1.5rem)] px-[clamp(1.5rem,5vw,6rem)] pb-[clamp(1rem,2dvh,1.5rem)]"
+        className="mt-auto flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-[clamp(1.5rem,3dvh,2rem)] px-[clamp(1.5rem,5vw,6rem)] pb-8 sm:pb-[clamp(2rem,3dvh,2.5rem)]"
       >
         {/* Primary CTA - vertical fill sweep on hover */}
         <Magnetic strength={0.3}>
@@ -155,12 +155,12 @@ const Hero = () => {
             smooth
             duration={1800}
             offset={0}
-            className="group relative flex items-center gap-3 bg-white text-black px-[clamp(1.2rem,3.5vw,2rem)] py-[clamp(0.7rem,1.8dvh,1rem)] overflow-hidden cursor-pointer select-none"
+            className="group relative flex items-center gap-4 bg-white text-black px-7 sm:px-[clamp(1.5rem,3.5vw,2.5rem)] py-3.5 sm:py-[clamp(0.8rem,2dvh,1.2rem)] overflow-hidden cursor-pointer select-none"
           >
-            <span className="relative z-10 text-[clamp(0.5rem,1.2dvh,10px)] uppercase tracking-[0.22em] font-medium transition-colors duration-500">
+            <span className="relative z-10 text-[11px] sm:text-[clamp(0.55rem,1.2dvh,11px)] uppercase tracking-[0.28em] font-medium transition-colors duration-500">
               Start a Project
             </span>
-            <span className="relative z-10 text-[clamp(0.6rem,1.5dvh,14px)] transition-transform duration-300 group-hover:translate-x-1 flex items-center">
+            <span className="relative z-10 text-[14px] sm:text-[clamp(0.7rem,1.5dvh,15px)] transition-transform duration-300 group-hover:translate-x-1 flex items-center">
               <Icon
                 icon="ph:arrow-right-light"
                 className="w-[1.2em] h-[1.2em]"
@@ -178,12 +178,12 @@ const Hero = () => {
             smooth
             duration={1600}
             offset={0}
-            className="group flex items-center gap-2 cursor-pointer select-none"
+            className="group flex items-center gap-2.5 cursor-pointer select-none py-1 sm:py-0"
           >
-            <span className="relative text-[clamp(0.5rem,1.2dvh,10px)] uppercase tracking-[0.22em] font-light text-white/70 group-hover:text-white transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-all after:duration-400 group-hover:after:w-full">
+            <span className="relative text-[11px] sm:text-[clamp(0.55rem,1.2dvh,11px)] uppercase tracking-[0.28em] font-light text-white/70 group-hover:text-white transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-all after:duration-400 group-hover:after:w-full">
               View My Work
             </span>
-            <span className="text-white/40 group-hover:text-white text-[clamp(0.6rem,1.5dvh,12px)] transition-all duration-300 group-hover:translate-y-0.5 flex items-center">
+            <span className="text-white/40 group-hover:text-white text-[14px] sm:text-[clamp(0.7rem,1.5dvh,15px)] transition-all duration-300 group-hover:translate-y-0.5 flex items-center">
               <Icon icon="ph:arrow-down-light" className="w-[1.2em] h-[1.2em]" />
             </span>
           </Link>
@@ -193,7 +193,7 @@ const Hero = () => {
       {/* Availability pill */}
       <div
         ref={pillRef}
-        className="flex items-center gap-2.5 px-[clamp(1.5rem,5vw,6rem)] pb-[clamp(1.5rem,4dvh,2rem)]"
+        className="flex items-center gap-3 px-[clamp(1.5rem,5vw,6rem)] pb-[clamp(2rem,4dvh,2rem)] sm:pb-[clamp(1.5rem,4dvh,2rem)]"
       >
         <span className="relative flex h-[clamp(0.5rem,1.5dvh,0.75rem)] w-[clamp(0.5rem,1.5dvh,0.75rem)] items-center justify-center">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>

@@ -47,14 +47,14 @@ const AnimatedHeaderSection = ({
         >
           <div className="pl-[clamp(1.5rem,5vw,6rem)] pr-[clamp(1rem,15vw,8rem)]">
             <Tag
-              className={`flex flex-col gap-[clamp(1rem,2.5dvh,3rem)] banner-text-responsive md:block pb-[clamp(0.5rem,2dvh,1.5rem)] ${textColor}`}
+              className={`flex flex-col gap-1 banner-text-responsive md:block pb-[clamp(0.5rem,2dvh,1.5rem)] ${textColor}`}
             >
               {titleParts.map((part, index) => (
                 <span key={index} className="inline-block relative">
                   {part}
                   {/* Append animated icon after the very last letter of the title */}
                   {index === titleParts.length - 1 && (
-                    <span className="inline-flex items-center justify-center align-middle ml-2 md:ml-5 text-accent translate-y-[-0.05em] origin-center">
+                    <span className="inline-flex items-center justify-center align-middle ml-2 md:ml-5 text-accent translate-y-[-0.15em] origin-center">
                       <svg
                         viewBox="0 0 100 100"
                         className="w-[0.7em] h-[0.7em] animate-[spin_8s_linear_infinite]"
