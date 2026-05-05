@@ -164,7 +164,7 @@ body {
   font-family: var(--font-amiamie);
 }
 
-/* Hide scrollbar — scroll still works */
+/* Hide scrollbar, scroll still works */
 * {
   scrollbar-width: none;
 }
@@ -270,7 +270,7 @@ body {
   border-bottom-color: rgba(207, 163, 85, 0.3);
 }
 
-/* Only show on true pointer devices — hidden on touch */
+/* Only show on true pointer devices (hidden on touch) */
 @media (hover: hover) and (pointer: fine) {
   .tooltip-root:hover .tooltip-label {
     opacity: 1;

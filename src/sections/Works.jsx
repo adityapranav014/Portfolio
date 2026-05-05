@@ -213,7 +213,7 @@ const Works = () => {
               </h2>
             </div>
             <p className="hidden md:block font-light text-[11px] tracking-wider text-black/35 max-w-[26ch] text-right leading-relaxed pb-2">
-              Each project built with intent — thoughtful design, clean code, results that matter.
+              Each project built with intent: thoughtful design, clean code, results that matter.
             </p>
           </div>
         </div>

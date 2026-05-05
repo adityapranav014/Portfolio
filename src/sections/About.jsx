@@ -119,7 +119,7 @@ const About = () => {
             <span className="text-[10px] font-light tracking-[0.28em] text-white/20 uppercase">The person</span>
           </div>
           <p className="hidden md:block font-light text-[11px] tracking-wider text-white/25 max-w-[32ch] text-right leading-relaxed">
-            Passion for design, code &amp; interaction — quality that shows in every project.
+            Passion for design, code &amp; interaction. Quality that shows in every project.
           </p>
         </div>
         {/* Display title + ghost watermark numeral */}
@@ -166,7 +166,7 @@ const About = () => {
             a design that looked good and one that{" "}
             <em className="text-white/90 not-italic">felt inevitable</em>. That obsession
             hasn't left. Today I work at the intersection of performance
-            engineering and interface craft — writing code that's fast enough
+            engineering and interface craft: writing code that's fast enough
             for real users, and considered enough for the people who care about
             the details.
           </p>

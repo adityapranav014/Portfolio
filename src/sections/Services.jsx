@@ -54,7 +54,7 @@ const Services = () => {
             <span className="text-[10px] font-light tracking-[0.28em] text-white/20 uppercase">Capabilities</span>
           </div>
           <p className="hidden md:block font-light text-[11px] tracking-wider text-white/25 max-w-[32ch] text-right leading-relaxed">
-            Clean, performant solutions — no fluff, just work that lasts and scales.
+            Clean, performant solutions. No fluff, just work that lasts and scales.
           </p>
         </div>
         {/* Title row: display heading left + service category tags right */}
