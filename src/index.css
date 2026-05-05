@@ -156,6 +156,10 @@
   .mask-radial {
     mask-image: radial-gradient(circle, black 0%, transparent 100%);
   }
+
+  .tap-highlight-transparent {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 body {

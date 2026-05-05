@@ -166,24 +166,24 @@ const About = () => {
         {/* Photo — Premium subtle crossfade with scale */}
         <div
           ref={imgRef}
-          className="group w-full max-w-md rounded-3xl overflow-hidden shrink-0 relative cursor-pointer bg-black/20"
+          className="group w-full max-w-md rounded-3xl overflow-hidden shrink-0 relative cursor-pointer bg-black/20 tap-highlight-transparent"
         >
           {/* Default image (visible before hover) */}
           <img
             src={DEFAULT_IMG}
             alt="Aditya Pranav, Creative Technologist"
-            className="w-full h-auto block transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-0 group-hover:scale-[1.03]"
+            className="w-full h-auto block transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:opacity-0 md:group-hover:scale-[1.03] active:opacity-0 active:scale-[1.03]"
             draggable={false}
           />
           {/* Hover image */}
           <img
             src={HOVER_IMG}
             alt="Aditya Pranav, Creative Technologist Hover"
-            className="absolute inset-0 w-full h-full object-cover opacity-0 scale-[1.08] transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-100 group-hover:scale-100"
+            className="absolute inset-0 w-full h-full object-cover opacity-0 scale-[1.08] transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:opacity-100 md:group-hover:scale-100 active:opacity-100 active:scale-100"
             draggable={false}
           />
           {/* Subtle dimming overlay to add depth on hover */}
-          <div className="absolute inset-0 bg-black/15 opacity-0 transition-opacity duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-100 pointer-events-none" />
+          <div className="absolute inset-0 bg-black/15 opacity-0 transition-opacity duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:opacity-100 active:opacity-100 pointer-events-none" />
         </div>
 
         {/* Text block */}
