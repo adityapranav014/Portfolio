@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { projects } from "../constants";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
@@ -181,6 +181,30 @@ const Works = () => {
     });
   };
 
+  const handleContainerMouseLeave = () => {
+    if (window.innerWidth < 768) return;
+    gsap.killTweensOf(previewRef.current);
+    gsap.to(previewRef.current, { opacity: 0, scale: 0.9, duration: 0.4, ease: "power4.in" });
+    setCurrentIndex(null);
+  };
+
+  useEffect(() => {
+    const section = containerRef.current;
+    if (!section || !previewRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          gsap.killTweensOf(previewRef.current);
+          gsap.set(previewRef.current, { opacity: 0, scale: 0.9 });
+          setCurrentIndex(null);
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       {curtainActive && createPortal(
@@ -220,6 +244,7 @@ const Works = () => {
         <div
           className="relative flex flex-col font-light"
           onMouseMove={handleMouseMove}
+          onMouseLeave={handleContainerMouseLeave}
         >
           {projects.map((project, index) => (
             <div
