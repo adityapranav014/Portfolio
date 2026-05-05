@@ -1,26 +1,44 @@
-import { useRef } from "react";
+import { useRef, useCallback } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { Image } from "@imagekit/react";
 import { Icon } from "@iconify/react";
 import Magnetic from "../components/ui/Magnetic";
 
+const DEFAULT_IMG = "https://ik.imagekit.io/gglxgr4rz/Portfolio/aditya-pranav.png";
+const HOVER_IMG = "https://ik.imagekit.io/gglxgr4rz/Portfolio/aditya-pranav.com.jpeg";
+
 const whenItems = [
   {
-    label: "Reverse-engineering things I admire — then rebuilding them better",
-    icon: <Icon icon="ph:terminal-window-light" className="w-5 h-5" />,
-  },
-  {
-    label: "Writing about what I learn, because clarity of thought is a craft too",
-    icon: <Icon icon="ph:pencil-simple-line-light" className="w-5 h-5" />,
-  },
-  {
-    label: "Rock climbing — same problem-solving loop, higher consequences",
+    label: (
+      <>
+        Climbing mountains <Icon icon="ph:arrow-right-light" className="inline-block mx-1.5 w-4 h-4 text-white/30 group-hover:text-accent/60 transition-colors duration-300 -translate-y-[1px]" /> because the hardest paths often lead to the clearest perspectives
+      </>
+    ),
     icon: <Icon icon="ph:mountains-light" className="w-5 h-5" />,
   },
   {
-    label: "Playing guitar badly and pretending it's intentional",
+    label: (
+      <>
+        Getting lost in music <Icon icon="ph:arrow-right-light" className="inline-block mx-1.5 w-4 h-4 text-white/30 group-hover:text-accent/60 transition-colors duration-300 -translate-y-[1px]" /> because inspiration often strikes between the notes
+      </>
+    ),
     icon: <Icon icon="ph:music-notes-light" className="w-5 h-5" />,
+  },
+  {
+    label: (
+      <>
+        Writing about what I learn <Icon icon="ph:arrow-right-light" className="inline-block mx-1.5 w-4 h-4 text-white/30 group-hover:text-accent/60 transition-colors duration-300 -translate-y-[1px]" /> because clarity of thought is a craft too
+      </>
+    ),
+    icon: <Icon icon="ph:pencil-simple-line-light" className="w-5 h-5" />,
+  },
+  {
+    label: (
+      <>
+        Reverse-engineering what I admire <Icon icon="ph:arrow-right-light" className="inline-block mx-1.5 w-4 h-4 text-white/30 group-hover:text-accent/60 transition-colors duration-300 -translate-y-[1px]" /> rebuilding it better
+      </>
+    ),
+    icon: <Icon icon="ph:terminal-window-light" className="w-5 h-5" />,
   },
 ];
 
@@ -145,14 +163,27 @@ const About = () => {
         </div>
       </div>
       <div className="flex flex-col items-center justify-between gap-16 px-5 sm:px-10 pb-16 lg:flex-row">
-        {/* Photo */}
-        <div ref={imgRef} className="w-full max-w-md rounded-3xl overflow-hidden shrink-0">
-          <Image
-            src="/Portfolio/aditya-pranav.com.jpeg"
+        {/* Photo — Premium subtle crossfade with scale */}
+        <div
+          ref={imgRef}
+          className="group w-full max-w-md rounded-3xl overflow-hidden shrink-0 relative cursor-pointer bg-black/20"
+        >
+          {/* Default image (visible before hover) */}
+          <img
+            src={DEFAULT_IMG}
             alt="Aditya Pranav, Creative Technologist"
-            width={420}
-            className="w-full h-auto"
+            className="w-full h-auto block transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-0 group-hover:scale-[1.03]"
+            draggable={false}
           />
+          {/* Hover image */}
+          <img
+            src={HOVER_IMG}
+            alt="Aditya Pranav, Creative Technologist Hover"
+            className="absolute inset-0 w-full h-full object-cover opacity-0 scale-[1.08] transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-100 group-hover:scale-100"
+            draggable={false}
+          />
+          {/* Subtle dimming overlay to add depth on hover */}
+          <div className="absolute inset-0 bg-black/15 opacity-0 transition-opacity duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-100 pointer-events-none" />
         </div>
 
         {/* Text block */}
@@ -188,11 +219,11 @@ const About = () => {
                 <li
                   key={i}
                   ref={(el) => (itemRefs.current[i] = el)}
-                  className="group flex items-start gap-4"
+                  className="group flex items-center gap-4"
                 >
-                  {/* Icon pill — size matches one line-height so it sits flush with the first text line */}
+                  {/* Icon pill */}
                   <Magnetic strength={0.2}>
-                    <span className="flex items-center justify-center w-8 h-8 rounded-full border border-white/10 bg-white/[0.04] text-white/40 shrink-0 self-start translate-y-[0.15em] group-hover:border-accent/40 group-hover:text-accent transition-colors duration-300">
+                    <span className="flex items-center justify-center w-8 h-8 rounded-full border border-white/10 bg-white/[0.04] text-white/40 shrink-0 group-hover:border-accent/40 group-hover:text-accent transition-colors duration-300">
                       {item.icon}
                     </span>
                   </Magnetic>

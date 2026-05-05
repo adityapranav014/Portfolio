@@ -168,8 +168,8 @@ const Works = () => {
 
   const handleMouseMove = (e) => {
     if (window.innerWidth < 768) return;
-    mouse.current.x = e.clientX + 40;
-    mouse.current.y = e.clientY + 40;
+    mouse.current.x = e.clientX - 300;
+    mouse.current.y = e.clientY - 225;
     moveX.current(mouse.current.x);
     moveY.current(mouse.current.y);
 
@@ -328,7 +328,7 @@ const Works = () => {
           {/* desktop floating preview image */}
           <div
             ref={previewRef}
-            className="fixed -top-1/4 left-0 z-50 overflow-hidden border-[12px] border-black pointer-events-none w-[600px] aspect-[4/3] md:block hidden opacity-0 shadow-2xl"
+            className="fixed top-0 left-0 z-50 overflow-hidden border-[12px] border-black pointer-events-none w-[600px] aspect-[4/3] md:block hidden opacity-0 shadow-2xl"
           >
             <div className="w-full h-full" style={{ filter: "url(#displacementFilter)" }}>
               {currentIndex !== null && (
