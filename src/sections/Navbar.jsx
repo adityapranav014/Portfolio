@@ -296,7 +296,7 @@ const Navbar = () => {
               aria-controls="main-nav"
               className={`group flex flex-col items-center justify-center gap-1 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] rounded-full cursor-pointer w-12 h-12 md:w-16 md:h-16 ${isOpen
                 ? "bg-white/[0.07] hover:bg-white/[0.12] backdrop-blur-sm"
-                : "bg-black/80 hover:bg-black backdrop-blur-sm hover:scale-105 active:scale-95 ring-1 ring-white/[0.06] hover:ring-white/[0.12]"
+                : "bg-black/10 hover:bg-black/30 backdrop-blur-sm hover:scale-105 active:scale-95 ring-1 ring-white/[0.06] hover:ring-white/[0.12]"
                 }`}
               onClick={toggleMenu}
             >
