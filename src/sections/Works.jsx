@@ -39,10 +39,6 @@ const Works = () => {
       });
     });
   };
-  const text = `Each project is built with intent: thoughtful design,
-    clean code, and a focus on results that actually
-    matter to your business and your users.`;
-
   const mouse = useRef({ x: 0, y: 0 });
   const moveX = useRef(null);
   const moveY = useRef(null);

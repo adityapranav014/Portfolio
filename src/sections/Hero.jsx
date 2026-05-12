@@ -135,7 +135,6 @@ const Hero = () => {
 
       <div ref={headerRef} className="relative z-10 font-montserrat">
         <AnimatedHeaderSection
-          subTitle={"Freelance Designer & Developer"}
           title={"Aditya Pranav"}
           text={text}
           textColor={"text-white [text-shadow:0_4px_24px_rgba(0,0,0,1),0_2px_6px_rgba(0,0,0,0.5)]"}

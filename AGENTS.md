@@ -2,9 +2,15 @@
 
 ## Cursor Cloud specific instructions
 
-This is a **single-page React portfolio app** (Vite + TailwindCSS v4 + GSAP). No backend, no database, no Docker.
+### Project overview
 
-### Quick reference
+Awwwards-style developer portfolio — a front-end-only React SPA (no backend, no database). All data is hardcoded in `src/constants/index.js`. Media is served from ImageKit CDN (internet required).
+
+### Stack
+
+React 19, Vite 6, Tailwind CSS 4, GSAP, Lenis (smooth scroll), React Router DOM 7. Package manager: **npm** (`package-lock.json`).
+
+### Key commands
 
 | Task | Command |
 |------|---------|
@@ -12,12 +18,11 @@ This is a **single-page React portfolio app** (Vite + TailwindCSS v4 + GSAP). No
 | Dev server | `npm run dev` (serves on `http://localhost:5173`) |
 | Lint | `npm run lint` |
 | Build | `npm run build` |
-| Preview build | `npm run preview` |
+| Preview prod | `npm run preview` |
 
-### Notes
+### Caveats
 
-- **No test suite exists.** There are no test scripts or test frameworks configured. Validation is manual (browser-based).
-- **ESLint has 5 pre-existing errors** (unused variables in `AnimatedHeaderSection.jsx`, `About.jsx`, `Contact.jsx`, `Works.jsx`). These are not regressions from your changes unless you touch those files.
-- **Media assets load from ImageKit CDN** (`ik.imagekit.io`). In environments without internet access, images/videos will be missing but the app still renders and navigates.
-- **3D model** (`public/models/Planet.glb`, ~18 MB) is served locally. The hero section loads this model via the dev server.
-- To expose the dev server for browser testing in Cloud Agent VMs, use `npm run dev -- --host 0.0.0.0`.
+- **No automated test suite** — there are no `test` scripts in `package.json`. Validation is lint + build + manual browser testing.
+- **Lint has 5 pre-existing errors** (unused variables in `AnimatedHeaderSection.jsx`, `About.jsx`, `Contact.jsx`, `Works.jsx`). These are not regressions — they exist on `main`.
+- **No `.env` needed** — the ImageKit URL endpoint is hardcoded in `src/App.jsx`.
+- **Path alias** — `@` maps to `./src` (configured in `vite.config.js`).

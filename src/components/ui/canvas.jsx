@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 // Minimal monochrome cursor trail — tonally consistent with the editorial aesthetic.
 // Disabled on touch/mobile devices (no cursor present).
@@ -12,25 +12,6 @@ let ctx,
         dampening: 0.025,
         tension: 0.99,
     };
-
-function n(e) {
-    this.init(e || {});
-}
-n.prototype = {
-    init: function (e) {
-        this.phase = e.phase || 0;
-        this.offset = e.offset || 0;
-        this.frequency = e.frequency || 0.001;
-        this.amplitude = e.amplitude || 1;
-    },
-    update: function () {
-        this.phase += this.frequency;
-        return this.offset + Math.sin(this.phase) * this.amplitude;
-    },
-    value: function () {
-        return this.offset + Math.sin(this.phase) * this.amplitude;
-    },
-};
 
 function Node() {
     this.x = 0;
