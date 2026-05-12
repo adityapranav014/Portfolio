@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { projects } from "../constants";
 import Transition from "../components/Transition";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react";
 
 const ProjectDetail = () => {
     const { slug } = useParams();
@@ -37,7 +37,7 @@ const ProjectDetail = () => {
             ease: "power4.out"
         })
             .to(imgOverlayRef.current, {
-                height: 0,
+                clipPath: "inset(100% 0 0 0)",
                 duration: 1.2,
                 ease: "power3.inOut"
             }, "-=0.6")
@@ -124,7 +124,7 @@ const ProjectDetail = () => {
                 <div className="fixed top-8 left-8 md:top-12 md:left-12 z-50 mix-blend-difference">
                     <button
                         onClick={goHome}
-                        className="flex items-center gap-2 text-xs tracking-widest text-white hover:opacity-70 transition-opacity duration-300 cursor-none group"
+                        className="flex items-center gap-2 text-xs tracking-widest text-white hover:opacity-70 transition-opacity duration-300 cursor-pointer group"
                     >
                         <div className="size-5 flex items-center justify-center">
                             <Icon icon="ph:arrow-left-light" className="w-5 h-5" />
@@ -183,7 +183,7 @@ const ProjectDetail = () => {
                                         href={project.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-3 text-xs uppercase tracking-widest border border-black px-6 py-3 hover:bg-black hover:text-white transition-all duration-500 cursor-none group"
+                                        className="inline-flex items-center gap-3 text-xs uppercase tracking-widest border border-black px-6 py-3 hover:bg-black hover:text-white transition-all duration-500 cursor-pointer group"
                                     >
                                         Visit Live Site
                                         <Icon
@@ -262,7 +262,7 @@ const ProjectDetail = () => {
                         {prevProject ? (
                             <button
                                 onClick={() => navigateWithCurtain(prevProject.slug)}
-                                className="flex flex-col items-start gap-2 group cursor-none w-1/2"
+                                className="flex flex-col items-start gap-2 group cursor-pointer w-1/2"
                             >
                                 <span className="text-[10px] uppercase tracking-[0.2em] text-black/40 group-hover:text-black transition-colors duration-500 flex items-center gap-1">
                                     <Icon icon="ph:arrow-left-light" className="w-[1.2em] h-[1.2em]" /> Previous Project
@@ -277,7 +277,7 @@ const ProjectDetail = () => {
                         {nextProject ? (
                             <button
                                 onClick={() => navigateWithCurtain(nextProject.slug)}
-                                className="flex flex-col items-end gap-2 group cursor-none w-1/2 text-right"
+                                className="flex flex-col items-end gap-2 group cursor-pointer w-1/2 text-right"
                             >
                                 <span className="text-[10px] uppercase tracking-[0.2em] text-black/40 group-hover:text-black transition-colors duration-500 flex items-center gap-1 justify-end">
                                     Next Project <Icon icon="ph:arrow-right-light" className="w-[1.2em] h-[1.2em]" />

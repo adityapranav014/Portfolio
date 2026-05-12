@@ -201,6 +201,7 @@ const About = () => {
           <img
             src={DEFAULT_IMG}
             alt="Aditya Pranav, Creative Technologist"
+            loading="lazy"
             className={`w-full h-auto block transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:opacity-0 md:group-hover:scale-[1.03] ${isMobileAlt ? 'opacity-0 scale-[1.03]' : ''}`}
             draggable={false}
           />
@@ -208,6 +209,7 @@ const About = () => {
           <img
             src={HOVER_IMG}
             alt="Aditya Pranav, Creative Technologist Hover"
+            loading="lazy"
             className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:opacity-100 md:group-hover:scale-100 ${isMobileAlt ? 'opacity-100 scale-100' : 'opacity-0 scale-[1.08]'}`}
             draggable={false}
           />

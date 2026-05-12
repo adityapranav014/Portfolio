@@ -159,7 +159,7 @@ const contactBandRef = useRef(null);
                   <Tooltip text={hasCopied ? "Copied!" : "Copy email"}>
                     <button
                       onClick={handleCopy}
-                      className="group/copy relative flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.12] transition-all duration-300 active:scale-90 shrink-0"
+                      className="group/copy relative flex items-center justify-center w-11 h-11 rounded-full bg-white/[0.06] hover:bg-white/[0.12] transition-all duration-300 active:scale-90 shrink-0"
                       aria-label="Copy email address"
                     >
                       {hasCopied ? (
@@ -187,7 +187,7 @@ const contactBandRef = useRef(null);
                   <Tooltip text={hasCopiedPhone ? "Copied!" : "Copy phone number"}>
                     <button
                       onClick={handleCopyPhone}
-                      className="group/copy relative flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.12] transition-all duration-300 active:scale-90 shrink-0"
+                      className="group/copy relative flex items-center justify-center w-11 h-11 rounded-full bg-white/[0.06] hover:bg-white/[0.12] transition-all duration-300 active:scale-90 shrink-0"
                       aria-label="Copy phone number"
                     >
                       {hasCopiedPhone ? (

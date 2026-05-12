@@ -1,4 +1,4 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react";
 import { projects } from "../constants";
 import { useRef, useState, useEffect } from "react";
 import { createPortal } from "react-dom";

@@ -1,4 +1,4 @@
-import { Component, useEffect, useRef, useState } from "react";
+import { Component, lazy, Suspense, useEffect, useRef, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import Navbar from "./sections/Navbar";
@@ -54,7 +54,7 @@ const NotFound = () => (
 import ScrollUI from "./components/ScrollUI";
 import Transition from "./components/Transition";
 import Preloader from "./components/Preloader";
-import ProjectDetail from "./pages/ProjectDetail";
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
@@ -76,7 +76,7 @@ const LenisScrollSync = () => {
 
 const HomePage = () => (
   <Transition>
-    <ReactLenis root className="relative w-screen min-h-dvh overflow-x-auto">
+    <ReactLenis root className="relative w-screen min-h-dvh overflow-x-hidden">
       <LenisScrollSync />
       <ScrollUI />
       <Navbar />
@@ -159,7 +159,7 @@ const App = () => {
         <ErrorBoundary>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/work/:slug" element={<ProjectDetail />} />
+            <Route path="/work/:slug" element={<Suspense fallback={<div className="min-h-screen bg-primary" />}><ProjectDetail /></Suspense>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ErrorBoundary>
