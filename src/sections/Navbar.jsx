@@ -24,9 +24,6 @@ const Navbar = () => {
   const bottomLineRef = useRef(null);
   const tl = useRef(null);
   const iconTl = useRef(null);
-  const labelTl = useRef(null);
-  const menuCharRefs = useRef([]);
-  const closeCharRefs = useRef([]);
   const [isOpen, setIsOpen] = useState(false);
   const [showBurger, setShowBurger] = useState(true);
 
@@ -38,9 +35,6 @@ const Navbar = () => {
     gsap.set(backdropRef.current, { autoAlpha: 0 });
     gsap.set(linkRowRefs.current, { autoAlpha: 0, x: 80, skewX: -4 });
     gsap.set(footerRef.current, { autoAlpha: 0, y: 40 });
-
-    // Label: CLOSE chars start below the fold
-    gsap.set(closeCharRefs.current, { yPercent: 130 });
 
     // Main open/close timeline
     tl.current = gsap
@@ -95,30 +89,6 @@ const Navbar = () => {
         { rotate: -45, y: -3.3, duration: 0.3, ease: "power2.inOut" },
         "<"
       );
-
-    // Label swap: MENU chars fly up & out, CLOSE chars fly up & in
-    labelTl.current = gsap
-      .timeline({ paused: true })
-      .to(
-        menuCharRefs.current,
-        {
-          yPercent: -130,
-          stagger: { each: 0.032, from: "end" },
-          duration: 0.28,
-          ease: "power2.in",
-        },
-        0
-      )
-      .to(
-        closeCharRefs.current,
-        {
-          yPercent: 0,
-          stagger: { each: 0.038, from: "start" },
-          duration: 0.36,
-          ease: "power3.out",
-        },
-        0.14
-      );
   }, []);
 
   // Scroll-hide burger
@@ -146,11 +116,9 @@ const Navbar = () => {
     if (isOpen) {
       tl.current.reverse();
       iconTl.current.reverse();
-      labelTl.current.reverse();
     } else {
       tl.current.play();
       iconTl.current.play();
-      labelTl.current.play();
     }
     setIsOpen(!isOpen);
   };
@@ -158,7 +126,6 @@ const Navbar = () => {
   const closeMenu = () => {
     tl.current.reverse();
     iconTl.current.reverse();
-    labelTl.current.reverse();
     setIsOpen(false);
   };
 
