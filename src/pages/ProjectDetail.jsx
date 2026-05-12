@@ -111,7 +111,6 @@ const ProjectDetail = () => {
 
     return (
         <Transition>
-            So.             {/* React-portal curtain (lifecycle tied to this component) */}
             {curtainActive && createPortal(
                 <div
                     ref={curtainRef}
