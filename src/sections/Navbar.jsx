@@ -91,12 +91,13 @@ const Navbar = () => {
       );
   }, []);
 
-  // Scroll-hide burger
+  // Scroll-hide burger (desktop); keep always visible on mobile for discoverability
   useEffect(() => {
     let lastScrollY = window.scrollY;
     const handleScroll = () => {
       const y = window.scrollY;
-      setShowBurger(y <= lastScrollY || y < 10);
+      const mobile = window.matchMedia("(max-width: 767px)").matches;
+      setShowBurger(mobile || y <= lastScrollY || y < 10);
       lastScrollY = y;
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -263,7 +264,7 @@ const Navbar = () => {
               aria-controls="main-nav"
               className={`group flex flex-col items-center justify-center gap-1 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] rounded-full cursor-pointer w-12 h-12 md:w-16 md:h-16 ${isOpen
                 ? "bg-white/[0.07] hover:bg-white/[0.12] backdrop-blur-sm"
-                : "bg-black/10 hover:bg-black/30 backdrop-blur-sm hover:scale-105 active:scale-95 ring-1 ring-white/[0.06] hover:ring-white/[0.12]"
+                : "bg-black/40 hover:bg-black/55 backdrop-blur-md hover:scale-105 active:scale-95 ring-1 ring-white/25 hover:ring-white/40 shadow-[0_2px_20px_rgba(0,0,0,0.35)]"
                 }`}
               onClick={toggleMenu}
             >

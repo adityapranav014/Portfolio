@@ -76,7 +76,7 @@ const LenisScrollSync = () => {
 
 const HomePage = () => (
   <Transition>
-    <ReactLenis root className="relative w-screen min-h-dvh overflow-x-auto">
+    <ReactLenis root className="relative w-full min-h-dvh overflow-x-hidden">
       <LenisScrollSync />
       <ScrollUI />
       <Navbar />

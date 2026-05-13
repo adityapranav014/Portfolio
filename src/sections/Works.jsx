@@ -248,6 +248,7 @@ const Works = () => {
               id={`project-${project.id}`}
               role="button"
               tabIndex={0}
+              aria-label={`Open ${project.name} case study`}
               className="project-item relative isolate flex flex-col gap-1 py-8 cursor-pointer group md:gap-0"
               onClick={() => openProject(project.slug)}
               onKeyDown={(e) =>

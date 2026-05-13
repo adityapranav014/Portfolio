@@ -100,6 +100,7 @@ const Hero = () => {
         loop
         muted
         playsInline
+        preload="metadata"
         poster="https://ik.imagekit.io/gglxgr4rz/Portfolio/hero.mp4/ik-thumbnail.jpg"
         className="absolute inset-0 h-full w-full object-cover -z-50"
       >
@@ -110,6 +111,8 @@ const Hero = () => {
       </video>
       {/* Base gradient – bottom darkening for text readability */}
       <div className="pointer-events-none absolute inset-0 -z-40 bg-gradient-to-b from-transparent via-transparent to-black/65" />
+      {/* Side scrim – keeps white type readable over bright sky (especially right-aligned copy) */}
+      <div className="pointer-events-none absolute inset-0 -z-39 bg-gradient-to-r from-black/50 via-black/15 to-transparent md:from-black/35 md:via-black/10 md:to-black/25" />
 
       {/* Ambient corner glow — single clean light source */}
       <div

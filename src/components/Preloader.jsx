@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 
 const greetings = [
@@ -18,6 +18,11 @@ const greetings = [
 const TOTAL = greetings.length;
 
 const Preloader = ({ onComplete }) => {
+    const skipAnimation = useState(
+        () =>
+            typeof window !== "undefined" &&
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )[0];
     const topPanelRef = useRef(null);
     const btmPanelRef = useRef(null);
     const contentRef = useRef(null);
@@ -28,6 +33,10 @@ const Preloader = ({ onComplete }) => {
     const totalLblRef = useRef(null);
 
     useEffect(() => {
+        if (skipAnimation) {
+            onComplete();
+            return;
+        }
         const el = wordRef.current;
         const dot = dotRef.current;
         const line = lineRef.current;
@@ -99,7 +108,9 @@ const Preloader = ({ onComplete }) => {
         tl.to(btm, { yPercent: 100, duration: 1.0, ease: "expo.inOut" }, "<");
 
         return () => tl.kill();
-    }, [onComplete]);
+    }, [onComplete, skipAnimation]);
+
+    if (skipAnimation) return null;
 
     return (
         <>

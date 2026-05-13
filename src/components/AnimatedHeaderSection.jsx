@@ -14,6 +14,11 @@ const AnimatedHeaderSection = ({
   const shouldSplitTitle = title.includes(" ");
   const titleParts = shouldSplitTitle ? title.split(" ") : [title];
   useGSAP(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(contextRef.current, { y: 0 });
+      gsap.set(headerRef.current, { opacity: 1, y: 0 });
+      return;
+    }
     const tl = gsap.timeline({
       scrollTrigger: withScrollTrigger
         ? {
@@ -44,7 +49,7 @@ const AnimatedHeaderSection = ({
           ref={headerRef}
           className="flex flex-col justify-center gap-[clamp(1.5rem,3dvh,3rem)] pt-[clamp(2rem,6dvh,4rem)]"
         >
-          <div className="pl-[clamp(1.5rem,5vw,6rem)] pr-[clamp(1rem,15vw,8rem)]">
+          <div className="pl-[clamp(1.5rem,5vw,6rem)] pr-6 sm:pr-[clamp(1rem,12vw,8rem)] md:pr-[clamp(1rem,15vw,8rem)]">
             <Tag
               className={`flex flex-col gap-1 banner-text-responsive md:block pb-[clamp(0.5rem,2dvh,1.5rem)] ${textColor}`}
             >
@@ -71,8 +76,8 @@ const AnimatedHeaderSection = ({
           </div>
         </div>
       </div>
-      <div className={`relative px-6 md:px-[clamp(1.5rem,5vw,6rem)] ${textColor}`}>
-        <div className="py-[clamp(1.5rem,4dvh,4rem)] text-left md:text-end overflow-hidden">
+      <div className={`relative px-6 sm:px-[clamp(1.5rem,5vw,6rem)] md:px-[clamp(1.5rem,5vw,6rem)] ${textColor}`}>
+        <div className="py-[clamp(1.5rem,4dvh,4rem)] text-left md:text-end overflow-hidden max-w-[min(100%,40rem)] md:max-w-none md:ml-auto">
           <AnimatedTextLines
             text={text}
             className={`font-light value-text-responsive ${textColor}`}
