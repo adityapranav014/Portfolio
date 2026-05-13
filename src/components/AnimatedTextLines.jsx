@@ -11,6 +11,10 @@ export const AnimatedTextLines = ({ text, className }) => {
   const singleLine = lines.map((l) => l.trim()).join(" ");
 
   useGSAP(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(lineRefs.current, { opacity: 1, y: 0 });
+      return;
+    }
     if (lineRefs.current.length > 0) {
       gsap.from(lineRefs.current, {
         y: 60,

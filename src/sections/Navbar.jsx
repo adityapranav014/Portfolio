@@ -97,9 +97,26 @@ const Navbar = () => {
     const handleScroll = () => {
       const y = window.scrollY;
       const mobile = window.matchMedia("(max-width: 767px)").matches;
-      setShowBurger(mobile || y <= lastScrollY || y < 10);
+
+      if (mobile) {
+        // Always show hamburger on mobile
+        setShowBurger(true);
+      } else {
+        // On desktop/laptop: Hide in Hero section since we have the full text menu.
+        // Otherwise, show when scrolling up (or if they are past the hero section).
+        if (y < window.innerHeight * 0.15) {
+          setShowBurger(false);
+        } else {
+          setShowBurger(y <= lastScrollY);
+        }
+      }
+
       lastScrollY = y;
     };
+
+    // Set initial state
+    handleScroll();
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -214,7 +231,7 @@ const Navbar = () => {
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
                 </span>
                 <p className="text-[12px] md:text-sm tracking-[0.15em] uppercase text-green-400/80 font-light whitespace-nowrap">
-                  Open to work • May 2026
+                  Accepting new projects
                 </p>
               </div>
             </div>

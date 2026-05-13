@@ -1,211 +1,218 @@
 import { useRef, useEffect } from "react";
-import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
 import { Link } from "react-scroll";
-import { CanvasLines } from "../components/ui/canvas";
 import gsap from "gsap";
 import { Icon } from "@iconify/react";
+import { CanvasLines } from "../components/ui/canvas";
 import Magnetic from "../components/ui/Magnetic";
+import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
+import HeroMarquee from "../components/HeroMarquee";
+
+const HERO_VIDEO_URL = "https://ik.imagekit.io/gglxgr4rz/Portfolio/hero.mp4";
+const HERO_POSTER_URL = `${HERO_VIDEO_URL}/ik-thumbnail.jpg`;
+
+function LocatedCard({ className = "" }) {
+  return (
+    <div
+      className={`flex w-fit shrink-0 items-center justify-between gap-4 rounded-full bg-[#1c1d20] py-2.5 text-white shadow-[0_16px_48px_rgba(0,0,0,0.35)] md:gap-8 pl-5 pr-2.5 md:pl-[clamp(1.5rem,5vw,4rem)] md:pr-4 md:py-[1.125rem] md:rounded-l-none md:rounded-r-full ${className}`}
+    >
+      <p className="min-w-0 text-left text-[14px] font-medium leading-[1.2] text-white md:text-[16px] md:leading-[1.3]">
+        <span className="block inline md:block">Located </span>
+        <span className="block inline md:block">in the </span>
+        <span className="block inline md:block">India</span>
+      </p>
+      <div
+        className="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-full bg-[#8f9298] md:h-14 md:w-14 ml-2 md:ml-3 relative"
+        aria-hidden="true"
+      >
+        <Icon icon="ph:globe-light" className="text-white text-[26px] md:text-[34px]" />
+      </div>
+    </div>
+  );
+}
+
+function RoleTagline({ className = "", centered = false }) {
+  return (
+    <div
+      className={`flex flex-col gap-6 text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] ${centered ? "items-center text-center" : "items-start text-left"} ${className}`}
+    >
+      <Icon
+        icon="ph:arrow-down-right-light"
+        className={`text-2xl text-white md:text-3xl ${centered ? "" : "self-start"}`}
+        aria-hidden="true"
+      />
+      <div className="font-montserrat">
+        <p className="text-[24px] font-normal leading-[1.2] tracking-wide text-white md:text-[32px]">
+          Freelance
+          <br />
+          Designer & Developer
+        </p>
+      </div>
+    </div>
+  );
+}
 
 const Hero = () => {
-  const videoRef = useRef(null);
-  const headerRef = useRef(null);
+  const mediaRef = useRef(null);
+  const floatsRef = useRef(null);
+  const marqueeRef = useRef(null);
   const ctaRef = useRef(null);
-  const pillRef = useRef(null);
-
-  const text = `I help brands build meaningful digital experiences, from clean, 
-    fast interfaces to solid, scalable backends. Together  
-    we will create something worth noticing.`;
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    // Hold all content invisible until preloader exits
-    gsap.set([headerRef.current, ctaRef.current, pillRef.current], {
-      opacity: 0,
-      y: 55,
-    });
-    gsap.set(videoRef.current, { scale: 1.1 });
+    const targets = [
+      floatsRef.current,
+      ctaRef.current,
+      marqueeRef.current,
+    ].filter(Boolean);
+
+    if (prefersReducedMotion) {
+      gsap.set(targets, { opacity: 1, y: 0 });
+      return;
+    }
+
+    gsap.set(targets, { opacity: 0, y: 36 });
+    if (mediaRef.current) gsap.set(mediaRef.current, { scale: 1.08 });
 
     const onAnimate = () => {
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
-      // Video slowly releases its scale - cinematic Ken Burns feel
-      tl.to(
-        videoRef.current,
-        {
-          scale: 1,
-          duration: 2.8,
-          ease: "power3.out",
-        },
-        0
-      );
+      if (mediaRef.current) {
+        tl.to(
+          mediaRef.current,
+          { scale: 1, duration: 2.4, ease: "power3.out" },
+          0
+        );
+      }
 
-      // Header text block rises in
-      tl.to(
-        headerRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.4,
-        },
-        0
-      );
-
-      // CTAs stagger slightly behind header
-      tl.to(
-        ctaRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.1,
-        },
-        0.22
-      );
-
-      // Availability pill last - lightest element, shortest travel
-      tl.to(
-        pillRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-        },
-        0.38
-      );
+      tl.to(floatsRef.current, { opacity: 1, y: 0, duration: 1 }, 0.05);
+      tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 0.95 }, 0.15);
+      tl.to(marqueeRef.current, { opacity: 1, y: 0, duration: 1 }, 0.28);
     };
 
     if (window.isPreloaderDone) {
-      gsap.delayedCall(0.5, onAnimate);
+      gsap.delayedCall(0.4, onAnimate);
     } else {
       let fired = false;
-      const handle = () => { fired = true; onAnimate(); };
+      const handle = () => {
+        fired = true;
+        onAnimate();
+      };
       window.addEventListener("hero:animate", handle, { once: true });
-      // Safety net: if the event was dispatched before this listener attached,
-      // fall back to animating after a reasonable delay.
-      const fallback = setTimeout(() => { if (!fired) onAnimate(); }, 4000);
+      const fallback = setTimeout(() => {
+        if (!fired) onAnimate();
+      }, 4000);
       return () => {
         window.removeEventListener("hero:animate", handle);
         clearTimeout(fallback);
       };
     }
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <section
       id="home"
-      className="relative flex flex-col min-h-dvh overflow-hidden"
+      aria-label="Introduction"
+      className="relative min-h-dvh overflow-hidden font-montserrat"
     >
-      {/* Background video */}
-      <video
-        ref={videoRef}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="metadata"
-        poster="https://ik.imagekit.io/gglxgr4rz/Portfolio/hero.mp4/ik-thumbnail.jpg"
-        className="absolute inset-0 h-full w-full object-cover -z-50"
-      >
-        <source
-          src="https://ik.imagekit.io/gglxgr4rz/Portfolio/hero.mp4"
-          type="video/mp4"
+      {/* Full-bleed hero video (original cinematic background) */}
+      {prefersReducedMotion ? (
+        <img
+          ref={mediaRef}
+          src={HERO_POSTER_URL}
+          alt=""
+          width={1920}
+          height={1080}
+          decoding="async"
+          fetchPriority="high"
+          className="absolute inset-0 -z-50 h-full w-full object-cover"
+          aria-hidden
         />
-      </video>
-      {/* Base gradient – bottom darkening for text readability */}
-      <div className="pointer-events-none absolute inset-0 -z-40 bg-gradient-to-b from-transparent via-transparent to-black/65" />
-      {/* Side scrim – keeps white type readable over bright sky (especially right-aligned copy) */}
-      <div className="pointer-events-none absolute inset-0 -z-39 bg-gradient-to-r from-black/50 via-black/15 to-transparent md:from-black/35 md:via-black/10 md:to-black/25" />
+      ) : (
+        <video
+          ref={mediaRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          poster={HERO_POSTER_URL}
+          fetchPriority="high"
+          className="absolute inset-0 -z-50 h-full w-full object-cover"
+        >
+          <source src={HERO_VIDEO_URL} type="video/mp4" />
+        </video>
+      )}
 
-      {/* Ambient corner glow — single clean light source */}
+      {/* Scrims — readability over video */}
+      <div className="pointer-events-none absolute inset-0 -z-40 bg-gradient-to-b from-transparent via-transparent to-black/70" />
+      <div className="pointer-events-none absolute inset-0 -z-39 bg-gradient-to-r from-black/55 via-black/18 to-black/25 md:from-black/40 md:via-black/12 md:to-black/35" />
       <div
-        className="pointer-events-none absolute inset-0 mix-blend-screen"
-        style={{
-          zIndex: -35,
-          background: "radial-gradient(ellipse 80% 70% at 82% 10%, rgba(255,248,225,0.55) 0%, rgba(207,163,85,0.18) 35%, transparent 70%)",
-          filter: "blur(60px)",
-        }}
+        className="pointer-events-none absolute inset-0 -z-38 bg-[radial-gradient(ellipse_90%_70%_at_50%_85%,rgba(0,0,0,0.55)_0%,transparent_55%)]"
+        aria-hidden
       />
 
-      {/* Directional crepuscular ray */}
-      <div
-        className="pointer-events-none absolute inset-0 mix-blend-screen"
-        style={{
-          zIndex: -34,
-          background: "radial-gradient(ellipse 110% 18% at 82% 10%, rgba(255,250,230,0.18) 0%, rgba(207,163,85,0.06) 50%, transparent 80%)",
-          transformOrigin: "82% 10%",
-          transform: "rotate(-35deg)",
-          filter: "blur(30px)",
-        }}
-      />
-
-      <div ref={headerRef} className="relative z-10 font-montserrat">
-        <AnimatedHeaderSection
-          title={"Aditya Pranav"}
-          text={text}
-          textColor={"text-white [text-shadow:0_4px_24px_rgba(0,0,0,1),0_2px_6px_rgba(0,0,0,0.5)]"}
-          headingTag="h1"
-        />
-      </div>
-
-      {/* CTA row */}
-      <div
-        ref={ctaRef}
-        className="mt-auto flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-[clamp(1.5rem,3dvh,2rem)] px-[clamp(1.5rem,5vw,6rem)] pb-8 sm:pb-[clamp(2rem,3dvh,2.5rem)]"
-      >
-        {/* Primary CTA - vertical fill sweep on hover */}
-        <Magnetic strength={0.3}>
-          <Link
-            to="contact"
-            smooth
-            duration={1800}
-            offset={0}
-            className="group relative flex items-center gap-4 bg-white text-black px-7 sm:px-[clamp(1.5rem,3.5vw,2.5rem)] py-3.5 sm:py-[clamp(0.8rem,2dvh,1.2rem)] overflow-hidden cursor-pointer select-none"
-          >
-            <span className="relative z-10 text-[11px] sm:text-[clamp(0.55rem,1.2dvh,11px)] uppercase tracking-[0.28em] font-medium transition-colors duration-500">
-              Start a Project
-            </span>
-            <span className="relative z-10 text-[14px] sm:text-[clamp(0.7rem,1.5dvh,15px)] transition-transform duration-300 group-hover:translate-x-1 flex items-center">
-              <Icon
-                icon="ph:arrow-right-light"
-                className="w-[1.2em] h-[1.2em]"
-              />
-            </span>
-            {/* accent sweep */}
-            <span className="absolute inset-0 bg-accent translate-y-[102%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
-          </Link>
-        </Magnetic>
-
-        {/* Secondary CTA - animated underline text link */}
-        <Magnetic strength={0.2}>
-          <Link
-            to="work"
-            smooth
-            duration={1600}
-            offset={0}
-            className="group flex items-center gap-2.5 cursor-pointer select-none py-1 sm:py-0"
-          >
-            <span className="relative text-[11px] sm:text-[clamp(0.55rem,1.2dvh,11px)] uppercase tracking-[0.28em] font-light text-white/70 group-hover:text-white transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-all after:duration-400 group-hover:after:w-full">
-              View My Work
-            </span>
-            <span className="text-white/40 group-hover:text-white text-[14px] sm:text-[clamp(0.7rem,1.5dvh,15px)] transition-all duration-300 group-hover:translate-y-0.5 flex items-center">
-              <Icon icon="ph:arrow-down-light" className="w-[1.2em] h-[1.2em]" />
-            </span>
-          </Link>
-        </Magnetic>
-      </div>
-
-      {/* Availability pill */}
-      <div
-        ref={pillRef}
-        className="flex items-center gap-3 px-[clamp(1.5rem,5vw,6rem)] pb-[clamp(2rem,4dvh,2rem)] sm:pb-[clamp(1.5rem,4dvh,2rem)]"
-      >
-        <span className="relative flex h-[clamp(0.5rem,1.5dvh,0.75rem)] w-[clamp(0.5rem,1.5dvh,0.75rem)] items-center justify-center">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-          <span className="relative inline-flex h-[clamp(0.4rem,1.2dvh,0.5rem)] w-[clamp(0.4rem,1.2dvh,0.5rem)] rounded-full bg-green-400"></span>
-        </span>
-        <span className="text-[clamp(0.6rem,1.3dvh,0.75rem)] uppercase tracking-widest text-white/50 font-light">
-          Available for work • May 2026
-        </span>
-      </div>
+      {/* Cursor trail — monochrome ribbons over the hero (desktop pointer only) */}
       <CanvasLines />
+
+      <div
+        ref={floatsRef}
+        className="pointer-events-none absolute inset-0 z-20 hidden md:block"
+      >
+        <div className="mx-auto relative min-h-dvh w-full max-w-[1700px]">
+          <div className="absolute left-0 top-[calc(50%+1.25rem)] z-20 -translate-y-1/2 md:pointer-events-auto">
+            {/* Extended black background to break out of the max-w container on ultra-wide screens */}
+            <div className="hidden md:block absolute top-0 bottom-0 right-full w-[50vw] bg-[#1c1d20]" aria-hidden />
+            <LocatedCard className="hidden md:flex rounded-l-none" />
+          </div>
+          <div className="absolute right-5 md:right-[clamp(1.5rem,5vw,4rem)] top-[calc(50%+1.25rem)] z-20 -translate-y-1/2 md:pointer-events-auto">
+            <RoleTagline />
+          </div>
+        </div>
+      </div>
+
+      <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-[1700px] flex-col px-5 pb-6 pt-[clamp(2rem,5vh,3rem)] md:px-[clamp(1.5rem,5vw,4rem)] md:pb-10">
+
+        {/* Top Header Navigation */}
+        <div ref={ctaRef} className="relative z-30 flex justify-between items-start w-full text-white font-montserrat">
+          <div className="text-[16px] md:text-[18px] font-medium pt-2">
+            © Aditya Pranav
+          </div>
+          <div className="hidden md:flex gap-8 text-[16px] md:text-[18px] font-medium pt-2 relative z-50">
+            {["Services", "About", "Work", "Contact"].map((item) => (
+              <Magnetic strength={0.3} key={item}>
+                <Link
+                  to={item.toLowerCase()}
+                  smooth
+                  className="group relative cursor-pointer block px-2 py-1"
+                >
+                  <span className="relative z-10 transition-colors duration-300 group-hover:text-accent">
+                    {item}
+                  </span>
+                  <span className="absolute -bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true" />
+                </Link>
+              </Magnetic>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-10 mt-16 flex flex-col items-center gap-6 md:mb-0 md:hidden">
+          <LocatedCard className="" />
+          <RoleTagline centered />
+        </div>
+
+        {/* Vertical rhythm: video fills the frame; reserve space so CTAs sit above the marquee */}
+        <div
+          className="relative flex-1"
+          aria-hidden
+        />
+
+        <div
+          ref={marqueeRef}
+          className="relative z-30 mb-0 w-screen left-1/2 -translate-x-1/2"
+        >
+          <HeroMarquee reducedMotion={prefersReducedMotion} />
+        </div>
+      </div>
     </section>
   );
 };

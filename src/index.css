@@ -198,10 +198,25 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
 
-  .animate-marquee {
-    animation: none !important;
+
+@keyframes hero-marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
   }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.hero-marquee-track {
+  animation-name: hero-marquee-scroll;
+  animation-duration: 250s !important;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite !important;
+  will-change: transform;
 }
 
 /* ── Custom Tooltip ──────────────────────────────────────── */

@@ -119,7 +119,7 @@ const ProjectDetail = () => {
                 />,
                 document.body
             )}
-            <div className="min-h-screen bg-primary font-amiamie overflow-x-hidden text-black selection:bg-black selection:text-white">
+            <main id="main-content" tabIndex={-1} className="outline-none min-h-screen bg-primary font-amiamie overflow-x-hidden text-black selection:bg-black selection:text-white">
                 {/* Custom Cursor/Back Button overlaying hero roughly */}
                 <div className="fixed top-8 left-8 md:top-12 md:left-12 z-50 mix-blend-difference">
                     <button
@@ -291,7 +291,7 @@ const ProjectDetail = () => {
                         )}
                     </div>
                 </div>
-            </div>
+            </main>
         </Transition>
     );
 };

@@ -42,13 +42,13 @@ class ErrorBoundary extends Component {
 }
 
 const NotFound = () => (
-  <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-6 px-6 text-center font-amiamie">
+  <main id="main-content" tabIndex={-1} className="outline-none min-h-screen bg-black flex flex-col items-center justify-center gap-6 px-6 text-center font-amiamie">
     <span className="text-[10px] uppercase tracking-[0.4em] text-white/30">404</span>
     <h1 className="text-[clamp(4rem,12vw,10rem)] font-light leading-none tracking-tighter text-white">Not Found</h1>
     <a href="/" className="text-[10px] uppercase tracking-widest text-white/40 hover:text-white transition-colors duration-300 border-b border-white/20 pb-px">
       Return to Index
     </a>
-  </div>
+  </main>
 );
 
 import ScrollUI from "./components/ScrollUI";
@@ -80,15 +80,17 @@ const HomePage = () => (
       <LenisScrollSync />
       <ScrollUI />
       <Navbar />
-      <Hero />
-      <ServiceSummary />
-      <Services />
-      <About />
-      <Works />
-      <StatsMarquee />
-      <ContactSummary />
-      <Contact />
-      <Footer />
+      <main id="main-content" tabIndex={-1} className="outline-none">
+        <Hero />
+        <ServiceSummary />
+        <Services />
+        <About />
+        <Works />
+        <StatsMarquee />
+        <ContactSummary />
+        <Contact />
+        <Footer />
+      </main>
     </ReactLenis>
   </Transition>
 );
@@ -157,6 +159,12 @@ const App = () => {
       {/* App renders immediately so the hero video starts buffering */}
       <BrowserRouter>
         <ErrorBoundary>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:inline-block focus:h-auto focus:w-auto focus:overflow-visible focus:rounded-md focus:bg-white focus:px-5 focus:py-3 focus:text-[11px] focus:font-medium focus:uppercase focus:tracking-[0.28em] focus:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]"
+          >
+            Skip to main content
+          </a>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/work/:slug" element={<ProjectDetail />} />
