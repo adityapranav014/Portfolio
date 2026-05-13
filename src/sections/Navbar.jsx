@@ -263,7 +263,7 @@ const Navbar = () => {
 
       {/* Burger / Close button + custom animated label */}
       <div
-        className="fixed z-[60] top-5 right-[clamp(1.5rem,5vw,3rem)] flex items-center gap-3"
+        className="fixed z-[60] top-6 right-5 md:top-[clamp(2rem,5vh,3rem)] md:right-[clamp(1.5rem,5vw,4rem)] flex items-center gap-3"
         style={{
           transition: "opacity 0.4s ease, transform 0.4s ease",
           opacity: showBurger || isOpen ? 1 : 0,

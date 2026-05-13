@@ -198,9 +198,17 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
+  .animate-marquee {
+    animation: none !important;
+  }
+
+  .hero-marquee-track {
+    animation: none !important;
+  }
 }
 
-
+/* Dennis-style infinite name marquee (dual-track seamless scroll) */
 @keyframes hero-marquee-scroll {
   from {
     transform: translate3d(0, 0, 0);
@@ -213,10 +221,57 @@ body {
 
 .hero-marquee-track {
   animation-name: hero-marquee-scroll;
-  animation-duration: 250s !important;
+  animation-duration: 95s !important;
   animation-timing-function: linear;
   animation-iteration-count: infinite !important;
   will-change: transform;
+}
+
+/* Soft lateral fade — marquee reads “finished” at the viewport edges */
+.hero-marquee-fade {
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 0%, 0) 0%,
+    hsla(0, 0%, 0%, 0.35) 4%,
+    hsla(0, 0%, 0%, 1) 14%,
+    hsla(0, 0%, 0%, 1) 86%,
+    hsla(0, 0%, 0%, 0.35) 96%,
+    hsla(0, 0%, 0%, 0) 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 0%, 0) 0%,
+    hsla(0, 0%, 0%, 0.35) 4%,
+    hsla(0, 0%, 0%, 1) 14%,
+    hsla(0, 0%, 0%, 1) 86%,
+    hsla(0, 0%, 0%, 0.35) 96%,
+    hsla(0, 0%, 0%, 0) 100%
+  );
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-mode: alpha;
+}
+
+/* Softer mask when motion is reduced — static name stays legible in the center */
+@media (prefers-reduced-motion: reduce) {
+  .hero-marquee-fade {
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      hsla(0, 0%, 0%, 0) 0%,
+      hsla(0, 0%, 0%, 1) 8%,
+      hsla(0, 0%, 0%, 1) 92%,
+      hsla(0, 0%, 0%, 0) 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      hsla(0, 0%, 0%, 0) 0%,
+      hsla(0, 0%, 0%, 1) 8%,
+      hsla(0, 0%, 0%, 1) 92%,
+      hsla(0, 0%, 0%, 0) 100%
+    );
+  }
 }
 
 /* ── Custom Tooltip ──────────────────────────────────────── */

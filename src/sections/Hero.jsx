@@ -2,6 +2,7 @@ import { useRef, useEffect } from "react";
 import { Link } from "react-scroll";
 import gsap from "gsap";
 import { Icon } from "@iconify/react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { CanvasLines } from "../components/ui/canvas";
 import Magnetic from "../components/ui/Magnetic";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
@@ -21,10 +22,18 @@ function LocatedCard({ className = "" }) {
         <span className="block inline md:block">India</span>
       </p>
       <div
-        className="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-full bg-[#8f9298] md:h-14 md:w-14 ml-2 md:ml-3 relative"
+        className="relative ml-2 flex h-[46px] w-[46px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-transparent md:ml-3 md:h-12 md:w-12"
         aria-hidden="true"
       >
-        <Icon icon="ph:globe-light" className="text-white text-[26px] md:text-[34px]" />
+        <div className="flex h-full w-full items-center justify-center">
+          <DotLottieReact
+            src="https://lottie.host/f287a05d-7b5d-4212-8ef5-17578888d005/VJ2vFPHVeX.lottie"
+            loop
+            autoplay
+            speed={0.5}
+            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+          />
+        </div>
       </div>
     </div>
   );
@@ -158,7 +167,7 @@ const Hero = () => {
         ref={floatsRef}
         className="pointer-events-none absolute inset-0 z-20 hidden md:block"
       >
-        <div className="mx-auto relative min-h-dvh w-full max-w-[1700px]">
+        <div className="relative min-h-dvh w-full">
           <div className="absolute left-0 top-[calc(50%+1.25rem)] z-20 -translate-y-1/2 md:pointer-events-auto">
             {/* Extended black background to break out of the max-w container on ultra-wide screens */}
             <div className="hidden md:block absolute top-0 bottom-0 right-full w-[50vw] bg-[#1c1d20]" aria-hidden />
@@ -170,14 +179,14 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-[1700px] flex-col px-5 pb-6 pt-[clamp(2rem,5vh,3rem)] md:px-[clamp(1.5rem,5vw,4rem)] md:pb-10">
+      <div className="relative z-10 flex min-h-dvh w-full flex-col px-5 pb-6 pt-6 md:px-[clamp(1.5rem,5vw,4rem)] md:pt-[clamp(2rem,5vh,3rem)] md:pb-10">
 
         {/* Top Header Navigation */}
-        <div ref={ctaRef} className="relative z-30 flex justify-between items-start w-full text-white font-montserrat">
-          <div className="text-[16px] md:text-[18px] font-medium pt-2">
+        <div ref={ctaRef} className="relative z-30 flex justify-between items-center w-full text-white font-montserrat h-12 md:h-16">
+          <div className="text-[16px] md:text-[18px] font-medium">
             © Aditya Pranav
           </div>
-          <div className="hidden md:flex gap-8 text-[16px] md:text-[18px] font-medium pt-2 relative z-50">
+          <div className="hidden md:flex gap-8 text-[16px] md:text-[18px] font-medium relative z-50 items-center">
             {["Services", "About", "Work", "Contact"].map((item) => (
               <Magnetic strength={0.3} key={item}>
                 <Link
