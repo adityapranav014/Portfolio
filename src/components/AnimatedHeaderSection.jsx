@@ -56,19 +56,6 @@ const AnimatedHeaderSection = ({
               {titleParts.map((part, index) => (
                 <span key={index} className="inline-block relative">
                   {part}
-                  {/* Append animated icon after the very last letter of the title */}
-                  {index === titleParts.length - 1 && (
-                    <span className="inline-flex items-center justify-center align-middle ml-2 md:ml-5 text-accent translate-y-[-0.15em] origin-center">
-                      <svg
-                        viewBox="0 0 100 100"
-                        className="w-[0.7em] h-[0.7em] animate-[spin_8s_linear_infinite]"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path d="M50 0 C50 27.6 27.6 50 0 50 C27.6 50 50 72.4 50 100 C50 72.4 72.4 50 100 50 C72.4 50 50 27.6 50 0 Z" />
-                      </svg>
-                    </span>
-                  )}
                   {index < titleParts.length - 1 ? "\u00A0" : ""}
                 </span>
               ))}
