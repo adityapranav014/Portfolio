@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Link } from "react-scroll";
 import gsap from "gsap";
 import { Icon } from "@iconify/react";
@@ -12,13 +12,32 @@ const HERO_VIDEO_URL = "https://ik.imagekit.io/gglxgr4rz/Portfolio/hero.mp4";
 const HERO_POSTER_URL = `${HERO_VIDEO_URL}/ik-thumbnail.jpg`;
 
 function LocatedCard({ className = "" }) {
+  const [dotLottie, setDotLottie] = useState(null);
+  const playCount = useRef(1);
+
+  useEffect(() => {
+    if (dotLottie) {
+      const onComplete = () => {
+        if (playCount.current < 2) {
+          playCount.current += 1;
+          dotLottie.setFrame(0);
+          dotLottie.play();
+        }
+      };
+      dotLottie.addEventListener("complete", onComplete);
+      return () => {
+        dotLottie.removeEventListener("complete", onComplete);
+      };
+    }
+  }, [dotLottie]);
+
   return (
     <div
       className={`flex w-fit shrink-0 items-center justify-between gap-4 rounded-full bg-[#1c1d20] py-2.5 text-white shadow-[0_16px_48px_rgba(0,0,0,0.35)] md:gap-8 pl-5 pr-2.5 md:pl-[clamp(1.5rem,5vw,4rem)] md:pr-4 md:py-[1.125rem] md:rounded-l-none md:rounded-r-full ${className}`}
     >
       <p className="min-w-0 text-left text-[14px] font-medium leading-[1.2] text-white md:text-[16px] md:leading-[1.3]">
         <span className="block inline md:block">Located </span>
-        <span className="block inline md:block">in the </span>
+        <span className="block inline md:block">in </span>
         <span className="block inline md:block">India</span>
       </p>
       <div
@@ -27,8 +46,9 @@ function LocatedCard({ className = "" }) {
       >
         <div className="flex h-full w-full items-center justify-center">
           <DotLottieReact
+            dotLottieRefCallback={setDotLottie}
             src="https://lottie.host/f287a05d-7b5d-4212-8ef5-17578888d005/VJ2vFPHVeX.lottie"
-            loop
+            loop={false}
             autoplay
             speed={0.5}
             style={{ width: '100%', height: '100%', objectFit: 'contain' }}
@@ -42,15 +62,15 @@ function LocatedCard({ className = "" }) {
 function RoleTagline({ className = "", centered = false }) {
   return (
     <div
-      className={`flex flex-col gap-6 text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] ${centered ? "items-center text-center" : "items-start text-left"} ${className}`}
+      className={`relative flex flex-col text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] ${centered ? "items-center text-center" : "items-start text-left"} ${className}`}
     >
       <Icon
         icon="ph:arrow-down-right-light"
-        className={`text-2xl text-white md:text-3xl ${centered ? "" : "self-start"}`}
+        className={`${centered ? "mb-2 md:absolute md:-top-24 md:left-1/2 md:-translate-x-1/2" : "absolute -top-16 -left-2 md:-top-24 md:-left-4"} text-2xl text-white md:text-4xl`}
         aria-hidden="true"
       />
       <div className="font-montserrat">
-        <p className="text-[24px] font-normal leading-[1.2] tracking-wide text-white md:text-[32px]">
+        <p className="text-[24px] font-normal leading-[1.2] tracking-wide text-white md:text-[36px]">
           Freelance
           <br />
           Designer & Developer
